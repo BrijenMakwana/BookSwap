@@ -43,6 +43,7 @@ export default function TabOneScreen() {
         data={books}
         renderItem={({ item }) => (
           <Book
+            id={item.id}
             imageUrl={item?.volumeInfo?.imageLinks?.smallThumbnail}
             title={item?.volumeInfo?.title}
             overview={item?.searchInfo?.textSnippet}

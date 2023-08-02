@@ -44,7 +44,7 @@ export default function TabOneScreen() {
         data={books}
         renderItem={({ item }) => (
           <Book
-            imageUrl={item?.volumeInfo?.imageLinks?.thumbnail}
+            imageUrl={item?.volumeInfo?.imageLinks?.smallThumbnail}
             title={item?.volumeInfo?.title}
             overview={item?.searchInfo?.textSnippet}
             author={item?.volumeInfo?.authors[0] || undefined}
@@ -61,7 +61,7 @@ export default function TabOneScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#111111",
+    backgroundColor: "#222222",
     paddingTop: 50,
   },
   books: {

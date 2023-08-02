@@ -14,7 +14,6 @@ export default function TabOneScreen() {
         `https://www.googleapis.com/books/v1/volumes?q=${searchedBook}&key=${process.env.EXPO_PUBLIC_API_KEY}`
       );
       setBooks(response.data.items);
-      console.log(response.data.items);
     } catch (error) {
       console.error(error);
     }

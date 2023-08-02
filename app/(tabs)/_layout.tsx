@@ -12,23 +12,23 @@ export default function TabLayout() {
         headerShown: false,
         tabBarShowLabel: false,
         tabBarStyle: {
-          backgroundColor: "#e0218a",
+          backgroundColor: "#222222",
         },
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
-          tabBarIcon: ({ color }) => (
-            <Entypo name="home" size={27} color={color} />
+          tabBarIcon: ({ color, focused }) => (
+            <Entypo name="home" size={focused ? 35 : 22} color={color} />
           ),
         }}
       />
       <Tabs.Screen
         name="two"
         options={{
-          tabBarIcon: ({ color }) => (
-            <FontAwesome name="user" size={27} color={color} />
+          tabBarIcon: ({ color, focused }) => (
+            <FontAwesome name="user" size={focused ? 35 : 22} color={color} />
           ),
         }}
       />

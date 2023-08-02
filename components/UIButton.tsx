@@ -6,7 +6,7 @@ const UIButton = (props) => {
   const { text } = props;
   return (
     <Pressable style={styles.container}>
-      <MaterialCommunityIcons name="book-plus" size={22} color="#000" />
+      <MaterialCommunityIcons name="book-plus" size={20} color="#000" />
       <Text style={styles.btnText}>{text}</Text>
     </Pressable>
   );
@@ -21,15 +21,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingVertical: 6,
-    marginTop: 15,
     borderRadius: 20,
-    width: 160,
+    paddingHorizontal: 10,
   },
   btnText: {
-    textTransform: "uppercase",
-    fontSize: 12,
-    fontWeight: "bold",
-    marginLeft: 15,
+    fontSize: 11,
+    fontWeight: "600",
+    marginLeft: 5,
     color: "#000",
   },
 });

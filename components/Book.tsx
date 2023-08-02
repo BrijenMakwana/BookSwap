@@ -24,7 +24,10 @@ const Book = (props) => {
           {overview || "not available"}
         </Text>
 
-        <UIButton text="add to shelf" />
+        <View style={styles.btnContainer}>
+          <UIButton text="Read" />
+          <UIButton text="Want to Read" />
+        </View>
       </View>
     </View>
   );
@@ -65,7 +68,7 @@ const styles = StyleSheet.create({
     color: "#e0218a",
   },
   author: {
-    fontSize: 13,
+    fontSize: 12,
     fontWeight: "500",
     color: "#fff",
     marginTop: 5,
@@ -74,6 +77,12 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: "300",
     color: "#fff",
+    marginTop: 15,
+  },
+  btnContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     marginTop: 15,
   },
 });

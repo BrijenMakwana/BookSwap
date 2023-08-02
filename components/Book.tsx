@@ -1,9 +1,10 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import UIButton from "./UIButton";
+import { Link } from "expo-router";
 
 const Book = (props) => {
-  const { title, imageUrl, overview, author } = props;
+  const { id, title, imageUrl, overview, author } = props;
   return (
     <View style={styles.container}>
       <Image
@@ -15,9 +16,12 @@ const Book = (props) => {
       />
 
       <View style={styles.bookInfo}>
-        <Text style={styles.title} numberOfLines={1}>
-          {title}
-        </Text>
+        <Link href={`/book/${id}`}>
+          <Text style={styles.title} numberOfLines={1}>
+            {title}
+          </Text>
+        </Link>
+
         <Text style={styles.author}>{author || "not available"}</Text>
 
         <Text style={styles.overview} numberOfLines={3}>
@@ -50,6 +54,7 @@ const styles = StyleSheet.create({
       width: 5,
     },
     elevation: 3,
+    shadowOpacity: 0.8,
     borderRadius: 5,
   },
   image: {

@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     padding: 13,
     flexDirection: "row",
     justifyContent: "space-between",
-    backgroundColor: "#222222",
+    backgroundColor: "#333333",
     width: "95%",
     alignSelf: "center",
     shadowColor: "#e0218a",
@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
       width: 5,
     },
     elevation: 3,
+    borderRadius: 5,
   },
   image: {
     width: 110,

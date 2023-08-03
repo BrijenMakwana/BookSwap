@@ -19,6 +19,9 @@ SplashScreen.preventAutoHideAsync();
 
 const BookRating = (props) => {
   const { rating } = props;
+
+  if (!rating) return;
+
   return (
     <View style={styles.ratingContainer}>
       <Fontisto name="star" size={17} color="#e0218a" />
@@ -29,6 +32,9 @@ const BookRating = (props) => {
 
 const BookPublishedDate = (props) => {
   const { date } = props;
+
+  if (!date) return;
+
   return (
     <View style={styles.dateContainer}>
       <Fontisto name="date" size={17} color="#e0218a" />
@@ -39,6 +45,9 @@ const BookPublishedDate = (props) => {
 
 const Overview = (props) => {
   const { overview } = props;
+
+  if (!overview) return;
+
   return (
     <View style={styles.overviewContainer}>
       <Text style={styles.overviewHeading}>overview</Text>
@@ -83,12 +92,10 @@ const Book = () => {
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <ImageBackground
-        source={{
-          uri: "https://img.freepik.com/free-vector/gradient-pastel-sky-background_23-2148917405.jpg?w=1380&t=st=1691038873~exp=1691039473~hmac=0ad7df3075775131e210a52fdb8b2d4f2a430f3302306a10218bc16afeb773c2",
-        }}
+        source={require("../../assets/images/barbie.jpeg")}
         resizeMode="cover"
         style={styles.imageContainer}
-        blurRadius={10}
+        blurRadius={8}
       >
         <Image
           style={styles.image}

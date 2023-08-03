@@ -19,8 +19,18 @@ const BookRating = (props) => {
   const { rating } = props;
   return (
     <View style={styles.ratingContainer}>
-      <Fontisto name="star" size={14} color="#e0218a" />
+      <Fontisto name="star" size={17} color="#e0218a" />
       <Text style={styles.rating}>{rating || "NA"}</Text>
+    </View>
+  );
+};
+
+const BookPublishedDate = (props) => {
+  const { date } = props;
+  return (
+    <View style={styles.dateContainer}>
+      <Fontisto name="date" size={17} color="#e0218a" />
+      <Text style={styles.date}>September 4, 1986</Text>
     </View>
   );
 };
@@ -124,7 +134,11 @@ const Book = () => {
           </Text>
         )}
 
-        <BookRating rating={book.volumeInfo?.averageRating} />
+        <View style={styles.bookStats}>
+          <BookRating rating={book.volumeInfo?.averageRating} />
+
+          <BookPublishedDate />
+        </View>
 
         <Overview overview={book?.volumeInfo?.description} />
       </View>
@@ -192,22 +206,33 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     marginTop: 5,
   },
+
+  bookStats: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+    marginTop: 20,
+  },
   ratingContainer: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-evenly",
-    backgroundColor: "#ededed",
-    width: 65,
-    paddingVertical: 10,
-    borderRadius: 20,
-    marginTop: 15,
   },
   rating: {
     fontSize: 12,
     fontWeight: "500",
+    marginLeft: 10,
+  },
+  dateContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  date: {
+    fontSize: 12,
+    fontWeight: "500",
+    marginLeft: 10,
   },
   overviewContainer: {
-    marginTop: 15,
+    marginTop: 20,
   },
   overviewHeading: {
     fontSize: 15,

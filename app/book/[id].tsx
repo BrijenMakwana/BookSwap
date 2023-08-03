@@ -97,13 +97,15 @@ const Book = () => {
         style={styles.imageContainer}
         blurRadius={8}
       >
-        <Image
-          style={styles.image}
-          source={book.volumeInfo?.imageLinks?.large}
-          placeholder={Blurhash}
-          contentFit="contain"
-          transition={1000}
-        />
+        {book.volumeInfo?.imageLinks?.large && (
+          <Image
+            style={styles.image}
+            source={book.volumeInfo?.imageLinks?.large}
+            placeholder={Blurhash}
+            contentFit="contain"
+            transition={1000}
+          />
+        )}
 
         <View style={styles.pageCountContainer}>
           <Text style={styles.pageCount}>{book.volumeInfo?.pageCount}</Text>
@@ -164,8 +166,9 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     width: "100%",
-    paddingVertical: 65,
+    height: 400,
     alignItems: "center",
+    justifyContent: "center",
   },
   image: {
     width: "45%",

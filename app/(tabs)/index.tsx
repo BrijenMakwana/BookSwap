@@ -47,7 +47,7 @@ export default function TabOneScreen() {
             imageUrl={item?.volumeInfo?.imageLinks?.smallThumbnail}
             title={item?.volumeInfo?.title}
             overview={item?.searchInfo?.textSnippet}
-            author={item?.volumeInfo?.authors[0] || undefined}
+            author={item?.volumeInfo?.authors[0] || "NA"}
           />
         )}
         keyExtractor={(item) => item.id}

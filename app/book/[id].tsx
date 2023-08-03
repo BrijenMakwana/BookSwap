@@ -25,6 +25,16 @@ const BookRating = (props) => {
   );
 };
 
+const Overview = (props) => {
+  const { overview } = props;
+  return (
+    <View style={styles.overviewContainer}>
+      <Text style={styles.overviewHeading}>overview</Text>
+      <Text style={styles.description}>{overview}</Text>
+    </View>
+  );
+};
+
 const BookGenre = (props) => {
   const { genre } = props;
   return (
@@ -125,12 +135,7 @@ const Book = () => {
           ))}
         </View> */}
 
-        <View style={styles.overviewContainer}>
-          <Text style={styles.overviewHeading}>overview</Text>
-          <Text style={styles.description}>
-            {book?.volumeInfo?.description}
-          </Text>
-        </View>
+        <Overview overview={book?.volumeInfo?.description} />
       </View>
     </ScrollView>
   );
@@ -155,8 +160,8 @@ const styles = StyleSheet.create({
   },
   bookInfo: {
     width: "100%",
-    padding: 25,
-    marginTop: 10,
+    padding: 20,
+    marginTop: 15,
   },
   title: {
     color: "#e0218a",

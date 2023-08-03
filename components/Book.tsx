@@ -1,18 +1,20 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import UIButton from "./UIButton";
 import { Link } from "expo-router";
+import { Image } from "expo-image";
+import Blurhash from "@/constants/Blurhash";
 
 const Book = (props) => {
   const { id, title, imageUrl, overview, author } = props;
   return (
     <View style={styles.container}>
       <Image
-        source={{
-          uri: imageUrl,
-        }}
         style={styles.image}
-        resizeMode="contain"
+        source={imageUrl}
+        placeholder={Blurhash}
+        contentFit="contain"
+        transition={1000}
       />
 
       <View style={styles.bookInfo}>
@@ -29,8 +31,8 @@ const Book = (props) => {
         </Text>
 
         <View style={styles.btnContainer}>
-          <UIButton text="Read" type={1} />
-          <UIButton text="Want to Read" type={2} />
+          <UIButton text="Read" theme="barbie" />
+          <UIButton text="Want to Read" theme="ken" />
         </View>
       </View>
     </View>

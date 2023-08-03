@@ -2,7 +2,6 @@ import {
   StyleSheet,
   Text,
   View,
-  Image,
   ScrollView,
   ImageBackground,
 } from "react-native";
@@ -12,24 +11,47 @@ import axios from "axios";
 import { SplashScreen } from "expo-router";
 import { useFonts } from "expo-font";
 import { Fontisto } from "@expo/vector-icons";
+import moment from "moment";
+import { Image } from "expo-image";
+import Blurhash from "@/constants/Blurhash";
 
 SplashScreen.preventAutoHideAsync();
 
 const BookRating = (props) => {
   const { rating } = props;
+
+  if (!rating) return;
+
   return (
     <View style={styles.ratingContainer}>
-      <Fontisto name="star" size={14} color="#e0218a" />
+      <Fontisto name="star" size={17} color="#e0218a" />
       <Text style={styles.rating}>{rating || "NA"}</Text>
     </View>
   );
 };
 
-const BookGenre = (props) => {
-  const { genre } = props;
+const BookPublishedDate = (props) => {
+  const { date } = props;
+
+  if (!date) return;
+
   return (
-    <View style={styles.genreContainer}>
-      <Text style={styles.genre}>{genre}</Text>
+    <View style={styles.dateContainer}>
+      <Fontisto name="date" size={17} color="#e0218a" />
+      <Text style={styles.date}>{moment(date).format("ll")}</Text>
+    </View>
+  );
+};
+
+const Overview = (props) => {
+  const { overview } = props;
+
+  if (!overview) return;
+
+  return (
+    <View style={styles.overviewContainer}>
+      <Text style={styles.overviewHeading}>overview</Text>
+      <Text style={styles.description}>{overview}</Text>
     </View>
   );
 };
@@ -68,24 +90,22 @@ const Book = () => {
   }
 
   return (
-    <ScrollView
-      style={styles.container}
-      contentContainerStyle={{ alignItems: "center" }}
-    >
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <ImageBackground
-        source={{
-          uri: "https://img.freepik.com/free-vector/gradient-pastel-sky-background_23-2148917405.jpg?w=1380&t=st=1691038873~exp=1691039473~hmac=0ad7df3075775131e210a52fdb8b2d4f2a430f3302306a10218bc16afeb773c2",
-        }}
+        source={require("../../assets/images/barbie.jpeg")}
         resizeMode="cover"
         style={styles.imageContainer}
+        blurRadius={8}
       >
-        <Image
-          source={{
-            uri: book.volumeInfo?.imageLinks?.large,
-          }}
-          style={styles.image}
-          resizeMode="contain"
-        />
+        {book.volumeInfo?.imageLinks?.large && (
+          <Image
+            style={styles.image}
+            source={book.volumeInfo?.imageLinks?.large}
+            placeholder={Blurhash}
+            contentFit="contain"
+            transition={1000}
+          />
+        )}
 
         <View style={styles.pageCountContainer}>
           <Text style={styles.pageCount}>{book.volumeInfo?.pageCount}</Text>
@@ -114,23 +134,24 @@ const Book = () => {
             },
           ]}
         >
-          {book.volumeInfo?.authors[0]}
+          {book.volumeInfo?.authors.map((authorName: string) => {
+            return `${authorName}, `;
+          })}
         </Text>
 
-        <BookRating rating={book.volumeInfo?.averageRating} />
-
-        {/* <View style={styles.genres}>
-          {book.volumeInfo?.categories?.map((item, index) => (
-            <BookGenre genre={item} key={index} />
-          ))}
-        </View> */}
-
-        <View style={styles.overviewContainer}>
-          <Text style={styles.overviewHeading}>overview</Text>
-          <Text style={styles.description}>
-            {book?.volumeInfo?.description}
+        {book.volumeInfo?.publisher && (
+          <Text style={styles.publisher}>
+            Published By {book.volumeInfo?.publisher}
           </Text>
+        )}
+
+        <View style={styles.bookStats}>
+          <BookRating rating={book.volumeInfo?.averageRating} />
+
+          <BookPublishedDate date={book.volumeInfo?.publishedDate} />
         </View>
+
+        <Overview overview={book?.volumeInfo?.description} />
       </View>
     </ScrollView>
   );
@@ -145,8 +166,9 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     width: "100%",
-    paddingVertical: 65,
+    height: 400,
     alignItems: "center",
+    justifyContent: "center",
   },
   image: {
     width: "45%",
@@ -155,8 +177,8 @@ const styles = StyleSheet.create({
   },
   bookInfo: {
     width: "100%",
-    padding: 25,
-    marginTop: 10,
+    padding: 20,
+    marginTop: 15,
   },
   title: {
     color: "#e0218a",
@@ -190,39 +212,39 @@ const styles = StyleSheet.create({
     color: "#000",
     textTransform: "capitalize",
   },
+  publisher: {
+    color: "#808080",
+    fontSize: 13,
+    fontWeight: "400",
+    marginTop: 5,
+  },
+
+  bookStats: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    marginTop: 20,
+  },
   ratingContainer: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-evenly",
-    backgroundColor: "#ededed",
-    width: 65,
-    paddingVertical: 10,
-    borderRadius: 20,
-    marginTop: 10,
   },
   rating: {
     fontSize: 12,
     fontWeight: "500",
+    marginLeft: 10,
   },
-  genres: {
-    marginTop: 20,
+  dateContainer: {
     flexDirection: "row",
     alignItems: "center",
-    flexWrap: "wrap",
   },
-  genreContainer: {
-    backgroundColor: "#0AF6EE",
-    borderRadius: 10,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    marginTop: 5,
-    marginLeft: 5,
-  },
-  genre: {
+  date: {
     fontSize: 12,
+    fontWeight: "500",
+    marginLeft: 10,
   },
   overviewContainer: {
-    marginTop: 15,
+    marginTop: 20,
   },
   overviewHeading: {
     fontSize: 15,

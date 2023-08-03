@@ -2,7 +2,6 @@ import {
   StyleSheet,
   Text,
   View,
-  Image,
   ScrollView,
   ImageBackground,
 } from "react-native";
@@ -13,6 +12,8 @@ import { SplashScreen } from "expo-router";
 import { useFonts } from "expo-font";
 import { Fontisto } from "@expo/vector-icons";
 import moment from "moment";
+import { Image } from "expo-image";
+import Blurhash from "@/constants/Blurhash";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -90,11 +91,11 @@ const Book = () => {
         blurRadius={10}
       >
         <Image
-          source={{
-            uri: book.volumeInfo?.imageLinks?.large,
-          }}
           style={styles.image}
-          resizeMode="contain"
+          source={book.volumeInfo?.imageLinks?.large}
+          placeholder={Blurhash}
+          contentFit="contain"
+          transition={1000}
         />
 
         <View style={styles.pageCountContainer}>

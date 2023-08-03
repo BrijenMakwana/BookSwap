@@ -68,7 +68,7 @@ const Book = () => {
   }
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <ImageBackground
         source={{
           uri: "https://img.freepik.com/free-vector/gradient-pastel-sky-background_23-2148917405.jpg?w=1380&t=st=1691038873~exp=1691039473~hmac=0ad7df3075775131e210a52fdb8b2d4f2a430f3302306a10218bc16afeb773c2",
@@ -112,7 +112,9 @@ const Book = () => {
             },
           ]}
         >
-          {book.volumeInfo?.authors[0]}
+          {book.volumeInfo?.authors.map((authorName: string) => {
+            return `${authorName}, `;
+          })}
         </Text>
 
         <BookRating rating={book.volumeInfo?.averageRating} />
@@ -196,7 +198,7 @@ const styles = StyleSheet.create({
     width: 65,
     paddingVertical: 10,
     borderRadius: 20,
-    marginTop: 10,
+    marginTop: 15,
   },
   rating: {
     fontSize: 12,

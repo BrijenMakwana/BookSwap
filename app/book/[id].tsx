@@ -12,6 +12,7 @@ import axios from "axios";
 import { SplashScreen } from "expo-router";
 import { useFonts } from "expo-font";
 import { Fontisto } from "@expo/vector-icons";
+import moment from "moment";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -30,7 +31,7 @@ const BookPublishedDate = (props) => {
   return (
     <View style={styles.dateContainer}>
       <Fontisto name="date" size={17} color="#e0218a" />
-      <Text style={styles.date}>September 4, 1986</Text>
+      <Text style={styles.date}>{moment(date).format("ll")}</Text>
     </View>
   );
 };
@@ -137,7 +138,7 @@ const Book = () => {
         <View style={styles.bookStats}>
           <BookRating rating={book.volumeInfo?.averageRating} />
 
-          <BookPublishedDate />
+          <BookPublishedDate date={book.volumeInfo?.publishedDate} />
         </View>
 
         <Overview overview={book?.volumeInfo?.description} />
@@ -209,7 +210,7 @@ const styles = StyleSheet.create({
 
   bookStats: {
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "space-evenly",
     alignItems: "center",
     marginTop: 20,
   },

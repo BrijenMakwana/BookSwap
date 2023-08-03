@@ -3,26 +3,26 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React from "react";
 
 const UIButton = (props) => {
-  const { text, type } = props;
+  const { text, theme } = props;
   return (
     <Pressable
       style={[
         styles.container,
         {
-          backgroundColor: type === 1 ? "#e0218a" : "#0AF6EE",
+          backgroundColor: theme === "barbie" ? "#e0218a" : "#0AF6EE",
         },
       ]}
     >
       <MaterialCommunityIcons
         name="book-plus"
         size={20}
-        color={type === 1 ? "#fff" : "#000"}
+        color={theme === "barbie" ? "#fff" : "#000"}
       />
       <Text
         style={[
           styles.btnText,
           {
-            color: type === 1 ? "#fff" : "#000",
+            color: theme === "barbie" ? "#fff" : "#000",
           },
         ]}
       >

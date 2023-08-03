@@ -29,8 +29,8 @@ const Book = (props) => {
         </Text>
 
         <View style={styles.btnContainer}>
-          <UIButton text="Read" type={1} />
-          <UIButton text="Want to Read" type={2} />
+          <UIButton text="Read" theme="barbie" />
+          <UIButton text="Want to Read" theme="ken" />
         </View>
       </View>
     </View>

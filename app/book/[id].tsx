@@ -68,16 +68,14 @@ const Book = () => {
   }
 
   return (
-    <ScrollView
-      style={styles.container}
-      contentContainerStyle={{ alignItems: "center" }}
-    >
+    <ScrollView style={styles.container}>
       <ImageBackground
         source={{
           uri: "https://img.freepik.com/free-vector/gradient-pastel-sky-background_23-2148917405.jpg?w=1380&t=st=1691038873~exp=1691039473~hmac=0ad7df3075775131e210a52fdb8b2d4f2a430f3302306a10218bc16afeb773c2",
         }}
         resizeMode="cover"
         style={styles.imageContainer}
+        blurRadius={10}
       >
         <Image
           source={{

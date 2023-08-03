@@ -1,19 +1,19 @@
-const tintColorLight = "#e0218a";
-const tintColorDark = "#e0218a";
+const BARBIE = "#e0218a";
+const KEN = "#0AF6EE";
 
 export default {
   light: {
-    text: "#000",
+    text: "#fff",
     background: "#fff",
-    tint: tintColorLight,
-    tabIconSelected: tintColorLight,
-    tabIconDefault: "#fff",
+    barbie: BARBIE,
+    tabIconSelected: BARBIE,
+    tabIconDefault: "#333333",
   },
   dark: {
     text: "#fff",
     background: "#fff",
-    tint: tintColorDark,
-    tabIconSelected: tintColorDark,
+    barbie: BARBIE,
+    tabIconSelected: BARBIE,
     tabIconDefault: "#333333",
   },
 };

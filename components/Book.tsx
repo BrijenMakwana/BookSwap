@@ -29,8 +29,8 @@ const Book = (props) => {
         </Text>
 
         <View style={styles.btnContainer}>
-          <UIButton text="Read" />
-          <UIButton text="Want to Read" />
+          <UIButton text="Read" type={1} />
+          <UIButton text="Want to Read" type={2} />
         </View>
       </View>
     </View>
@@ -45,21 +45,21 @@ const styles = StyleSheet.create({
     padding: 13,
     flexDirection: "row",
     justifyContent: "space-between",
-    backgroundColor: "#333333",
+    backgroundColor: "#fff",
     width: "95%",
     alignSelf: "center",
-    shadowColor: "#e0218a",
+    shadowColor: "#000",
     shadowOffset: {
       height: 5,
       width: 5,
     },
     elevation: 3,
     shadowOpacity: 0.8,
-    borderRadius: 5,
+    borderRadius: 10,
   },
   image: {
-    width: 110,
-    height: 165,
+    width: 100,
+    aspectRatio: 1 / 1.5,
     borderRadius: 3,
   },
   bookInfo: {
@@ -75,13 +75,13 @@ const styles = StyleSheet.create({
   author: {
     fontSize: 12,
     fontWeight: "500",
-    color: "#fff",
+    color: "#000",
     marginTop: 5,
   },
   overview: {
     fontSize: 12,
     fontWeight: "300",
-    color: "#fff",
+    color: "#000",
     marginTop: 15,
   },
   btnContainer: {

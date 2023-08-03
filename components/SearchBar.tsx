@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     marginLeft: 10,
-    color: "#fff",
+    color: "#222222",
   },
   clearBtn: {
     alignItems: "center",

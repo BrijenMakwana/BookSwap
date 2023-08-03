@@ -12,7 +12,7 @@ export default function TabLayout() {
         headerShown: false,
         tabBarShowLabel: false,
         tabBarStyle: {
-          backgroundColor: "#222222",
+          backgroundColor: Colors["dark"].background,
         },
       }}
     >

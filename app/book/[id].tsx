@@ -35,15 +35,6 @@ const Overview = (props) => {
   );
 };
 
-const BookGenre = (props) => {
-  const { genre } = props;
-  return (
-    <View style={styles.genreContainer}>
-      <Text style={styles.genre}>{genre}</Text>
-    </View>
-  );
-};
-
 const Book = () => {
   const params = useLocalSearchParams();
   const [book, setBook] = useState({});
@@ -127,13 +118,13 @@ const Book = () => {
           })}
         </Text>
 
-        <BookRating rating={book.volumeInfo?.averageRating} />
+        {book.volumeInfo?.publisher && (
+          <Text style={styles.publisher}>
+            Published By {book.volumeInfo?.publisher}
+          </Text>
+        )}
 
-        {/* <View style={styles.genres}>
-          {book.volumeInfo?.categories?.map((item, index) => (
-            <BookGenre genre={item} key={index} />
-          ))}
-        </View> */}
+        <BookRating rating={book.volumeInfo?.averageRating} />
 
         <Overview overview={book?.volumeInfo?.description} />
       </View>
@@ -195,6 +186,12 @@ const styles = StyleSheet.create({
     color: "#000",
     textTransform: "capitalize",
   },
+  publisher: {
+    color: "#808080",
+    fontSize: 13,
+    fontWeight: "400",
+    marginTop: 5,
+  },
   ratingContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -208,23 +205,6 @@ const styles = StyleSheet.create({
   rating: {
     fontSize: 12,
     fontWeight: "500",
-  },
-  genres: {
-    marginTop: 20,
-    flexDirection: "row",
-    alignItems: "center",
-    flexWrap: "wrap",
-  },
-  genreContainer: {
-    backgroundColor: "#0AF6EE",
-    borderRadius: 10,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    marginTop: 5,
-    marginLeft: 5,
-  },
-  genre: {
-    fontSize: 12,
   },
   overviewContainer: {
     marginTop: 15,

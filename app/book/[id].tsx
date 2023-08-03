@@ -1,11 +1,38 @@
-import { StyleSheet, Text, View, Image, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  ScrollView,
+  ImageBackground,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import { useLocalSearchParams } from "expo-router";
 import axios from "axios";
 import { SplashScreen } from "expo-router";
 import { useFonts } from "expo-font";
+import { Fontisto } from "@expo/vector-icons";
 
 SplashScreen.preventAutoHideAsync();
+
+const BookRating = (props) => {
+  const { rating } = props;
+  return (
+    <View style={styles.ratingContainer}>
+      <Fontisto name="star" size={14} color="#e0218a" />
+      <Text style={styles.rating}>{rating || "NA"}</Text>
+    </View>
+  );
+};
+
+const BookGenre = (props) => {
+  const { genre } = props;
+  return (
+    <View style={styles.genreContainer}>
+      <Text style={styles.genre}>{genre}</Text>
+    </View>
+  );
+};
 
 const Book = () => {
   const params = useLocalSearchParams();
@@ -45,7 +72,13 @@ const Book = () => {
       style={styles.container}
       contentContainerStyle={{ alignItems: "center" }}
     >
-      <View style={styles.imageContainer}>
+      <ImageBackground
+        source={{
+          uri: "https://img.freepik.com/free-vector/gradient-pastel-sky-background_23-2148917405.jpg?w=1380&t=st=1691038873~exp=1691039473~hmac=0ad7df3075775131e210a52fdb8b2d4f2a430f3302306a10218bc16afeb773c2",
+        }}
+        resizeMode="cover"
+        style={styles.imageContainer}
+      >
         <Image
           source={{
             uri: book.volumeInfo?.imageLinks?.large,
@@ -53,38 +86,50 @@ const Book = () => {
           style={styles.image}
           resizeMode="contain"
         />
-      </View>
+
+        <View style={styles.pageCountContainer}>
+          <Text style={styles.pageCount}>{book.volumeInfo?.pageCount}</Text>
+          <Text style={styles.page}>pages</Text>
+        </View>
+      </ImageBackground>
 
       <View style={styles.bookInfo}>
-        <View style={styles.bookDetails}>
-          <View style={styles.bookTitleInfo}>
-            <Text
-              style={[
-                styles.title,
-                {
-                  fontFamily: "Lobster",
-                },
-              ]}
-              numberOfLines={2}
-            >
-              {book.volumeInfo?.title}
-            </Text>
-            <Text
-              style={[
-                styles.author,
-                {
-                  fontFamily: "Lobster",
-                },
-              ]}
-            >
-              by {book.volumeInfo?.authors[0]}
-            </Text>
-          </View>
+        <Text
+          style={[
+            styles.title,
+            {
+              fontFamily: "Lobster",
+            },
+          ]}
+          numberOfLines={2}
+        >
+          {book.volumeInfo?.title}
+        </Text>
 
-          <View style={styles.pageCountContainer}>
-            <Text style={styles.pageCount}>{book.volumeInfo?.pageCount}</Text>
-            <Text style={styles.page}>pages</Text>
-          </View>
+        <Text
+          style={[
+            styles.author,
+            {
+              fontFamily: "Lobster",
+            },
+          ]}
+        >
+          {book.volumeInfo?.authors[0]}
+        </Text>
+
+        <BookRating rating={book.volumeInfo?.averageRating} />
+
+        {/* <View style={styles.genres}>
+          {book.volumeInfo?.categories?.map((item, index) => (
+            <BookGenre genre={item} key={index} />
+          ))}
+        </View> */}
+
+        <View style={styles.overviewContainer}>
+          <Text style={styles.overviewHeading}>overview</Text>
+          <Text style={styles.description}>
+            {book?.volumeInfo?.description}
+          </Text>
         </View>
       </View>
     </ScrollView>
@@ -96,28 +141,22 @@ export default Book;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#222222",
-    paddingTop: 50,
+    backgroundColor: "#fff",
   },
-  imageContainer: {},
+  imageContainer: {
+    width: "100%",
+    paddingVertical: 65,
+    alignItems: "center",
+  },
   image: {
-    width: "70%",
+    width: "45%",
     aspectRatio: 1 / 1.5,
     borderRadius: 5,
   },
   bookInfo: {
-    marginTop: 10,
     width: "100%",
-    padding: 15,
-  },
-  bookDetails: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  bookTitleInfo: {
-    flex: 1,
-    paddingRight: 20,
+    padding: 25,
+    marginTop: 10,
   },
   title: {
     color: "#e0218a",
@@ -125,28 +164,75 @@ const styles = StyleSheet.create({
     fontWeight: "500",
   },
   author: {
-    color: "#fff",
-    fontSize: 20,
+    color: "#555555",
+    fontSize: 17,
     fontWeight: "300",
-    marginTop: 5,
   },
   pageCountContainer: {
-    backgroundColor: "#e0218a",
-    width: 70,
-    height: 70,
+    backgroundColor: "#0AF6EE",
+    width: 60,
+    height: 60,
     borderRadius: 35,
     alignItems: "center",
     justifyContent: "center",
+    position: "absolute",
+    bottom: -30,
+    right: 30,
   },
   pageCount: {
-    fontSize: 18,
+    fontSize: 14,
     fontWeight: "500",
     color: "#fff",
   },
   page: {
-    fontSize: 14,
-    fontWeight: "bold",
+    fontSize: 10,
+    fontWeight: "700",
     color: "#000",
     textTransform: "capitalize",
+  },
+  ratingContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-evenly",
+    backgroundColor: "#ededed",
+    width: 65,
+    paddingVertical: 10,
+    borderRadius: 20,
+    marginTop: 10,
+  },
+  rating: {
+    fontSize: 12,
+    fontWeight: "500",
+  },
+  genres: {
+    marginTop: 20,
+    flexDirection: "row",
+    alignItems: "center",
+    flexWrap: "wrap",
+  },
+  genreContainer: {
+    backgroundColor: "#0AF6EE",
+    borderRadius: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    marginTop: 5,
+    marginLeft: 5,
+  },
+  genre: {
+    fontSize: 12,
+  },
+  overviewContainer: {
+    marginTop: 15,
+  },
+  overviewHeading: {
+    fontSize: 15,
+    textTransform: "capitalize",
+    fontWeight: "500",
+    color: "#696969",
+  },
+  description: {
+    marginTop: 10,
+    fontSize: 13,
+    color: "#808080",
   },
 });

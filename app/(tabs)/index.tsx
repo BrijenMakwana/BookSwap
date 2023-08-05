@@ -69,6 +69,7 @@ export default function TabOneScreen() {
             refreshing={isSearching}
             colors={["#e0218a"]}
             progressBackgroundColor="#fff"
+            onRefresh={() => searchBooks()}
           />
         }
       />

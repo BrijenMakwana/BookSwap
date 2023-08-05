@@ -120,7 +120,10 @@ const Book = () => {
         {book.volumeInfo?.imageLinks?.large && (
           <Image
             style={styles.image}
-            source={book.volumeInfo?.imageLinks?.large}
+            source={
+              book.volumeInfo?.imageLinks?.large ||
+              book.volumeInfo?.imageLinks?.medium
+            }
             placeholder={Blurhash}
             contentFit="contain"
             transition={1000}

@@ -4,18 +4,34 @@ import {
   View,
   ScrollView,
   ImageBackground,
+  Pressable,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import { useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, useNavigation } from "expo-router";
 import axios from "axios";
 import { SplashScreen } from "expo-router";
 import { useFonts } from "expo-font";
-import { Fontisto } from "@expo/vector-icons";
+import { Ionicons, Fontisto } from "@expo/vector-icons";
 import moment from "moment";
 import { Image } from "expo-image";
 import Blurhash from "@/constants/Blurhash";
 
 SplashScreen.preventAutoHideAsync();
+
+const GoBack = () => {
+  const navigation = useNavigation();
+  return (
+    <Pressable style={styles.backBtn} onPress={() => navigation.goBack()}>
+      <Ionicons name="arrow-back" size={25} color="#e0218a" />
+    </Pressable>
+  );
+};
+
+const Authors = (props) => {
+  const { authorName, index, authorCount } = props;
+
+  return index < authorCount - 1 ? `${authorName}, ` : `${authorName}`;
+};
 
 const BookRating = (props) => {
   const { rating } = props;
@@ -48,10 +64,12 @@ const Overview = (props) => {
 
   if (!overview) return;
 
+  const cleanOverview = overview.replace(/<[^>]*>/g, "");
+
   return (
     <View style={styles.overviewContainer}>
       <Text style={styles.overviewHeading}>overview</Text>
-      <Text style={styles.description}>{overview}</Text>
+      <Text style={styles.description}>{cleanOverview}</Text>
     </View>
   );
 };
@@ -97,10 +115,15 @@ const Book = () => {
         style={styles.imageContainer}
         blurRadius={8}
       >
+        <GoBack />
+
         {book.volumeInfo?.imageLinks?.large && (
           <Image
             style={styles.image}
-            source={book.volumeInfo?.imageLinks?.large}
+            source={
+              book.volumeInfo?.imageLinks?.large ||
+              book.volumeInfo?.imageLinks?.medium
+            }
             placeholder={Blurhash}
             contentFit="contain"
             transition={1000}
@@ -134,9 +157,14 @@ const Book = () => {
             },
           ]}
         >
-          {book.volumeInfo?.authors.map((authorName: string) => {
-            return `${authorName}, `;
-          })}
+          {book.volumeInfo?.authors.map((authorName: string, index: number) => (
+            <Authors
+              authorName={authorName}
+              index={index}
+              authorCount={book.volumeInfo?.authors.length}
+              key={index}
+            />
+          ))}
         </Text>
 
         {book.volumeInfo?.publisher && (
@@ -173,7 +201,14 @@ const styles = StyleSheet.create({
   image: {
     width: "45%",
     aspectRatio: 1 / 1.5,
-    borderRadius: 5,
+  },
+  backBtn: {
+    position: "absolute",
+    top: 50,
+    left: 20,
+    backgroundColor: "#fff",
+    padding: 5,
+    borderRadius: 50,
   },
   bookInfo: {
     width: "100%",

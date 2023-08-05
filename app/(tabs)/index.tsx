@@ -3,6 +3,7 @@ import SearchBar from "@/components/SearchBar";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Book from "@/components/Book";
+import { FlashList } from "@shopify/flash-list";
 
 export default function TabOneScreen() {
   const [searchedBook, setSearchedBook] = useState<string>("");
@@ -39,7 +40,7 @@ export default function TabOneScreen() {
         setSearchedBook={setSearchedBook}
       />
 
-      <FlatList
+      <FlashList
         data={books}
         renderItem={({ item }) => (
           <Book
@@ -52,7 +53,7 @@ export default function TabOneScreen() {
         )}
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
-        style={styles.books}
+        estimatedItemSize={20}
       />
     </SafeAreaView>
   );
@@ -62,8 +63,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-  },
-  books: {
-    marginTop: 20,
   },
 });

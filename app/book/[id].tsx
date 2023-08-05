@@ -4,18 +4,28 @@ import {
   View,
   ScrollView,
   ImageBackground,
+  Pressable,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import { useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, useNavigation } from "expo-router";
 import axios from "axios";
 import { SplashScreen } from "expo-router";
 import { useFonts } from "expo-font";
-import { Fontisto } from "@expo/vector-icons";
+import { Ionicons, Fontisto } from "@expo/vector-icons";
 import moment from "moment";
 import { Image } from "expo-image";
 import Blurhash from "@/constants/Blurhash";
 
 SplashScreen.preventAutoHideAsync();
+
+const GoBack = () => {
+  const navigation = useNavigation();
+  return (
+    <Pressable style={styles.backBtn} onPress={() => navigation.goBack()}>
+      <Ionicons name="arrow-back" size={25} color="#e0218a" />
+    </Pressable>
+  );
+};
 
 const Authors = (props) => {
   const { authorName, index, authorCount } = props;
@@ -105,6 +115,8 @@ const Book = () => {
         style={styles.imageContainer}
         blurRadius={8}
       >
+        <GoBack />
+
         {book.volumeInfo?.imageLinks?.large && (
           <Image
             style={styles.image}
@@ -187,6 +199,14 @@ const styles = StyleSheet.create({
     width: "45%",
     aspectRatio: 1 / 1.5,
     borderRadius: 5,
+  },
+  backBtn: {
+    position: "absolute",
+    top: 50,
+    left: 20,
+    backgroundColor: "#fff",
+    padding: 5,
+    borderRadius: 50,
   },
   bookInfo: {
     width: "100%",

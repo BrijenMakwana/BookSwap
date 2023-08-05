@@ -54,10 +54,12 @@ const Overview = (props) => {
 
   if (!overview) return;
 
+  const cleanOverview = overview.replace(/<[^>]*>/g, "");
+
   return (
     <View style={styles.overviewContainer}>
       <Text style={styles.overviewHeading}>overview</Text>
-      <Text style={styles.description}>{overview}</Text>
+      <Text style={styles.description}>{cleanOverview}</Text>
     </View>
   );
 };

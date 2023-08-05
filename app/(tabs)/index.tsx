@@ -1,4 +1,9 @@
-import { FlatList, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import {
+  FlatList,
+  SafeAreaView,
+  StyleSheet,
+  RefreshControl,
+} from "react-native";
 import SearchBar from "@/components/SearchBar";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -7,9 +12,12 @@ import { FlashList } from "@shopify/flash-list";
 
 export default function TabOneScreen() {
   const [searchedBook, setSearchedBook] = useState<string>("");
+  const [isSearching, setIsSearching] = useState<boolean>(false);
+
   const [books, setBooks] = useState([]);
 
   const searchBooks = async () => {
+    setIsSearching(true);
     try {
       const response = await axios.get(
         `https://www.googleapis.com/books/v1/volumes?q=${searchedBook}&key=${process.env.EXPO_PUBLIC_API_KEY}`
@@ -17,6 +25,8 @@ export default function TabOneScreen() {
       setBooks(response.data.items);
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsSearching(false);
     }
   };
 
@@ -54,6 +64,13 @@ export default function TabOneScreen() {
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
         estimatedItemSize={20}
+        refreshControl={
+          <RefreshControl
+            refreshing={isSearching}
+            colors={["#e0218a"]}
+            progressBackgroundColor="#fff"
+          />
+        }
       />
     </SafeAreaView>
   );

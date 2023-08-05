@@ -201,7 +201,6 @@ const styles = StyleSheet.create({
   image: {
     width: "45%",
     aspectRatio: 1 / 1.5,
-    borderRadius: 5,
   },
   backBtn: {
     position: "absolute",

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Pressable } from "react-native";
 import React from "react";
 import UIButton from "./UIButton";
 import { Link } from "expo-router";
@@ -8,34 +8,34 @@ import Blurhash from "@/constants/Blurhash";
 const Book = (props) => {
   const { id, title, imageUrl, overview, author } = props;
   return (
-    <View style={styles.container}>
-      <Image
-        style={styles.image}
-        source={imageUrl}
-        placeholder={Blurhash}
-        contentFit="contain"
-        transition={1000}
-      />
+    <Link href={`/book/${id}`} asChild>
+      <Pressable style={styles.container}>
+        <Image
+          style={styles.image}
+          source={imageUrl}
+          placeholder={Blurhash}
+          contentFit="contain"
+          transition={1000}
+        />
 
-      <View style={styles.bookInfo}>
-        <Link href={`/book/${id}`}>
+        <View style={styles.bookInfo}>
           <Text style={styles.title} numberOfLines={1}>
             {title}
           </Text>
-        </Link>
 
-        <Text style={styles.author}>{author || "not available"}</Text>
+          <Text style={styles.author}>{author || "not available"}</Text>
 
-        <Text style={styles.overview} numberOfLines={3}>
-          {overview || "not available"}
-        </Text>
+          <Text style={styles.overview} numberOfLines={3}>
+            {overview || "not available"}
+          </Text>
 
-        <View style={styles.btnContainer}>
-          <UIButton text="Read" theme="barbie" />
-          <UIButton text="Want to Read" theme="ken" />
+          <View style={styles.btnContainer}>
+            <UIButton text="Read" theme="barbie" />
+            <UIButton text="Want to Read" theme="ken" />
+          </View>
         </View>
-      </View>
-    </View>
+      </Pressable>
+    </Link>
   );
 };
 

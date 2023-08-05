@@ -17,6 +17,12 @@ import Blurhash from "@/constants/Blurhash";
 
 SplashScreen.preventAutoHideAsync();
 
+const Authors = (props) => {
+  const { authorName, index, authorCount } = props;
+
+  return index < authorCount - 1 ? `${authorName}, ` : `${authorName}`;
+};
+
 const BookRating = (props) => {
   const { rating } = props;
 
@@ -134,9 +140,14 @@ const Book = () => {
             },
           ]}
         >
-          {book.volumeInfo?.authors.map((authorName: string) => {
-            return `${authorName}, `;
-          })}
+          {book.volumeInfo?.authors.map((authorName: string, index: number) => (
+            <Authors
+              authorName={authorName}
+              index={index}
+              authorCount={book.volumeInfo?.authors.length}
+              key={index}
+            />
+          ))}
         </Text>
 
         {book.volumeInfo?.publisher && (

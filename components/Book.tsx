@@ -9,7 +9,12 @@ const Book = (props) => {
   const { id, title, imageUrl, overview, author } = props;
   return (
     <Link href={`/book/${id}`} asChild>
-      <Pressable style={styles.container}>
+      <Pressable
+        style={styles.container}
+        android_ripple={{
+          color: "#e0218a",
+        }}
+      >
         <Image
           style={styles.image}
           source={imageUrl}

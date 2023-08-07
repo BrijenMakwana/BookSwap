@@ -9,14 +9,11 @@ import {
 import React, { useEffect, useState } from "react";
 import { useLocalSearchParams, useNavigation } from "expo-router";
 import axios from "axios";
-import { SplashScreen } from "expo-router";
-import { useFonts } from "expo-font";
 import { Ionicons, Fontisto } from "@expo/vector-icons";
 import moment from "moment";
 import { Image } from "expo-image";
 import Blurhash from "@/constants/Blurhash";
-
-SplashScreen.preventAutoHideAsync();
+import BarbieText from "@/components/BarbieText";
 
 const GoBack = () => {
   const navigation = useNavigation();
@@ -74,13 +71,21 @@ const Overview = (props) => {
   );
 };
 
+const titleStyle = {
+  color: "#e0218a",
+  fontSize: 35,
+  fontWeight: "500",
+};
+
+const authorStyle = {
+  color: "#555555",
+  fontSize: 17,
+  fontWeight: "300",
+};
+
 const Book = () => {
   const params = useLocalSearchParams();
   const [book, setBook] = useState({});
-
-  const [fontsLoaded] = useFonts({
-    Lobster: require("../../assets/fonts/Lobster-Regular.ttf"),
-  });
 
   const getBook = async () => {
     try {
@@ -96,16 +101,6 @@ const Book = () => {
   useEffect(() => {
     getBook();
   }, []);
-
-  useEffect(() => {
-    if (fontsLoaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded]);
-
-  if (!fontsLoaded) {
-    return null;
-  }
 
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
@@ -137,26 +132,9 @@ const Book = () => {
       </ImageBackground>
 
       <View style={styles.bookInfo}>
-        <Text
-          style={[
-            styles.title,
-            {
-              fontFamily: "Lobster",
-            },
-          ]}
-          numberOfLines={2}
-        >
-          {book.volumeInfo?.title}
-        </Text>
+        <BarbieText style={titleStyle}>{book.volumeInfo?.title}</BarbieText>
 
-        <Text
-          style={[
-            styles.author,
-            {
-              fontFamily: "Lobster",
-            },
-          ]}
-        >
+        <BarbieText style={authorStyle}>
           {book.volumeInfo?.authors.map((authorName: string, index: number) => (
             <Authors
               authorName={authorName}
@@ -165,7 +143,7 @@ const Book = () => {
               key={index}
             />
           ))}
-        </Text>
+        </BarbieText>
 
         {book.volumeInfo?.publisher && (
           <Text style={styles.publisher}>

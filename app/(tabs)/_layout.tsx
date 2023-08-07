@@ -1,5 +1,5 @@
 import { Tabs } from "expo-router";
-import { Entypo, FontAwesome } from "@expo/vector-icons";
+import { Entypo, FontAwesome, Ionicons } from "@expo/vector-icons";
 
 import Colors from "@/constants/Colors";
 
@@ -25,7 +25,23 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="Search"
+        options={{
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons name="search" size={focused ? 35 : 22} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="Bookshelves"
+        options={{
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons name="book" size={focused ? 35 : 22} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="User"
         options={{
           tabBarIcon: ({ color, focused }) => (
             <FontAwesome name="user" size={focused ? 35 : 22} color={color} />

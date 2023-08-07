@@ -50,10 +50,12 @@ const Search = () => {
         renderItem={({ item }) => (
           <Book
             id={item.id}
-            imageUrl={item?.volumeInfo?.imageLinks?.smallThumbnail}
+            imageUrl={item?.volumeInfo?.imageLinks?.thumbnail}
             title={item?.volumeInfo?.title}
-            overview={item?.searchInfo?.textSnippet}
             author={item?.volumeInfo?.authors[0] || "NA"}
+            rating={item?.volumeInfo?.averageRating}
+            publishedDate={item.volumeInfo?.publishedDate}
+            pageCount={item.volumeInfo?.pageCount}
           />
         )}
         keyExtractor={(item) => item.id}

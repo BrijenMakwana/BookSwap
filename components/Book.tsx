@@ -4,9 +4,30 @@ import UIButton from "./UIButton";
 import { Link } from "expo-router";
 import { Image } from "expo-image";
 import Blurhash from "@/constants/Blurhash";
+import { FontAwesome } from "@expo/vector-icons";
+import moment from "moment";
+
+const BookRating = (props) => {
+  const { rating } = props;
+
+  if (!rating) return;
+
+  return (
+    <View style={styles.ratingContainer}>
+      {[1, 2, 3, 4, 5].map((star: number, index: number) =>
+        star <= rating ? (
+          <FontAwesome name="star" size={16} color="#e0218a" key={index} />
+        ) : (
+          <FontAwesome name="star-o" size={16} color="#e0218a" key={index} />
+        )
+      )}
+    </View>
+  );
+};
 
 const Book = (props) => {
-  const { id, title, imageUrl, overview, author } = props;
+  const { id, title, imageUrl, author, rating, publishedDate, pageCount } =
+    props;
   return (
     <Link href={`/book/${id}`} asChild>
       <Pressable
@@ -19,7 +40,7 @@ const Book = (props) => {
           style={styles.image}
           source={imageUrl}
           placeholder={Blurhash}
-          contentFit="contain"
+          contentFit="fill"
           transition={1000}
         />
 
@@ -30,9 +51,15 @@ const Book = (props) => {
 
           <Text style={styles.author}>{author || "not available"}</Text>
 
-          <Text style={styles.overview} numberOfLines={3}>
-            {overview || "not available"}
-          </Text>
+          <BookRating rating={rating} />
+
+          {publishedDate && (
+            <Text style={styles.date}>
+              published on {moment(publishedDate).format("ll")}
+            </Text>
+          )}
+
+          <Text style={styles.pageCount}>{pageCount} pages</Text>
 
           <View style={styles.btnContainer}>
             <UIButton text="Read" theme="barbie" />
@@ -49,7 +76,7 @@ export default Book;
 const styles = StyleSheet.create({
   container: {
     marginTop: 15,
-    padding: 13,
+    padding: 12,
     flexDirection: "row",
     justifyContent: "space-between",
     backgroundColor: "#fff",
@@ -85,11 +112,24 @@ const styles = StyleSheet.create({
     color: "#000",
     marginTop: 5,
   },
-  overview: {
+  ratingContainer: {
+    flexDirection: "row",
+    marginTop: 7,
+    alignItems: "center",
+  },
+  date: {
+    marginTop: 5,
     fontSize: 12,
-    fontWeight: "300",
-    color: "#000",
-    marginTop: 15,
+    fontWeight: "500",
+    textTransform: "capitalize",
+    color: "#333333",
+  },
+  pageCount: {
+    marginTop: 5,
+    fontSize: 12,
+    fontWeight: "400",
+    textTransform: "capitalize",
+    color: "#333333",
   },
   btnContainer: {
     flexDirection: "row",

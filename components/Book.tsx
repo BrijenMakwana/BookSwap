@@ -49,7 +49,7 @@ const Book = (props) => {
             {title}
           </Text>
 
-          <Text style={styles.author}>{author || "not available"}</Text>
+          <Text style={styles.author}>by {author}</Text>
 
           <BookRating rating={rating} />
 
@@ -59,7 +59,7 @@ const Book = (props) => {
             </Text>
           )}
 
-          <Text style={styles.pageCount}>{pageCount} pages</Text>
+          {pageCount && <Text style={styles.pageCount}>{pageCount} pages</Text>}
 
           <View style={styles.btnContainer}>
             <UIButton text="Read" theme="barbie" />
@@ -110,6 +110,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: "500",
     color: "#000",
+    textTransform: "capitalize",
     marginTop: 5,
   },
   ratingContainer: {

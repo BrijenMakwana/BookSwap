@@ -26,8 +26,16 @@ const BookRating = (props) => {
 };
 
 const Book = (props) => {
-  const { id, title, imageUrl, author, rating, publishedDate, pageCount } =
-    props;
+  const {
+    id,
+    title,
+    imageUrl,
+    author,
+    rating,
+    publishedDate,
+    pageCount,
+    allowActionBtns = true,
+  } = props;
   return (
     <Link href={`/book/${id}`} asChild>
       <Pressable
@@ -49,7 +57,7 @@ const Book = (props) => {
             {title}
           </Text>
 
-          <Text style={styles.author}>by {author}</Text>
+          <Text style={styles.author}>by {author || "NA"}</Text>
 
           <BookRating rating={rating} />
 
@@ -59,12 +67,14 @@ const Book = (props) => {
             </Text>
           )}
 
-          {pageCount && <Text style={styles.pageCount}>{pageCount} pages</Text>}
+          <Text style={styles.pageCount}>{pageCount} pages</Text>
 
-          <View style={styles.btnContainer}>
-            <UIButton text="Read" theme="barbie" />
-            <UIButton text="Want to Read" theme="ken" />
-          </View>
+          {allowActionBtns && (
+            <View style={styles.btnContainer}>
+              <UIButton text="Read" theme="barbie" />
+              <UIButton text="Want to Read" theme="ken" />
+            </View>
+          )}
         </View>
       </Pressable>
     </Link>
@@ -75,21 +85,10 @@ export default Book;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 15,
-    padding: 12,
+    padding: 15,
     flexDirection: "row",
     justifyContent: "space-between",
     backgroundColor: "#fff",
-    width: "95%",
-    alignSelf: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      height: 5,
-      width: 5,
-    },
-    elevation: 3,
-    shadowOpacity: 0.8,
-    borderRadius: 10,
   },
   image: {
     width: 100,

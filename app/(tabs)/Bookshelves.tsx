@@ -1,8 +1,12 @@
 import { View, StyleSheet } from "react-native";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SpeedDial } from "@rneui/themed";
 import BarbieText from "@/components/BarbieText";
 import { FontAwesome } from "@expo/vector-icons";
+import axios from "axios";
+import { FlashList } from "@shopify/flash-list";
+import Book from "@/components/Book";
+import Divider from "@/components/Divider";
 
 const CustomSpeedDial = () => {
   const [dialIsOpen, setDialIsOpen] = useState(false);
@@ -39,18 +43,41 @@ const CustomSpeedDial = () => {
   );
 };
 
-const headingStyle = {
-  fontSize: 35,
-  textTransform: "capitalize",
-  fontWeight: "600",
-  color: "#e0218a",
-  marginLeft: 20,
-};
-
 const Bookshelves = () => {
+  const [books, setBooks] = useState([]);
+
   return (
     <View style={styles.container}>
-      <BarbieText style={headingStyle}>want to read</BarbieText>
+      <BarbieText
+        style={{
+          fontSize: 35,
+          textTransform: "capitalize",
+          fontWeight: "600",
+          color: "#e0218a",
+          marginLeft: 15,
+        }}
+      >
+        want to read
+      </BarbieText>
+
+      <FlashList
+        data={books}
+        renderItem={({ item }) => (
+          <Book
+            id={item.id}
+            imageUrl={item?.volumeInfo?.imageLinks?.thumbnail}
+            title={item?.volumeInfo?.title}
+            author={item?.volumeInfo?.authors[0] || "NA"}
+            rating={item?.volumeInfo?.averageRating}
+            publishedDate={item.volumeInfo?.publishedDate}
+            pageCount={item.volumeInfo?.pageCount}
+            allowActionBtns={false}
+          />
+        )}
+        showsVerticalScrollIndicator={false}
+        estimatedItemSize={20}
+        ItemSeparatorComponent={() => <Divider />}
+      />
 
       <CustomSpeedDial />
     </View>
@@ -64,12 +91,5 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     paddingTop: 50,
-  },
-
-  heading: {
-    fontSize: 30,
-    textTransform: "capitalize",
-    fontWeight: "600",
-    color: "#e0218a",
   },
 });

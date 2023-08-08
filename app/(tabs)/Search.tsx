@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Book from "@/components/Book";
 import { FlashList } from "@shopify/flash-list";
+import Divider from "@/components/Divider";
 
 const Search = () => {
   const [searchedBook, setSearchedBook] = useState<string>("");
@@ -17,6 +18,7 @@ const Search = () => {
       const response = await axios.get(
         `https://www.googleapis.com/books/v1/volumes?q=${searchedBook}&key=${process.env.EXPO_PUBLIC_API_KEY}`
       );
+
       setBooks(response.data.items);
     } catch (error) {
       console.error(error);
@@ -52,7 +54,7 @@ const Search = () => {
             id={item.id}
             imageUrl={item?.volumeInfo?.imageLinks?.thumbnail}
             title={item?.volumeInfo?.title}
-            author={item?.volumeInfo?.authors[0] || "NA"}
+            author={item?.volumeInfo?.authors[0]}
             rating={item?.volumeInfo?.averageRating}
             publishedDate={item.volumeInfo?.publishedDate}
             pageCount={item.volumeInfo?.pageCount}
@@ -68,6 +70,7 @@ const Search = () => {
             onRefresh={() => searchBooks()}
           />
         }
+        ItemSeparatorComponent={() => <Divider />}
       />
     </SafeAreaView>
   );

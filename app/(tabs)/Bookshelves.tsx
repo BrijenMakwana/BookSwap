@@ -1,7 +1,8 @@
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { useState } from "react";
 import { SpeedDial } from "@rneui/themed";
 import BarbieText from "@/components/BarbieText";
+import { FontAwesome } from "@expo/vector-icons";
 
 const CustomSpeedDial = () => {
   const [dialIsOpen, setDialIsOpen] = useState(false);
@@ -13,23 +14,23 @@ const CustomSpeedDial = () => {
       openIcon={{ name: "close", color: "#fff" }}
       onOpen={() => setDialIsOpen(!dialIsOpen)}
       onClose={() => setDialIsOpen(!dialIsOpen)}
-      overlayColor="rgba(224, 33, 138,0.2)"
+      overlayColor="rgba(224, 33, 138,0.1)"
       color="#e0218a"
     >
       <SpeedDial.Action
-        icon={{ name: "add", color: "#e0218a" }}
+        icon={<FontAwesome name="eye-slash" size={20} color="#e0218a" />}
         title="Read"
         onPress={() => console.log("Add Something")}
         color="#fff"
       />
       <SpeedDial.Action
-        icon={{ name: "add", color: "#e0218a" }}
+        icon={<FontAwesome name="eye" size={20} color="#e0218a" />}
         title="Currently Reading"
         onPress={() => console.log("Add Something")}
         color="#fff"
       />
       <SpeedDial.Action
-        icon={{ name: "book", color: "#e0218a" }}
+        icon={<FontAwesome name="bullseye" size={20} color="#e0218a" />}
         title="Want to Read"
         onPress={() => console.log("Delete Something")}
         color="#fff"

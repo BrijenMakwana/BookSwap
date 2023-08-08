@@ -58,7 +58,6 @@ const Search = () => {
             pageCount={item.volumeInfo?.pageCount}
           />
         )}
-        keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
         estimatedItemSize={20}
         refreshControl={

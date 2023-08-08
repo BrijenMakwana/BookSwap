@@ -71,18 +71,6 @@ const Overview = (props) => {
   );
 };
 
-const titleStyle = {
-  color: "#e0218a",
-  fontSize: 35,
-  fontWeight: "500",
-};
-
-const authorStyle = {
-  color: "#555555",
-  fontSize: 17,
-  fontWeight: "300",
-};
-
 const Book = () => {
   const params = useLocalSearchParams();
   const [book, setBook] = useState({});
@@ -132,9 +120,23 @@ const Book = () => {
       </ImageBackground>
 
       <View style={styles.bookInfo}>
-        <BarbieText style={titleStyle}>{book.volumeInfo?.title}</BarbieText>
+        <BarbieText
+          style={{
+            color: "#e0218a",
+            fontSize: 35,
+            fontWeight: "500",
+          }}
+        >
+          {book.volumeInfo?.title}
+        </BarbieText>
 
-        <BarbieText style={authorStyle}>
+        <BarbieText
+          style={{
+            color: "#555555",
+            fontSize: 17,
+            fontWeight: "300",
+          }}
+        >
           {book.volumeInfo?.authors.map((authorName: string, index: number) => (
             <Authors
               authorName={authorName}

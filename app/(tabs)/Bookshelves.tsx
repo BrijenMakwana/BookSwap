@@ -52,7 +52,6 @@ const Bookshelves = () => {
         style={{
           fontSize: 35,
           textTransform: "capitalize",
-          fontWeight: "600",
           color: "#e0218a",
           marginLeft: 15,
         }}

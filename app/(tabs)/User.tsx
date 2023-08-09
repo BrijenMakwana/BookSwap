@@ -7,11 +7,11 @@ import BarbieText from "@/components/BarbieText";
 import RandomQuote from "@/components/RandomQuote";
 
 const UserFact = (props) => {
-  const { icon, text } = props;
+  const { number, text } = props;
   return (
     <View style={styles.userFact}>
-      <Entypo name={icon} size={23} color="#333333" />
-      <Text style={styles.statText}>{text}</Text>
+      <Text style={styles.factNumber}>{number}</Text>
+      <Text style={styles.factText}>{text}</Text>
     </View>
   );
 };
@@ -41,9 +41,9 @@ const User = () => {
       <Text style={styles.userEmail}>margotrobbie@gmail.com</Text>
 
       <View style={styles.userFacts}>
-        <UserFact icon="book" text="95 books on the shelf" />
-        <UserFact icon="open-book" text="35 books read" />
-        <UserFact icon="hand" text="5 books exchange" />
+        <UserFact text="shelf" number={95} />
+        <UserFact text="reads" number={35} />
+        <UserFact text="exchange" number={5} />
       </View>
 
       <RandomQuote />
@@ -74,27 +74,30 @@ const styles = StyleSheet.create({
     fontWeight: "400",
   },
   userFacts: {
-    marginTop: 20,
+    marginTop: 40,
     width: "100%",
-    padding: 15,
-    alignItems: "center",
-  },
-  userFact: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
-    width: "70%",
-    marginTop: 10,
-    backgroundColor: "#0AF6EE",
-    paddingVertical: 5,
-    borderRadius: 20,
+    justifyContent: "space-evenly",
   },
-  statText: {
-    marginLeft: 15,
-    textTransform: "capitalize",
+  userFact: {
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#DCDCDC",
+    width: "20%",
+    paddingVertical: 10,
+    borderRadius: 5,
+  },
+  factNumber: {
     fontWeight: "500",
+    fontSize: 25,
+    color: "#000",
+  },
+  factText: {
+    fontWeight: "400",
     fontSize: 13,
-    color: "#333333",
-    width: "60%",
+    color: "#000",
+    textTransform: "capitalize",
+    marginTop: 5,
   },
 });

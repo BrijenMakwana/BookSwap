@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   container: {
     marginTop: "auto",
     marginBottom: "auto",
-    paddingHorizontal: 50,
+    paddingHorizontal: 40,
   },
   quote: {
     fontSize: 16,

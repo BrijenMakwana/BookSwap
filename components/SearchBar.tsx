@@ -1,9 +1,8 @@
 import { Pressable, StyleSheet, TextInput, View } from "react-native";
-import React from "react";
-import { EvilIcons } from "@expo/vector-icons";
+import { EvilIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 
 const SearchBar = (props) => {
-  const { searchedBook, setSearchedBook } = props;
+  const { searchedBook, setSearchedBook, openBarcodeScanner } = props;
 
   const clearInput = () => {
     setSearchedBook("");
@@ -20,9 +19,23 @@ const SearchBar = (props) => {
           value={searchedBook}
         />
 
-        {searchedBook && (
+        {searchedBook ? (
           <Pressable onPress={clearInput} style={styles.clearBtn}>
             <EvilIcons name="close-o" size={25} color="#e0218a" />
+          </Pressable>
+        ) : (
+          <Pressable
+            style={styles.clearBtn}
+            onPress={openBarcodeScanner}
+            android_ripple={{
+              color: "#e0218a",
+            }}
+          >
+            <MaterialCommunityIcons
+              name="barcode-scan"
+              size={25}
+              color="black"
+            />
           </Pressable>
         )}
       </View>

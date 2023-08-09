@@ -21,7 +21,7 @@ const SearchBar = (props) => {
 
         {searchedBook ? (
           <Pressable onPress={clearInput} style={styles.clearBtn}>
-            <EvilIcons name="close-o" size={25} color="#e0218a" />
+            <EvilIcons name="close-o" size={25} color="#000" />
           </Pressable>
         ) : (
           <Pressable
@@ -34,7 +34,7 @@ const SearchBar = (props) => {
             <MaterialCommunityIcons
               name="barcode-scan"
               size={25}
-              color="black"
+              color="#000"
             />
           </Pressable>
         )}

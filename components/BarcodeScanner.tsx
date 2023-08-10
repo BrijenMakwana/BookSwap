@@ -1,4 +1,10 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { useEffect, useState } from "react";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { AntDesign } from "@expo/vector-icons";
@@ -24,6 +30,7 @@ const BarcodeScanner = (props) => {
   if (hasPermission === null) {
     return (
       <View style={styles.container}>
+        <ActivityIndicator color="#e0218a" size="large" />
         <Text style={styles.scannerText}>Requesting for camera permission</Text>
       </View>
     );
@@ -82,5 +89,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "#0AF6EE",
     fontWeight: "500",
+    textTransform: "capitalize",
   },
 });

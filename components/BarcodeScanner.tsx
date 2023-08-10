@@ -40,6 +40,10 @@ const BarcodeScanner = (props) => {
       <BarCodeScanner
         onBarCodeScanned={searchedBook ? undefined : handleBarCodeScanned}
         style={StyleSheet.absoluteFillObject}
+        barCodeTypes={[
+          BarCodeScanner.Constants.BarCodeType.ean13,
+          BarCodeScanner.Constants.BarCodeType.ean8,
+        ]}
       />
       <Pressable style={styles.closeBtn} onPress={closeBarcodeScanner}>
         <AntDesign name="closecircle" size={35} color="#fff" />

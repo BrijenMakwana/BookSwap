@@ -12,15 +12,32 @@ const BookRating = (props) => {
 
   if (!rating) return;
 
+  const roundedRating = Math.round(rating * 2) / 2;
+  const filledStars = Math.floor(roundedRating);
+  const hasHalfStar = roundedRating - filledStars === 0.5;
+
   return (
     <View style={styles.ratingContainer}>
-      {[1, 2, 3, 4, 5].map((star: number, index: number) =>
-        star <= rating ? (
-          <FontAwesome name="star" size={16} color="#e0218a" key={index} />
-        ) : (
-          <FontAwesome name="star-o" size={16} color="#e0218a" key={index} />
-        )
-      )}
+      {[1, 2, 3, 4, 5].map((star: number, index: number) => {
+        if (star <= filledStars) {
+          return (
+            <FontAwesome name="star" size={16} color="#e0218a" key={index} />
+          );
+        } else if (hasHalfStar && star === filledStars + 1) {
+          return (
+            <FontAwesome
+              name="star-half-o"
+              size={16}
+              color="#e0218a"
+              key={index}
+            />
+          );
+        } else {
+          return (
+            <FontAwesome name="star-o" size={16} color="#e0218a" key={index} />
+          );
+        }
+      })}
     </View>
   );
 };

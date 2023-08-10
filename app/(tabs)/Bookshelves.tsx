@@ -1,12 +1,12 @@
-import { View, StyleSheet } from "react-native";
-import { useEffect, useState } from "react";
+import { View, StyleSheet, Pressable } from "react-native";
+import { useState } from "react";
 import { SpeedDial } from "@rneui/themed";
 import BarbieText from "@/components/BarbieText";
 import { FontAwesome } from "@expo/vector-icons";
-import axios from "axios";
 import { FlashList } from "@shopify/flash-list";
 import Book from "@/components/Book";
 import Divider from "@/components/Divider";
+import { Link } from "expo-router";
 
 const CustomSpeedDial = () => {
   const [dialIsOpen, setDialIsOpen] = useState(false);
@@ -48,16 +48,28 @@ const Bookshelves = () => {
 
   return (
     <View style={styles.container}>
-      <BarbieText
-        style={{
-          fontSize: 35,
-          textTransform: "capitalize",
-          color: "#e0218a",
-          marginLeft: 15,
-        }}
-      >
-        want to read
-      </BarbieText>
+      <View style={styles.header}>
+        <BarbieText
+          style={{
+            fontSize: 35,
+            textTransform: "capitalize",
+            color: "#e0218a",
+          }}
+        >
+          want to read
+        </BarbieText>
+
+        <Link href="/CalendarView" asChild>
+          <Pressable
+            style={styles.calendarBtn}
+            android_ripple={{
+              color: "#e0218a",
+            }}
+          >
+            <FontAwesome name="calendar-o" size={27} color="#e0218a" />
+          </Pressable>
+        </Link>
+      </View>
 
       <FlashList
         data={books}
@@ -90,5 +102,16 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     paddingTop: 50,
+  },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 15,
+  },
+  calendarBtn: {
+    padding: 10,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

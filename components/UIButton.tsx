@@ -1,28 +1,47 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  useColorScheme,
+  ColorSchemeName,
+} from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React from "react";
+import Colors from "@/constants/Colors";
 
 const UIButton = (props) => {
+  const colorScheme: ColorSchemeName = useColorScheme();
+
   const { text, theme } = props;
   return (
     <Pressable
       style={[
         styles.container,
         {
-          backgroundColor: theme === "barbie" ? "#e0218a" : "#0AF6EE",
+          backgroundColor:
+            theme === "barbie"
+              ? Colors[colorScheme].barbie
+              : Colors[colorScheme].ken,
         },
       ]}
     >
       <MaterialCommunityIcons
         name="book-plus"
         size={20}
-        color={theme === "barbie" ? "#fff" : "#000"}
+        color={
+          theme === "barbie"
+            ? Colors[colorScheme].background
+            : Colors[colorScheme].text
+        }
       />
       <Text
         style={[
           styles.btnText,
           {
-            color: theme === "barbie" ? "#fff" : "#000",
+            color:
+              theme === "barbie"
+                ? Colors[colorScheme].background
+                : Colors[colorScheme].text,
           },
         ]}
       >

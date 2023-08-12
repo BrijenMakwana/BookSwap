@@ -1,4 +1,10 @@
-import { SafeAreaView, StyleSheet, RefreshControl } from "react-native";
+import {
+  SafeAreaView,
+  StyleSheet,
+  RefreshControl,
+  useColorScheme,
+  ColorSchemeName,
+} from "react-native";
 import SearchBar from "@/components/SearchBar";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -6,8 +12,12 @@ import Book from "@/components/Book";
 import { FlashList } from "@shopify/flash-list";
 import Divider from "@/components/Divider";
 import BarcodeScanner from "@/components/BarcodeScanner";
+import Colors from "@/constants/Colors";
+import * as Device from "expo-device";
 
 const Search = () => {
+  const colorScheme: ColorSchemeName = useColorScheme();
+
   const [searchedBook, setSearchedBook] = useState<string>("");
   const [isSearching, setIsSearching] = useState<boolean>(false);
   const [scannerIsVisible, setScannerIsVisible] = useState<boolean>(false);
@@ -51,7 +61,14 @@ const Search = () => {
   }, [searchedBook]);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView
+      style={[
+        styles.container,
+        {
+          backgroundColor: Colors[colorScheme].background,
+        },
+      ]}
+    >
       {scannerIsVisible ? (
         <BarcodeScanner
           closeBarcodeScanner={closeBarcodeScanner}
@@ -67,6 +84,7 @@ const Search = () => {
           />
           <FlashList
             data={books}
+            numColumns={Device.deviceType === 2 ? 2 : 1}
             renderItem={({ item }) => (
               <Book
                 id={item.id}
@@ -83,8 +101,8 @@ const Search = () => {
             refreshControl={
               <RefreshControl
                 refreshing={isSearching}
-                colors={["#e0218a"]}
-                progressBackgroundColor="#fff"
+                colors={[Colors[colorScheme].barbie]}
+                progressBackgroundColor={Colors[colorScheme].background}
                 onRefresh={() => searchBooks()}
               />
             }
@@ -101,6 +119,5 @@ export default Search;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
   },
 });

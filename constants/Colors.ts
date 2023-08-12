@@ -3,7 +3,7 @@ const KEN = "#0AF6EE";
 
 export default {
   light: {
-    text: "#fff",
+    text: "#000",
     background: "#fff",
     barbie: BARBIE,
     ken: KEN,
@@ -12,10 +12,10 @@ export default {
   },
   dark: {
     text: "#fff",
-    background: "#fff",
+    background: "#323232",
     barbie: BARBIE,
     ken: KEN,
     tabIconSelected: BARBIE,
-    tabIconDefault: "#333333",
+    tabIconDefault: "#fff",
   },
 };

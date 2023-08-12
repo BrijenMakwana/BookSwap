@@ -17,6 +17,7 @@ import { Image } from "expo-image";
 import Blurhash from "@/constants/Blurhash";
 import BarbieText from "@/components/BarbieText";
 import Colors from "@/constants/Colors";
+import * as Device from "expo-device";
 
 const GoBack = () => {
   const colorScheme: ColorSchemeName = useColorScheme();
@@ -275,12 +276,12 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     width: "100%",
-    height: 400,
+    height: Device.deviceType === 2 ? 500 : 400,
     alignItems: "center",
     justifyContent: "center",
   },
   image: {
-    width: "45%",
+    width: Device.deviceType === 2 ? "35%" : "45%",
     aspectRatio: 1 / 1.5,
   },
   backBtn: {
@@ -338,7 +339,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   rating: {
-    fontSize: 12,
+    fontSize: Device.deviceType === 2 ? 14 : 12,
     fontWeight: "500",
     marginLeft: 10,
   },
@@ -347,7 +348,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   date: {
-    fontSize: 12,
+    fontSize: Device.deviceType === 2 ? 14 : 12,
     fontWeight: "500",
     marginLeft: 10,
   },
@@ -361,6 +362,6 @@ const styles = StyleSheet.create({
   },
   description: {
     marginTop: 10,
-    fontSize: 13,
+    fontSize: Device.deviceType === 2 ? 14 : 13,
   },
 });

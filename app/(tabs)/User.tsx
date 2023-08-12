@@ -12,6 +12,7 @@ import Blurhash from "@/constants/Blurhash";
 import BarbieText from "@/components/BarbieText";
 import RandomQuote from "@/components/RandomQuote";
 import Colors from "@/constants/Colors";
+import * as Device from "expo-device";
 
 const UserFact = (props) => {
   const colorScheme: ColorSchemeName = useColorScheme();
@@ -70,7 +71,7 @@ const User = () => {
 
       <BarbieText
         style={{
-          fontSize: 30,
+          fontSize: Device.deviceType === 2 ? 40 : 30,
           color: Colors[colorScheme].barbie,
           marginTop: 10,
           textTransform: "capitalize",
@@ -110,14 +111,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   avatar: {
-    width: 75,
+    width: Device.deviceType === 2 ? 100 : 75,
     aspectRatio: 1,
     borderRadius: 50,
     borderWidth: 3,
     marginTop: 20,
   },
   userEmail: {
-    fontSize: 14,
+    fontSize: Device.deviceType === 2 ? 15 : 14,
     fontWeight: "400",
   },
   userFacts: {

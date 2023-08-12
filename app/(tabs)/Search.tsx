@@ -13,6 +13,7 @@ import { FlashList } from "@shopify/flash-list";
 import Divider from "@/components/Divider";
 import BarcodeScanner from "@/components/BarcodeScanner";
 import Colors from "@/constants/Colors";
+import * as Device from "expo-device";
 
 const Search = () => {
   const colorScheme: ColorSchemeName = useColorScheme();
@@ -83,6 +84,7 @@ const Search = () => {
           />
           <FlashList
             data={books}
+            numColumns={Device.deviceType === 2 ? 2 : 1}
             renderItem={({ item }) => (
               <Book
                 id={item.id}

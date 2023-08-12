@@ -36,7 +36,8 @@
     "react-native-safe-area-context": "4.6.3",
     "react-native-screens": "~3.22.0",
     "react-native-web": "~0.19.6",
-    "expo-barcode-scanner": "~12.5.3"
+    "expo-barcode-scanner": "~12.5.3",
+    "expo-device": "~5.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

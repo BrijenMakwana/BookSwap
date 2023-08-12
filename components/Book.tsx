@@ -166,6 +166,7 @@ const styles = StyleSheet.create({
     padding: 15,
     flexDirection: "row",
     justifyContent: "space-between",
+    width: "100%",
   },
   image: {
     width: 100,

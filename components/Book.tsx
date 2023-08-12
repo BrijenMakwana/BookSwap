@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, Pressable } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Pressable,
+  useColorScheme,
+  ColorSchemeName,
+} from "react-native";
 import React from "react";
 import UIButton from "./UIButton";
 import { Link } from "expo-router";
@@ -6,8 +13,11 @@ import { Image } from "expo-image";
 import Blurhash from "@/constants/Blurhash";
 import { FontAwesome } from "@expo/vector-icons";
 import moment from "moment";
+import Colors from "@/constants/Colors";
 
 const BookRating = (props) => {
+  const colorScheme: ColorSchemeName = useColorScheme();
+
   const { rating } = props;
 
   if (!rating) return;
@@ -21,20 +31,30 @@ const BookRating = (props) => {
       {[1, 2, 3, 4, 5].map((star: number, index: number) => {
         if (star <= filledStars) {
           return (
-            <FontAwesome name="star" size={16} color="#e0218a" key={index} />
+            <FontAwesome
+              name="star"
+              size={16}
+              color={Colors[colorScheme].barbie}
+              key={index}
+            />
           );
         } else if (hasHalfStar && star === filledStars + 1) {
           return (
             <FontAwesome
               name="star-half-o"
               size={16}
-              color="#e0218a"
+              color={Colors[colorScheme].barbie}
               key={index}
             />
           );
         } else {
           return (
-            <FontAwesome name="star-o" size={16} color="#e0218a" key={index} />
+            <FontAwesome
+              name="star-o"
+              size={16}
+              color={Colors[colorScheme].barbie}
+              key={index}
+            />
           );
         }
       })}
@@ -43,6 +63,8 @@ const BookRating = (props) => {
 };
 
 const Book = (props) => {
+  const colorScheme: ColorSchemeName = useColorScheme();
+
   const {
     id,
     title,
@@ -54,11 +76,17 @@ const Book = (props) => {
     allowActionBtns = true,
   } = props;
   return (
-    <Link href={`/book/${id}`} asChild>
+    <Link
+      href={`/book/${id}`}
+      asChild
+      style={{
+        backgroundColor: Colors[colorScheme].background,
+      }}
+    >
       <Pressable
         style={styles.container}
         android_ripple={{
-          color: "#e0218a",
+          color: Colors[colorScheme].barbie,
         }}
       >
         <Image
@@ -70,21 +98,54 @@ const Book = (props) => {
         />
 
         <View style={styles.bookInfo}>
-          <Text style={styles.title} numberOfLines={1}>
+          <Text
+            style={[
+              styles.title,
+              {
+                color: Colors[colorScheme].barbie,
+              },
+            ]}
+            numberOfLines={1}
+          >
             {title}
           </Text>
 
-          <Text style={styles.author}>by {author || "NA"}</Text>
+          <Text
+            style={[
+              styles.author,
+              {
+                color: Colors[colorScheme].text,
+              },
+            ]}
+          >
+            by {author || "NA"}
+          </Text>
 
           <BookRating rating={rating} />
 
           {publishedDate && (
-            <Text style={styles.date}>
+            <Text
+              style={[
+                styles.date,
+                {
+                  color: Colors[colorScheme].text,
+                },
+              ]}
+            >
               published on {moment(publishedDate).format("ll")}
             </Text>
           )}
 
-          <Text style={styles.pageCount}>{pageCount} pages</Text>
+          <Text
+            style={[
+              styles.pageCount,
+              {
+                color: Colors[colorScheme].text,
+              },
+            ]}
+          >
+            {pageCount} pages
+          </Text>
 
           {allowActionBtns && (
             <View style={styles.btnContainer}>
@@ -105,7 +166,6 @@ const styles = StyleSheet.create({
     padding: 15,
     flexDirection: "row",
     justifyContent: "space-between",
-    backgroundColor: "#fff",
   },
   image: {
     width: 100,
@@ -120,12 +180,10 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 14,
     fontWeight: "700",
-    color: "#e0218a",
   },
   author: {
     fontSize: 12,
     fontWeight: "500",
-    color: "#000",
     textTransform: "capitalize",
     marginTop: 5,
   },
@@ -139,14 +197,12 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: "500",
     textTransform: "capitalize",
-    color: "#333333",
   },
   pageCount: {
     marginTop: 5,
     fontSize: 12,
     fontWeight: "400",
     textTransform: "capitalize",
-    color: "#333333",
   },
   btnContainer: {
     flexDirection: "row",

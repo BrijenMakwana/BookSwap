@@ -4,12 +4,17 @@ import {
   StyleSheet,
   Text,
   View,
+  useColorScheme,
+  ColorSchemeName,
 } from "react-native";
 import { useEffect, useState } from "react";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { AntDesign } from "@expo/vector-icons";
+import Colors from "@/constants/Colors";
 
 const BarcodeScanner = (props) => {
+  const colorScheme: ColorSchemeName = useColorScheme();
+
   const { searchedBook, setSearchedBook, closeBarcodeScanner } = props;
   const [hasPermission, setHasPermission] = useState(null);
 
@@ -29,21 +34,60 @@ const BarcodeScanner = (props) => {
 
   if (hasPermission === null) {
     return (
-      <View style={styles.container}>
-        <ActivityIndicator color="#e0218a" size="large" />
-        <Text style={styles.scannerText}>Requesting for camera permission</Text>
+      <View
+        style={[
+          styles.container,
+          {
+            backgroundColor: Colors[colorScheme].background,
+          },
+        ]}
+      >
+        <ActivityIndicator color={Colors[colorScheme].barbie} size="large" />
+        <Text
+          style={[
+            styles.scannerText,
+            {
+              color: Colors[colorScheme].ken,
+            },
+          ]}
+        >
+          Requesting for camera permission
+        </Text>
       </View>
     );
   }
   if (hasPermission === false) {
     return (
-      <View style={styles.container}>
-        <Text style={styles.scannerText}>No access to Camera</Text>
+      <View
+        style={[
+          styles.container,
+          {
+            backgroundColor: Colors[colorScheme].background,
+          },
+        ]}
+      >
+        <Text
+          style={[
+            styles.scannerText,
+            {
+              color: Colors[colorScheme].ken,
+            },
+          ]}
+        >
+          No access to Camera
+        </Text>
       </View>
     );
   }
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        {
+          backgroundColor: Colors[colorScheme].background,
+        },
+      ]}
+    >
       <BarCodeScanner
         onBarCodeScanned={searchedBook ? undefined : handleBarCodeScanned}
         style={StyleSheet.absoluteFillObject}
@@ -53,10 +97,30 @@ const BarcodeScanner = (props) => {
         ]}
       />
       <Pressable style={styles.closeBtn} onPress={closeBarcodeScanner}>
-        <AntDesign name="closecircle" size={35} color="#fff" />
+        <AntDesign
+          name="closecircle"
+          size={35}
+          color={Colors[colorScheme].background}
+        />
       </Pressable>
-      <View style={styles.scanner}>
-        <Text style={styles.scannerText}>scan the Barcode on your book</Text>
+      <View
+        style={[
+          styles.scanner,
+          {
+            borderColor: Colors[colorScheme].barbie,
+          },
+        ]}
+      >
+        <Text
+          style={[
+            styles.scannerText,
+            {
+              color: Colors[colorScheme].ken,
+            },
+          ]}
+        >
+          scan the Barcode on your book
+        </Text>
       </View>
     </View>
   );
@@ -67,7 +131,6 @@ export default BarcodeScanner;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -82,12 +145,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderWidth: 5,
-    borderColor: "#e0218a",
     borderStyle: "dashed",
   },
   scannerText: {
     fontSize: 18,
-    color: "#0AF6EE",
     fontWeight: "500",
     textTransform: "capitalize",
   },

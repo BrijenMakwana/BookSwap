@@ -4,15 +4,40 @@ import {
   Image,
   Pressable,
   ImageBackground,
+  useColorScheme,
+  ColorSchemeName,
 } from "react-native";
 import React from "react";
 import { FontAwesome5 } from "@expo/vector-icons";
+import Colors from "@/constants/Colors";
 
 const SignInWithGoogle = () => {
+  const colorScheme: ColorSchemeName = useColorScheme();
+
   return (
-    <Pressable style={styles.loginGoogle}>
-      <FontAwesome5 name="google" size={22} color="#fff" />
-      <Text style={styles.btnText}>Sign In With Google</Text>
+    <Pressable
+      style={[
+        styles.loginGoogle,
+        {
+          backgroundColor: Colors[colorScheme].barbie,
+        },
+      ]}
+    >
+      <FontAwesome5
+        name="google"
+        size={22}
+        color={Colors[colorScheme].background}
+      />
+      <Text
+        style={[
+          styles.btnText,
+          {
+            color: Colors[colorScheme].background,
+          },
+        ]}
+      >
+        Sign In With Google
+      </Text>
     </Pressable>
   );
 };
@@ -48,7 +73,6 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   loginGoogle: {
-    backgroundColor: "#e0218a",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
@@ -62,7 +86,6 @@ const styles = StyleSheet.create({
   btnText: {
     fontSize: 15,
     fontWeight: "500",
-    color: "#fff",
     marginLeft: 20,
     textTransform: "capitalize",
   },

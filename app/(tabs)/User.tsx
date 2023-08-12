@@ -1,26 +1,67 @@
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+  useColorScheme,
+  ColorSchemeName,
+} from "react-native";
 import React from "react";
 import { Image } from "expo-image";
 import Blurhash from "@/constants/Blurhash";
-import { Entypo } from "@expo/vector-icons";
 import BarbieText from "@/components/BarbieText";
 import RandomQuote from "@/components/RandomQuote";
+import Colors from "@/constants/Colors";
 
 const UserFact = (props) => {
+  const colorScheme: ColorSchemeName = useColorScheme();
+
   const { number, text } = props;
   return (
     <View style={styles.userFact}>
-      <Text style={styles.factNumber}>{number}</Text>
-      <Text style={styles.factText}>{text}</Text>
+      <Text
+        style={[
+          styles.factNumber,
+          {
+            color: Colors[colorScheme].text,
+          },
+        ]}
+      >
+        {number}
+      </Text>
+      <Text
+        style={[
+          styles.factText,
+          {
+            color: Colors[colorScheme].text,
+          },
+        ]}
+      >
+        {text}
+      </Text>
     </View>
   );
 };
 
 const User = () => {
+  const colorScheme: ColorSchemeName = useColorScheme();
+
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView
+      style={[
+        styles.container,
+        {
+          backgroundColor: Colors[colorScheme].background,
+        },
+      ]}
+    >
       <Image
-        style={styles.avatar}
+        style={[
+          styles.avatar,
+          {
+            borderColor: Colors[colorScheme].barbie,
+          },
+        ]}
         source="https://images.thedirect.com/media/article_full/margot-robbie-barbie_M4G96Rv.jpg?imgeng=cmpr_75/"
         placeholder={Blurhash}
         contentFit="cover"
@@ -30,7 +71,7 @@ const User = () => {
       <BarbieText
         style={{
           fontSize: 30,
-          color: "#e0218a",
+          color: Colors[colorScheme].barbie,
           marginTop: 10,
           textTransform: "capitalize",
         }}
@@ -38,7 +79,16 @@ const User = () => {
         margot robbie
       </BarbieText>
 
-      <Text style={styles.userEmail}>margotrobbie@gmail.com</Text>
+      <Text
+        style={[
+          styles.userEmail,
+          {
+            color: Colors[colorScheme].tabIconDefault,
+          },
+        ]}
+      >
+        margotrobbie@gmail.com
+      </Text>
 
       <View style={styles.userFacts}>
         <UserFact text="shelf" number={95} />
@@ -56,7 +106,6 @@ export default User;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     paddingTop: 40,
     alignItems: "center",
   },
@@ -65,12 +114,10 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     borderRadius: 50,
     borderWidth: 3,
-    borderColor: "#e0218a",
     marginTop: 20,
   },
   userEmail: {
     fontSize: 14,
-    color: "#333333",
     fontWeight: "400",
   },
   userFacts: {
@@ -91,12 +138,10 @@ const styles = StyleSheet.create({
   factNumber: {
     fontWeight: "500",
     fontSize: 25,
-    color: "#000",
   },
   factText: {
     fontWeight: "400",
     fontSize: 13,
-    color: "#000",
     textTransform: "capitalize",
     marginTop: 5,
   },

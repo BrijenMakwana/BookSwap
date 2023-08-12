@@ -1,8 +1,17 @@
-import { StyleSheet, Text, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  useColorScheme,
+  ColorSchemeName,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Colors from "@/constants/Colors";
 
 const RandomQuote = () => {
+  const colorScheme: ColorSchemeName = useColorScheme();
+
   const [randomQuote, setRandomQuote] = useState([]);
 
   const getRandomQuote = async () => {
@@ -23,8 +32,26 @@ const RandomQuote = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.quote}>{randomQuote[0].content}</Text>
-      <Text style={styles.author}>- {randomQuote[0].author}</Text>
+      <Text
+        style={[
+          styles.quote,
+          {
+            color: Colors[colorScheme].barbie,
+          },
+        ]}
+      >
+        {randomQuote[0].content}
+      </Text>
+      <Text
+        style={[
+          styles.author,
+          {
+            color: Colors[colorScheme].text,
+          },
+        ]}
+      >
+        - {randomQuote[0].author}
+      </Text>
     </View>
   );
 };
@@ -39,7 +66,6 @@ const styles = StyleSheet.create({
   },
   quote: {
     fontSize: 16,
-    color: "#e0218a",
     fontWeight: "500",
     marginTop: 10,
   },

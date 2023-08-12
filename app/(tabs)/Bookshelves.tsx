@@ -1,4 +1,9 @@
-import { View, StyleSheet } from "react-native";
+import {
+  View,
+  StyleSheet,
+  useColorScheme,
+  ColorSchemeName,
+} from "react-native";
 import { useState } from "react";
 import { SpeedDial } from "@rneui/themed";
 import BarbieText from "@/components/BarbieText";
@@ -6,52 +11,66 @@ import { FontAwesome } from "@expo/vector-icons";
 import { FlashList } from "@shopify/flash-list";
 import Book from "@/components/Book";
 import Divider from "@/components/Divider";
+import Colors from "@/constants/Colors";
+
+const CustomSpeedDialAction = (props) => {
+  const colorScheme: ColorSchemeName = useColorScheme();
+
+  const { title, icon } = props;
+
+  return (
+    <SpeedDial.Action
+      icon={
+        <FontAwesome name={icon} size={20} color={Colors[colorScheme].barbie} />
+      }
+      title={title}
+      onPress={() => console.log("Add Something")}
+      color={Colors[colorScheme].background}
+    />
+  );
+};
 
 const CustomSpeedDial = () => {
+  const colorScheme: ColorSchemeName = useColorScheme();
+
   const [dialIsOpen, setDialIsOpen] = useState(false);
 
   return (
     <SpeedDial
       isOpen={dialIsOpen}
-      icon={{ name: "book", color: "#fff" }}
-      openIcon={{ name: "close", color: "#fff" }}
+      icon={{ name: "book", color: Colors[colorScheme].background }}
+      openIcon={{ name: "close", color: Colors[colorScheme].background }}
       onOpen={() => setDialIsOpen(!dialIsOpen)}
       onClose={() => setDialIsOpen(!dialIsOpen)}
       overlayColor="rgba(224, 33, 138,0.1)"
-      color="#e0218a"
+      color={Colors[colorScheme].barbie}
     >
-      <SpeedDial.Action
-        icon={<FontAwesome name="eye-slash" size={20} color="#e0218a" />}
-        title="Read"
-        onPress={() => console.log("Add Something")}
-        color="#fff"
-      />
-      <SpeedDial.Action
-        icon={<FontAwesome name="eye" size={20} color="#e0218a" />}
-        title="Currently Reading"
-        onPress={() => console.log("Add Something")}
-        color="#fff"
-      />
-      <SpeedDial.Action
-        icon={<FontAwesome name="bullseye" size={20} color="#e0218a" />}
-        title="Want to Read"
-        onPress={() => console.log("Delete Something")}
-        color="#fff"
-      />
+      <CustomSpeedDialAction title="Read" icon="eye-slash" />
+      <CustomSpeedDialAction title="Currently Reading" icon="eye" />
+      <CustomSpeedDialAction title="Want to Read" icon="bullseye" />
     </SpeedDial>
   );
 };
 
 const Bookshelves = () => {
+  const colorScheme: ColorSchemeName = useColorScheme();
+
   const [books, setBooks] = useState([]);
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        {
+          backgroundColor: Colors[colorScheme].background,
+        },
+      ]}
+    >
       <BarbieText
         style={{
           fontSize: 35,
           textTransform: "capitalize",
-          color: "#e0218a",
+          color: Colors[colorScheme].barbie,
           marginLeft: 10,
         }}
       >
@@ -87,7 +106,6 @@ export default Bookshelves;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     paddingTop: 50,
   },
 });

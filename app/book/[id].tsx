@@ -5,6 +5,8 @@ import {
   ScrollView,
   ImageBackground,
   Pressable,
+  useColorScheme,
+  ColorSchemeName,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useLocalSearchParams, useNavigation } from "expo-router";
@@ -14,12 +16,28 @@ import moment from "moment";
 import { Image } from "expo-image";
 import Blurhash from "@/constants/Blurhash";
 import BarbieText from "@/components/BarbieText";
+import Colors from "@/constants/Colors";
 
 const GoBack = () => {
+  const colorScheme: ColorSchemeName = useColorScheme();
+
   const navigation = useNavigation();
+
   return (
-    <Pressable style={styles.backBtn} onPress={() => navigation.goBack()}>
-      <Ionicons name="arrow-back" size={25} color="#e0218a" />
+    <Pressable
+      style={[
+        styles.backBtn,
+        {
+          backgroundColor: Colors[colorScheme].background,
+        },
+      ]}
+      onPress={() => navigation.goBack()}
+    >
+      <Ionicons
+        name="arrow-back"
+        size={25}
+        color={Colors[colorScheme].barbie}
+      />
     </Pressable>
   );
 };
@@ -31,32 +49,56 @@ const Authors = (props) => {
 };
 
 const BookRating = (props) => {
+  const colorScheme: ColorSchemeName = useColorScheme();
+
   const { rating } = props;
 
   if (!rating) return;
 
   return (
     <View style={styles.ratingContainer}>
-      <Fontisto name="star" size={17} color="#e0218a" />
-      <Text style={styles.rating}>{rating || "NA"}</Text>
+      <Fontisto name="star" size={17} color={Colors[colorScheme].barbie} />
+      <Text
+        style={[
+          styles.rating,
+          {
+            color: Colors[colorScheme].text,
+          },
+        ]}
+      >
+        {rating || "NA"}
+      </Text>
     </View>
   );
 };
 
 const BookPublishedDate = (props) => {
+  const colorScheme: ColorSchemeName = useColorScheme();
+
   const { date } = props;
 
   if (!date) return;
 
   return (
     <View style={styles.dateContainer}>
-      <Fontisto name="date" size={17} color="#e0218a" />
-      <Text style={styles.date}>{moment(date).format("ll")}</Text>
+      <Fontisto name="date" size={17} color={Colors[colorScheme].barbie} />
+      <Text
+        style={[
+          styles.date,
+          {
+            color: Colors[colorScheme].text,
+          },
+        ]}
+      >
+        {moment(date).format("ll")}
+      </Text>
     </View>
   );
 };
 
 const Overview = (props) => {
+  const colorScheme: ColorSchemeName = useColorScheme();
+
   const { overview } = props;
 
   if (!overview) return;
@@ -65,13 +107,33 @@ const Overview = (props) => {
 
   return (
     <View style={styles.overviewContainer}>
-      <Text style={styles.overviewHeading}>overview</Text>
-      <Text style={styles.description}>{cleanOverview}</Text>
+      <Text
+        style={[
+          styles.overviewHeading,
+          {
+            color: Colors[colorScheme].text,
+          },
+        ]}
+      >
+        overview
+      </Text>
+      <Text
+        style={[
+          styles.description,
+          {
+            color: Colors[colorScheme].text,
+          },
+        ]}
+      >
+        {cleanOverview}
+      </Text>
     </View>
   );
 };
 
 const Book = () => {
+  const colorScheme: ColorSchemeName = useColorScheme();
+
   const params = useLocalSearchParams();
   const [book, setBook] = useState({});
 
@@ -91,7 +153,15 @@ const Book = () => {
   }, []);
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+    <ScrollView
+      style={[
+        styles.container,
+        {
+          backgroundColor: Colors[colorScheme].background,
+        },
+      ]}
+      showsVerticalScrollIndicator={false}
+    >
       <ImageBackground
         source={require("../../assets/images/barbie.jpeg")}
         resizeMode="cover"
@@ -113,16 +183,41 @@ const Book = () => {
           />
         )}
 
-        <View style={styles.pageCountContainer}>
-          <Text style={styles.pageCount}>{book.volumeInfo?.pageCount}</Text>
-          <Text style={styles.page}>pages</Text>
+        <View
+          style={[
+            styles.pageCountContainer,
+            {
+              backgroundColor: Colors[colorScheme].ken,
+            },
+          ]}
+        >
+          <Text
+            style={[
+              styles.pageCount,
+              {
+                color: Colors[colorScheme].background,
+              },
+            ]}
+          >
+            {book.volumeInfo?.pageCount}
+          </Text>
+          <Text
+            style={[
+              styles.page,
+              {
+                color: Colors[colorScheme].text,
+              },
+            ]}
+          >
+            pages
+          </Text>
         </View>
       </ImageBackground>
 
       <View style={styles.bookInfo}>
         <BarbieText
           style={{
-            color: "#e0218a",
+            color: Colors[colorScheme].barbie,
             fontSize: 35,
             fontWeight: "500",
           }}
@@ -132,7 +227,7 @@ const Book = () => {
 
         <BarbieText
           style={{
-            color: "#555555",
+            color: Colors[colorScheme].text,
             fontSize: 17,
             fontWeight: "300",
           }}
@@ -148,7 +243,14 @@ const Book = () => {
         </BarbieText>
 
         {book.volumeInfo?.publisher && (
-          <Text style={styles.publisher}>
+          <Text
+            style={[
+              styles.publisher,
+              {
+                color: Colors[colorScheme].text,
+              },
+            ]}
+          >
             Published By {book.volumeInfo?.publisher}
           </Text>
         )}
@@ -170,7 +272,6 @@ export default Book;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
   },
   imageContainer: {
     width: "100%",
@@ -186,7 +287,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 50,
     left: 20,
-    backgroundColor: "#fff",
     padding: 5,
     borderRadius: 50,
   },
@@ -196,17 +296,14 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   title: {
-    color: "#e0218a",
     fontSize: 35,
     fontWeight: "500",
   },
   author: {
-    color: "#555555",
     fontSize: 17,
     fontWeight: "300",
   },
   pageCountContainer: {
-    backgroundColor: "#0AF6EE",
     width: 60,
     height: 60,
     borderRadius: 35,
@@ -219,21 +316,17 @@ const styles = StyleSheet.create({
   pageCount: {
     fontSize: 14,
     fontWeight: "500",
-    color: "#fff",
   },
   page: {
     fontSize: 10,
     fontWeight: "700",
-    color: "#000",
     textTransform: "capitalize",
   },
   publisher: {
-    color: "#808080",
     fontSize: 13,
     fontWeight: "400",
     marginTop: 5,
   },
-
   bookStats: {
     flexDirection: "row",
     justifyContent: "space-evenly",
@@ -265,11 +358,9 @@ const styles = StyleSheet.create({
     fontSize: 15,
     textTransform: "capitalize",
     fontWeight: "500",
-    color: "#696969",
   },
   description: {
     marginTop: 10,
     fontSize: 13,
-    color: "#808080",
   },
 });

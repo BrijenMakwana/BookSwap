@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { EvilIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import Colors from "@/constants/Colors";
+import * as Device from "expo-device";
 
 const SearchBar = (props) => {
   const colorScheme: ColorSchemeName = useColorScheme();
@@ -80,7 +81,7 @@ export default SearchBar;
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 60,
+    paddingTop: Device.deviceType === 2 ? 30 : 60,
     paddingBottom: 20,
   },
   inputContainer: {
@@ -95,7 +96,7 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     marginLeft: 10,
-    padding: 7,
+    padding: Device.deviceType === 2 ? 12 : 7,
   },
   clearBtn: {
     alignItems: "center",

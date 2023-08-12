@@ -11,15 +11,16 @@ import {
 import React, { useEffect, useState } from "react";
 import { useLocalSearchParams, useNavigation } from "expo-router";
 import axios from "axios";
-import { Ionicons, Fontisto } from "@expo/vector-icons";
+import { Ionicons, Fontisto, MaterialIcons } from "@expo/vector-icons";
 import moment from "moment";
 import { Image } from "expo-image";
 import Blurhash from "@/constants/Blurhash";
 import BarbieText from "@/components/BarbieText";
 import Colors from "@/constants/Colors";
 import * as Device from "expo-device";
+import { Link } from "expo-router";
 
-const GoBack = () => {
+export const GoBack = () => {
   const colorScheme: ColorSchemeName = useColorScheme();
 
   const navigation = useNavigation();
@@ -94,6 +95,42 @@ const BookPublishedDate = (props) => {
         {moment(date).format("ll")}
       </Text>
     </View>
+  );
+};
+
+const PreviewBook = (props) => {
+  const colorScheme: ColorSchemeName = useColorScheme();
+
+  const { route } = props;
+
+  if (!route) return;
+
+  return (
+    <Link
+      href={`/bookViewer/${route}`}
+      asChild
+      style={{
+        backgroundColor: Colors[colorScheme].text,
+      }}
+    >
+      <Pressable style={styles.previewBtn}>
+        <Text
+          style={[
+            styles.previewBtnText,
+            {
+              color: Colors[colorScheme].background,
+            },
+          ]}
+        >
+          preview this book
+        </Text>
+        <Fontisto
+          name="arrow-right-l"
+          size={24}
+          color={Colors[colorScheme].background}
+        />
+      </Pressable>
+    </Link>
   );
 };
 
@@ -262,6 +299,10 @@ const Book = () => {
           <BookPublishedDate date={book.volumeInfo?.publishedDate} />
         </View>
 
+        <PreviewBook
+          route={book.volumeInfo?.industryIdentifiers[1].identifier}
+        />
+
         <Overview overview={book?.volumeInfo?.description} />
       </View>
     </ScrollView>
@@ -290,6 +331,7 @@ const styles = StyleSheet.create({
     left: 20,
     padding: 5,
     borderRadius: 50,
+    zIndex: 2,
   },
   bookInfo: {
     width: "100%",
@@ -351,6 +393,22 @@ const styles = StyleSheet.create({
     fontSize: Device.deviceType === 2 ? 14 : 12,
     fontWeight: "500",
     marginLeft: 10,
+  },
+  previewBtn: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "center",
+    paddingVertical: 6,
+    borderRadius: 20,
+    paddingHorizontal: 15,
+    marginTop: 20,
+  },
+  previewBtnText: {
+    fontSize: 13,
+    fontWeight: "600",
+    marginRight: 10,
+    textTransform: "capitalize",
   },
   overviewContainer: {
     marginTop: 20,

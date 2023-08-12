@@ -37,7 +37,8 @@
     "react-native-screens": "~3.22.0",
     "react-native-web": "~0.19.6",
     "expo-barcode-scanner": "~12.5.3",
-    "expo-device": "~5.4.0"
+    "expo-device": "~5.4.0",
+    "react-native-webview": "13.2.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

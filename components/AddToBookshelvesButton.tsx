@@ -6,42 +6,32 @@ import {
   ColorSchemeName,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import React from "react";
 import Colors from "@/constants/Colors";
 
-const UIButton = (props) => {
+const AddToBookshelvesButton = (props) => {
   const colorScheme: ColorSchemeName = useColorScheme();
 
-  const { text, theme } = props;
+  const { text, onPress } = props;
   return (
     <Pressable
       style={[
         styles.container,
         {
-          backgroundColor:
-            theme === "barbie"
-              ? Colors[colorScheme].barbie
-              : Colors[colorScheme].ken,
+          backgroundColor: Colors[colorScheme].barbie,
         },
       ]}
+      onPress={onPress}
     >
       <MaterialCommunityIcons
         name="book-plus"
-        size={20}
-        color={
-          theme === "barbie"
-            ? Colors[colorScheme].background
-            : Colors[colorScheme].text
-        }
+        size={22}
+        color={Colors[colorScheme].background}
       />
       <Text
         style={[
           styles.btnText,
           {
-            color:
-              theme === "barbie"
-                ? Colors[colorScheme].background
-                : Colors[colorScheme].text,
+            color: Colors[colorScheme].background,
           },
         ]}
       >
@@ -51,20 +41,20 @@ const UIButton = (props) => {
   );
 };
 
-export default UIButton;
+export default AddToBookshelvesButton;
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    paddingVertical: 6,
-    borderRadius: 20,
-    paddingHorizontal: 12,
+    paddingVertical: 7,
+    borderRadius: 5,
+    marginTop: 20,
   },
   btnText: {
-    fontSize: 11,
+    fontSize: 14,
     fontWeight: "600",
-    marginLeft: 5,
+    marginLeft: 10,
   },
 });

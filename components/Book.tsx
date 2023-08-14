@@ -7,7 +7,7 @@ import {
   ColorSchemeName,
 } from "react-native";
 import React from "react";
-import UIButton from "./UIButton";
+import UIButton from "./AddToBookshelvesButton";
 import { Link } from "expo-router";
 import { Image } from "expo-image";
 import Blurhash from "@/constants/Blurhash";
@@ -34,7 +34,7 @@ const BookRating = (props) => {
             <FontAwesome
               name="star"
               size={16}
-              color={Colors[colorScheme].barbie}
+              color={Colors[colorScheme].ken}
               key={index}
             />
           );
@@ -43,7 +43,7 @@ const BookRating = (props) => {
             <FontAwesome
               name="star-half-o"
               size={16}
-              color={Colors[colorScheme].barbie}
+              color={Colors[colorScheme].ken}
               key={index}
             />
           );
@@ -52,7 +52,7 @@ const BookRating = (props) => {
             <FontAwesome
               name="star-o"
               size={16}
-              color={Colors[colorScheme].barbie}
+              color={Colors[colorScheme].ken}
               key={index}
             />
           );
@@ -65,16 +65,8 @@ const BookRating = (props) => {
 const Book = (props) => {
   const colorScheme: ColorSchemeName = useColorScheme();
 
-  const {
-    id,
-    title,
-    imageUrl,
-    author,
-    rating,
-    publishedDate,
-    pageCount,
-    allowActionBtns = true,
-  } = props;
+  const { id, title, imageUrl, author, rating, publishedDate, pageCount } =
+    props;
   return (
     <Link
       href={`/book/${id}`}
@@ -146,13 +138,6 @@ const Book = (props) => {
           >
             {pageCount} pages
           </Text>
-
-          {allowActionBtns && (
-            <View style={styles.btnContainer}>
-              <UIButton text="Read" theme="barbie" />
-              <UIButton text="Want to Read" theme="ken" />
-            </View>
-          )}
         </View>
       </Pressable>
     </Link>
@@ -179,7 +164,7 @@ const styles = StyleSheet.create({
     paddingRight: 10,
   },
   title: {
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: "700",
   },
   author: {

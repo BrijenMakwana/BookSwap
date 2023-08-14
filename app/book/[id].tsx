@@ -19,6 +19,8 @@ import BarbieText from "@/components/BarbieText";
 import Colors from "@/constants/Colors";
 import * as Device from "expo-device";
 import { Link } from "expo-router";
+import AddToBookshelvesButton from "@/components/AddToBookshelvesButton";
+import BookshelvesBottomSheet from "@/components/BookshelvesBottomSheet";
 
 export const GoBack = () => {
   const colorScheme: ColorSchemeName = useColorScheme();
@@ -106,19 +108,13 @@ const PreviewBook = (props) => {
   if (!route) return;
 
   return (
-    <Link
-      href={`/bookViewer/${route}`}
-      asChild
-      style={{
-        backgroundColor: Colors[colorScheme].text,
-      }}
-    >
+    <Link href={`/bookViewer/${route}`} asChild>
       <Pressable style={styles.previewBtn}>
         <Text
           style={[
             styles.previewBtnText,
             {
-              color: Colors[colorScheme].background,
+              color: Colors[colorScheme].barbie,
             },
           ]}
         >
@@ -127,7 +123,7 @@ const PreviewBook = (props) => {
         <Fontisto
           name="arrow-right-l"
           size={24}
-          color={Colors[colorScheme].background}
+          color={Colors[colorScheme].barbie}
         />
       </Pressable>
     </Link>
@@ -173,7 +169,10 @@ const Book = () => {
   const colorScheme: ColorSchemeName = useColorScheme();
 
   const params = useLocalSearchParams();
+
   const [book, setBook] = useState({});
+  const [addToBookShelvesIsVisible, setAddToBookShelvesIsVisible] =
+    useState(false);
 
   const getBook = async () => {
     try {
@@ -299,12 +298,23 @@ const Book = () => {
           <BookPublishedDate date={book.volumeInfo?.publishedDate} />
         </View>
 
+        <AddToBookshelvesButton
+          text="Add to Bookshelf"
+          onPress={() => setAddToBookShelvesIsVisible(true)}
+        />
+
         <PreviewBook
           route={book.volumeInfo?.industryIdentifiers[1].identifier}
         />
 
         <Overview overview={book?.volumeInfo?.description} />
       </View>
+
+      <BookshelvesBottomSheet
+        isVisible={addToBookShelvesIsVisible}
+        setIsVisible={setAddToBookShelvesIsVisible}
+        bookID={book.id}
+      />
     </ScrollView>
   );
 };
@@ -398,11 +408,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
+    marginTop: 15,
     alignSelf: "center",
-    paddingVertical: 6,
-    borderRadius: 20,
-    paddingHorizontal: 15,
-    marginTop: 20,
   },
   previewBtnText: {
     fontSize: 13,

@@ -19,7 +19,14 @@ const UserFact = (props) => {
 
   const { number, text } = props;
   return (
-    <View style={styles.userFact}>
+    <View
+      style={[
+        styles.userFact,
+        {
+          backgroundColor: Colors[colorScheme].ken,
+        },
+      ]}
+    >
       <Text
         style={[
           styles.factNumber,
@@ -131,7 +138,6 @@ const styles = StyleSheet.create({
   userFact: {
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#DCDCDC",
     width: "20%",
     paddingVertical: 10,
     borderRadius: 5,

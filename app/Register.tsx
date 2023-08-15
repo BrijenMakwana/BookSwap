@@ -1,6 +1,8 @@
 import {
   ColorSchemeName,
+  SafeAreaView,
   StyleSheet,
+  Text,
   ImageBackground,
   useColorScheme,
 } from "react-native";
@@ -10,7 +12,7 @@ import UIInput from "@/components/UIInput";
 import BarbieText from "@/components/BarbieText";
 import UIButton from "@/components/UIButton";
 
-const Login = () => {
+const Register = () => {
   const colorScheme: ColorSchemeName = useColorScheme();
 
   return (
@@ -31,19 +33,19 @@ const Login = () => {
           color: Colors[colorScheme].text,
         }}
       >
-        login
+        register
       </BarbieText>
+      <UIInput placeholder="Full Name" type="solid" />
+      <UIInput placeholder="Email" type="solid" />
+      <UIInput placeholder="Password" type="solid" />
+      <UIInput placeholder="Location" type="solid" />
 
-      <UIInput placeholder="Email" />
-      <UIInput placeholder="Password" />
-
-      <UIButton text="login" type="solid" />
-      <UIButton text="create a new account" type="outline" />
+      <UIButton text="register" />
     </ImageBackground>
   );
 };
 
-export default Login;
+export default Register;
 
 const styles = StyleSheet.create({
   container: {

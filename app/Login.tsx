@@ -43,10 +43,16 @@ const SignInWithGoogle = () => {
 };
 
 const Login = () => {
+  const colorScheme: ColorSchemeName = useColorScheme();
+
   return (
     <ImageBackground
       style={styles.image}
-      source={require("../assets/images/login.png")}
+      source={
+        colorScheme === "light"
+          ? require("../assets/images/login_light.png")
+          : require("../assets/images/login_dark.png")
+      }
       resizeMode="cover"
     >
       <Image

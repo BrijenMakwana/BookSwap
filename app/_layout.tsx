@@ -51,6 +51,7 @@ function RootLayoutNav() {
       }}
     >
       <Stack.Screen name="Login" />
+      <Stack.Screen name="Register" />
       <Stack.Screen name="(tabs)" />
       <Stack.Screen name="book/[id]" />
       <Stack.Screen name="bookViewer/[isbn]" />

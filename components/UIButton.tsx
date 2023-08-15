@@ -1,0 +1,63 @@
+import {
+  StyleSheet,
+  Text,
+  ColorSchemeName,
+  useColorScheme,
+} from "react-native";
+import React from "react";
+import { Pressable } from "react-native";
+import Colors from "@/constants/Colors";
+
+const UIButton = (props) => {
+  const colorScheme: ColorSchemeName = useColorScheme();
+
+  const { text, type } = props;
+
+  return (
+    <Pressable
+      style={[
+        styles.btnContainer,
+        {
+          backgroundColor:
+            type === "solid"
+              ? Colors[colorScheme].barbie
+              : Colors[colorScheme].background,
+        },
+      ]}
+      android_ripple={{
+        color: Colors[colorScheme].text,
+      }}
+    >
+      <Text
+        style={[
+          styles.btnText,
+          {
+            color:
+              type === "solid"
+                ? Colors[colorScheme].background
+                : Colors[colorScheme].text,
+          },
+        ]}
+      >
+        {text}
+      </Text>
+    </Pressable>
+  );
+};
+
+export default UIButton;
+
+const styles = StyleSheet.create({
+  btnContainer: {
+    paddingVertical: 10,
+    marginTop: 30,
+    width: "80%",
+    alignItems: "center",
+    borderRadius: 5,
+  },
+  btnText: {
+    fontSize: 15,
+    fontWeight: "600",
+    textTransform: "capitalize",
+  },
+});

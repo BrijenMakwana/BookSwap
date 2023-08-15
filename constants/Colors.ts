@@ -8,7 +8,7 @@ export default {
     barbie: BARBIE,
     ken: KEN,
     tabIconSelected: BARBIE,
-    tabIconDefault: "#333333",
+    tabIconDefault: "#323232",
   },
   dark: {
     text: "#fff",

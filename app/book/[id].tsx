@@ -225,6 +225,7 @@ const Book = () => {
             styles.pageCountContainer,
             {
               backgroundColor: Colors[colorScheme].ken,
+              borderColor: Colors[colorScheme].background,
             },
           ]}
         >
@@ -357,14 +358,15 @@ const styles = StyleSheet.create({
     fontWeight: "300",
   },
   pageCountContainer: {
-    width: 60,
-    height: 60,
+    width: 65,
+    height: 65,
     borderRadius: 35,
     alignItems: "center",
     justifyContent: "center",
     position: "absolute",
     bottom: -30,
     right: 30,
+    borderWidth: 4,
   },
   pageCount: {
     fontSize: 14,

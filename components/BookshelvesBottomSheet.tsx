@@ -1,6 +1,8 @@
-import { StyleSheet, ToastAndroid } from "react-native";
+import { Pressable, StyleSheet, Text, ToastAndroid } from "react-native";
 import { BottomSheet, ListItem } from "@rneui/themed";
 import { supabase } from "@/supabase/supabase";
+import { useColorScheme, ColorSchemeName } from "react-native";
+import Colors from "@/constants/Colors";
 
 export enum BOOK_SHELVES {
   Read = 1,
@@ -9,6 +11,8 @@ export enum BOOK_SHELVES {
 }
 
 const BookshelvesBottomSheet = (props) => {
+  const colorScheme: ColorSchemeName = useColorScheme();
+
   const { isVisible, setIsVisible, bookID } = props;
 
   const addBookToShelf = async (bookShelfID: number, bookId: string) => {
@@ -29,9 +33,12 @@ const BookshelvesBottomSheet = (props) => {
   };
 
   const bookshelves = [
-    { title: "Read", onPress: () => addBookToShelf(BOOK_SHELVES.Read, bookID) },
     {
-      title: "Currently Reding",
+      title: "Read",
+      onPress: () => addBookToShelf(BOOK_SHELVES.Read, bookID),
+    },
+    {
+      title: "Currently Reading",
       onPress: () => addBookToShelf(BOOK_SHELVES.CurrentlyReading, bookID),
     },
     {
@@ -40,8 +47,6 @@ const BookshelvesBottomSheet = (props) => {
     },
     {
       title: "Cancel",
-      containerStyle: { backgroundColor: "red" },
-      titleStyle: { color: "white" },
       onPress: () => setIsVisible(false),
     },
   ];
@@ -52,17 +57,33 @@ const BookshelvesBottomSheet = (props) => {
       onBackdropPress={() => setIsVisible(false)}
     >
       {bookshelves.map((shelf, index) => (
-        <ListItem
+        <Pressable
           key={index}
-          containerStyle={shelf.containerStyle}
+          style={[
+            styles.btnContainer,
+            {
+              backgroundColor: Colors[colorScheme].background,
+            },
+          ]}
+          android_ripple={{
+            color: Colors[colorScheme].barbie,
+          }}
           onPress={shelf.onPress}
         >
-          <ListItem.Content>
-            <ListItem.Title style={shelf.titleStyle}>
-              {shelf.title}
-            </ListItem.Title>
-          </ListItem.Content>
-        </ListItem>
+          <Text
+            style={[
+              styles.btnText,
+              {
+                color:
+                  shelf.title === "Cancel"
+                    ? Colors[colorScheme].barbie
+                    : Colors[colorScheme].text,
+              },
+            ]}
+          >
+            {shelf.title}
+          </Text>
+        </Pressable>
       ))}
     </BottomSheet>
   );
@@ -70,4 +91,14 @@ const BookshelvesBottomSheet = (props) => {
 
 export default BookshelvesBottomSheet;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  btnContainer: {
+    padding: 13,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  btnText: {
+    flex: 1,
+    fontSize: 16,
+  },
+});

@@ -11,7 +11,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { useLocalSearchParams, useNavigation } from "expo-router";
 import axios from "axios";
-import { Ionicons, Fontisto, MaterialIcons } from "@expo/vector-icons";
+import { Ionicons, Fontisto } from "@expo/vector-icons";
 import moment from "moment";
 import { Image } from "expo-image";
 import Blurhash from "@/constants/Blurhash";
@@ -215,7 +215,7 @@ const Book = () => {
               book.volumeInfo?.imageLinks?.medium
             }
             placeholder={Blurhash}
-            contentFit="contain"
+            contentFit="fill"
             transition={1000}
           />
         )}

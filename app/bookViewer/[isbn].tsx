@@ -23,10 +23,14 @@ const BookViewer = () => {
           <script type="text/javascript" src="https://www.google.com/books/jsapi.js"></script>
           <script type="text/javascript">
             google.books.load();
+
+            function alertNotFound() {
+              alert("could not embed this book!");
+            }
       
             function initialize() {
               var viewer = new google.books.DefaultViewer(document.getElementById('viewerCanvas'));
-              viewer.load('ISBN:${params.isbn}');
+              viewer.load('ISBN:${params.isbn}',alertNotFound);
             }
       
             google.books.setOnLoadCallback(initialize);

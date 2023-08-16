@@ -12,7 +12,7 @@ import Colors from "@/constants/Colors";
 const UIInput = (props) => {
   const colorScheme: ColorSchemeName = useColorScheme();
 
-  const { placeholder } = props;
+  const { placeholder, value, setValue, isProtected = false } = props;
 
   return (
     <TextInput
@@ -25,6 +25,9 @@ const UIInput = (props) => {
         },
       ]}
       placeholderTextColor={Colors[colorScheme].text}
+      value={value}
+      onChangeText={(text) => setValue(text)}
+      secureTextEntry={isProtected}
     />
   );
 };

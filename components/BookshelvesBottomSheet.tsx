@@ -1,5 +1,5 @@
 import { Pressable, StyleSheet, Text, ToastAndroid } from "react-native";
-import { BottomSheet, ListItem } from "@rneui/themed";
+import { BottomSheet } from "@rneui/themed";
 import { supabase } from "@/supabase/supabase";
 import { useColorScheme, ColorSchemeName } from "react-native";
 import Colors from "@/constants/Colors";
@@ -98,7 +98,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   btnText: {
-    flex: 1,
     fontSize: 16,
   },
 });

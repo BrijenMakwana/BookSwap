@@ -190,10 +190,4 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     textTransform: "capitalize",
   },
-  btnContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    marginTop: "auto",
-  },
 });

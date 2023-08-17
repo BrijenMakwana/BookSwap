@@ -17,15 +17,23 @@ const BookshelvesBottomSheet = (props) => {
   const { isVisible, setIsVisible, bookID } = props;
 
   const addBookToShelf = async (bookShelfID: number, bookId: string) => {
-    const userID = await AsyncStorage.getItem("userID");
-
-    const bookObj = {
-      userID: userID,
-      bookShelfID: bookShelfID,
-      bookID: bookId,
-    };
-
     try {
+      const {
+        data: { session },
+        error: sessionError,
+      } = await supabase.auth.getSession();
+      const userID = session?.user.id;
+
+      if (sessionError) {
+        throw new Error(sessionError.message);
+      }
+
+      const bookObj = {
+        userID: userID,
+        bookShelfID: bookShelfID,
+        bookID: bookId,
+      };
+
       const { error } = await supabase.from("Books").insert(bookObj);
 
       if (error) {

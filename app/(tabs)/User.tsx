@@ -16,8 +16,6 @@ import * as Device from "expo-device";
 import { supabase } from "@/supabase/supabase";
 import { useNavigation } from "expo-router";
 import UIButton from "@/components/UIButton";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Session } from "@supabase/supabase-js";
 
 const UserFact = (props) => {
   const colorScheme: ColorSchemeName = useColorScheme();
@@ -72,15 +70,19 @@ const User = () => {
   };
 
   const getLoggedInUser = async () => {
-    const { data } = await supabase.auth.getUser();
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      console.log(session);
+    const {
+      data: { session },
+      error: sessionError,
+    } = await supabase.auth.getSession();
+
+    setUser({
+      fullName: session?.user.user_metadata.full_name,
+      email: session?.user.email,
     });
   };
 
   const signOut = async () => {
     const { error } = await supabase.auth.signOut();
-    await AsyncStorage.removeItem("userID");
     goToLoginScreen();
   };
 
@@ -118,7 +120,7 @@ const User = () => {
           textTransform: "capitalize",
         }}
       >
-        margot robbie
+        {user.fullName}
       </BarbieText>
 
       <Text
@@ -129,7 +131,7 @@ const User = () => {
           },
         ]}
       >
-        margotrobbie@gmail.com
+        {user.email}
       </Text>
 
       <View style={styles.userFacts}>

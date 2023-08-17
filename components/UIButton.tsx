@@ -11,7 +11,7 @@ import Colors from "@/constants/Colors";
 const UIButton = (props) => {
   const colorScheme: ColorSchemeName = useColorScheme();
 
-  const { text, type } = props;
+  const { text, type, onPress } = props;
 
   return (
     <Pressable
@@ -27,6 +27,7 @@ const UIButton = (props) => {
       android_ripple={{
         color: Colors[colorScheme].text,
       }}
+      onPress={onPress}
     >
       <Text
         style={[

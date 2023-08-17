@@ -1,8 +1,9 @@
 import { Pressable, StyleSheet, Text, ToastAndroid } from "react-native";
-import { BottomSheet, ListItem } from "@rneui/themed";
+import { BottomSheet } from "@rneui/themed";
 import { supabase } from "@/supabase/supabase";
 import { useColorScheme, ColorSchemeName } from "react-native";
 import Colors from "@/constants/Colors";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export enum BOOK_SHELVES {
   Read = 1,
@@ -16,14 +17,29 @@ const BookshelvesBottomSheet = (props) => {
   const { isVisible, setIsVisible, bookID } = props;
 
   const addBookToShelf = async (bookShelfID: number, bookId: string) => {
-    const bookObj = {
-      email: "brijenma@gmail.com",
-      bookShelfID: bookShelfID,
-      bookID: bookId,
-    };
-
     try {
-      await supabase.from("Books").insert(bookObj);
+      const {
+        data: { session },
+        error: sessionError,
+      } = await supabase.auth.getSession();
+      const userID = session?.user.id;
+
+      if (sessionError) {
+        throw new Error(sessionError.message);
+      }
+
+      const bookObj = {
+        userID: userID,
+        bookShelfID: bookShelfID,
+        bookID: bookId,
+      };
+
+      const { error } = await supabase.from("Books").insert(bookObj);
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
       ToastAndroid.show("Book added successfully!", ToastAndroid.SHORT);
     } catch (error) {
       ToastAndroid.show(error.message, ToastAndroid.SHORT);
@@ -98,7 +114,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   btnText: {
-    flex: 1,
     fontSize: 16,
   },
 });

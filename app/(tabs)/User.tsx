@@ -6,18 +6,22 @@ import {
   useColorScheme,
   ColorSchemeName,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Image } from "expo-image";
 import Blurhash from "@/constants/Blurhash";
 import BarbieText from "@/components/BarbieText";
 import RandomQuote from "@/components/RandomQuote";
 import Colors from "@/constants/Colors";
 import * as Device from "expo-device";
+import { supabase } from "@/supabase/supabase";
+import { useNavigation } from "expo-router";
+import UIButton from "@/components/UIButton";
 
 const UserFact = (props) => {
   const colorScheme: ColorSchemeName = useColorScheme();
 
   const { number, text } = props;
+
   return (
     <View
       style={[
@@ -54,6 +58,38 @@ const UserFact = (props) => {
 const User = () => {
   const colorScheme: ColorSchemeName = useColorScheme();
 
+  const [user, setUser] = useState({});
+
+  const navigation = useNavigation();
+
+  const goToLoginScreen = () => {
+    navigation.reset({
+      index: 0,
+      routes: [{ name: "Login" }],
+    });
+  };
+
+  const getLoggedInUser = async () => {
+    const {
+      data: { session },
+      error: sessionError,
+    } = await supabase.auth.getSession();
+
+    setUser({
+      fullName: session?.user.user_metadata.full_name,
+      email: session?.user.email,
+    });
+  };
+
+  const signOut = async () => {
+    const { error } = await supabase.auth.signOut();
+    goToLoginScreen();
+  };
+
+  useEffect(() => {
+    getLoggedInUser();
+  }, []);
+
   return (
     <SafeAreaView
       style={[
@@ -84,7 +120,7 @@ const User = () => {
           textTransform: "capitalize",
         }}
       >
-        margot robbie
+        {user.fullName}
       </BarbieText>
 
       <Text
@@ -95,7 +131,7 @@ const User = () => {
           },
         ]}
       >
-        margotrobbie@gmail.com
+        {user.email}
       </Text>
 
       <View style={styles.userFacts}>
@@ -105,6 +141,8 @@ const User = () => {
       </View>
 
       <RandomQuote />
+
+      <UIButton text="Sign Out" type="solid" onPress={signOut} />
     </SafeAreaView>
   );
 };

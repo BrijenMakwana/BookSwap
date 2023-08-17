@@ -87,6 +87,13 @@ const Bookshelves = () => {
 
   const [books, setBooks] = useState([]);
 
+  const removeBookFromShelf = async (bookID: string) => {
+    const { error } = await supabase
+      .from("books")
+      .delete()
+      .eq("bookID", bookID);
+  };
+
   return (
     <View
       style={[
@@ -109,7 +116,12 @@ const Bookshelves = () => {
 
       <FlashList
         data={books}
-        renderItem={({ item }) => <BookShelfBook bookID={item?.bookID} />}
+        renderItem={({ item }) => (
+          <BookShelfBook
+            bookID={item?.bookID}
+            removeBookFromShelf={removeBookFromShelf}
+          />
+        )}
         showsVerticalScrollIndicator={false}
         estimatedItemSize={20}
         ItemSeparatorComponent={() => <Divider />}

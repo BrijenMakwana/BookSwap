@@ -3,6 +3,7 @@ import { BottomSheet } from "@rneui/themed";
 import { supabase } from "@/supabase/supabase";
 import { useColorScheme, ColorSchemeName } from "react-native";
 import Colors from "@/constants/Colors";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export enum BOOK_SHELVES {
   Read = 1,
@@ -16,14 +17,21 @@ const BookshelvesBottomSheet = (props) => {
   const { isVisible, setIsVisible, bookID } = props;
 
   const addBookToShelf = async (bookShelfID: number, bookId: string) => {
+    const userID = await AsyncStorage.getItem("userID");
+
     const bookObj = {
-      email: "brijenma@gmail.com",
+      userID: userID,
       bookShelfID: bookShelfID,
       bookID: bookId,
     };
 
     try {
-      await supabase.from("Books").insert(bookObj);
+      const { error } = await supabase.from("Books").insert(bookObj);
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
       ToastAndroid.show("Book added successfully!", ToastAndroid.SHORT);
     } catch (error) {
       ToastAndroid.show(error.message, ToastAndroid.SHORT);

@@ -1,8 +1,6 @@
 import {
   ColorSchemeName,
-  SafeAreaView,
   StyleSheet,
-  Text,
   ImageBackground,
   useColorScheme,
   ToastAndroid,
@@ -14,9 +12,12 @@ import BarbieText from "@/components/BarbieText";
 import UIButton from "@/components/UIButton";
 import { supabase } from "@/supabase/supabase";
 import { emailIsValid } from "@/utility/utility";
+import { useNavigation } from "expo-router";
 
 const Register = () => {
   const colorScheme: ColorSchemeName = useColorScheme();
+
+  const navigation = useNavigation();
 
   const [fullName, setFullName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -39,9 +40,21 @@ const Register = () => {
           },
         },
       });
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      if (data) {
+        ToastAndroid.show("Account created!", ToastAndroid.SHORT);
+      }
     } catch (error) {
       ToastAndroid.show(error.message, ToastAndroid.SHORT);
     }
+  };
+
+  const goToLoginScreen = () => {
+    navigation.goBack();
   };
 
   return (
@@ -91,6 +104,7 @@ const Register = () => {
       />
 
       <UIButton text="register" onPress={registerUser} type="solid" />
+      <UIButton text="back to login" type="outline" onPress={goToLoginScreen} />
     </ImageBackground>
   );
 };

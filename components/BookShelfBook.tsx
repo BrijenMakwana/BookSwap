@@ -1,12 +1,16 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, useColorScheme, ColorSchemeName } from "react-native";
 import React, { useEffect, useState } from "react";
 import Book from "./Book";
 import axios from "axios";
+import { ListItem, Button } from "@rneui/themed";
+import Colors from "@/constants/Colors";
 
 const BookShelfBook = (props) => {
+  const colorScheme: ColorSchemeName = useColorScheme();
+
   const [book, setBook] = useState({});
 
-  const { bookID } = props;
+  const { bookID, removeBookFromShelf } = props;
 
   const getBook = async () => {
     try {
@@ -24,15 +28,35 @@ const BookShelfBook = (props) => {
   }, []);
 
   return (
-    <Book
-      id={book.id}
-      imageUrl={book?.volumeInfo?.imageLinks?.thumbnail}
-      title={book?.volumeInfo?.title}
-      author={book?.volumeInfo?.authors[0] || "NA"}
-      rating={book?.volumeInfo?.averageRating}
-      publishedDate={book.volumeInfo?.publishedDate}
-      pageCount={book.volumeInfo?.pageCount}
-    />
+    <ListItem.Swipeable
+      rightContent={
+        <Button
+          title="Delete"
+          onPress={() => removeBookFromShelf(bookID)}
+          icon={{ name: "delete", color: Colors[colorScheme].background }}
+          buttonStyle={{
+            minHeight: "100%",
+            backgroundColor: Colors[colorScheme].barbie,
+          }}
+          titleStyle={{
+            color: Colors[colorScheme].background,
+          }}
+        />
+      }
+      containerStyle={{
+        padding: 0,
+      }}
+    >
+      <Book
+        id={book.id}
+        imageUrl={book?.volumeInfo?.imageLinks?.thumbnail}
+        title={book?.volumeInfo?.title}
+        author={book?.volumeInfo?.authors[0] || "NA"}
+        rating={book?.volumeInfo?.averageRating}
+        publishedDate={book.volumeInfo?.publishedDate}
+        pageCount={book.volumeInfo?.pageCount}
+      />
+    </ListItem.Swipeable>
   );
 };
 

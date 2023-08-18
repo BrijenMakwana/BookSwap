@@ -127,7 +127,7 @@ const Bookshelves = () => {
           marginLeft: 10,
         }}
       >
-        want to read
+        want to read ({books.length})
       </BarbieText>
 
       <FlatList

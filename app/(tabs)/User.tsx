@@ -17,44 +17,6 @@ import { supabase } from "@/supabase/supabase";
 import { useNavigation } from "expo-router";
 import UIButton from "@/components/UIButton";
 
-const UserFact = (props) => {
-  const colorScheme: ColorSchemeName = useColorScheme();
-
-  const { number, text } = props;
-
-  return (
-    <View
-      style={[
-        styles.userFact,
-        {
-          backgroundColor: Colors[colorScheme].ken,
-        },
-      ]}
-    >
-      <Text
-        style={[
-          styles.factNumber,
-          {
-            color: Colors[colorScheme].text,
-          },
-        ]}
-      >
-        {number}
-      </Text>
-      <Text
-        style={[
-          styles.factText,
-          {
-            color: Colors[colorScheme].text,
-          },
-        ]}
-      >
-        {text}
-      </Text>
-    </View>
-  );
-};
-
 const User = () => {
   const colorScheme: ColorSchemeName = useColorScheme();
 
@@ -134,12 +96,6 @@ const User = () => {
         {user.email}
       </Text>
 
-      <View style={styles.userFacts}>
-        <UserFact text="shelf" number={95} />
-        <UserFact text="reads" number={35} />
-        <UserFact text="exchange" number={5} />
-      </View>
-
       <RandomQuote />
 
       <UIButton text="Sign Out" type="solid" onPress={signOut} />
@@ -165,29 +121,5 @@ const styles = StyleSheet.create({
   userEmail: {
     fontSize: Device.deviceType === 2 ? 15 : 14,
     fontWeight: "400",
-  },
-  userFacts: {
-    marginTop: 40,
-    width: "100%",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-evenly",
-  },
-  userFact: {
-    alignItems: "center",
-    justifyContent: "center",
-    width: "20%",
-    paddingVertical: 10,
-    borderRadius: 5,
-  },
-  factNumber: {
-    fontWeight: "500",
-    fontSize: 25,
-  },
-  factText: {
-    fontWeight: "400",
-    fontSize: 13,
-    textTransform: "capitalize",
-    marginTop: 5,
   },
 });

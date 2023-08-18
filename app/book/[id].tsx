@@ -21,6 +21,8 @@ import * as Device from "expo-device";
 import { Link } from "expo-router";
 import AddToBookshelvesButton from "@/components/AddToBookshelvesButton";
 import BookshelvesBottomSheet from "@/components/BookshelvesBottomSheet";
+import { supabase } from "@/supabase/supabase";
+import useUserID from "@/hooks/useUserID";
 
 export const GoBack = () => {
   const colorScheme: ColorSchemeName = useColorScheme();
@@ -173,6 +175,21 @@ const Book = () => {
   const [book, setBook] = useState({});
   const [addToBookShelvesIsVisible, setAddToBookShelvesIsVisible] =
     useState(false);
+  const [bookIsPresent, setBookIsPresent] = useState(false);
+
+  const { userID, sessionError } = useUserID();
+
+  const bookIsPresentInShelf = async () => {
+    const { data } = await supabase
+      .from("Books")
+      .select()
+      .eq("userID", userID)
+      .eq("bookID", params.id);
+
+    if (data && data?.length > 0) {
+      setBookIsPresent(true);
+    }
+  };
 
   const getBook = async () => {
     try {
@@ -187,7 +204,14 @@ const Book = () => {
 
   useEffect(() => {
     getBook();
+    bookIsPresentInShelf();
   }, []);
+
+  useEffect(() => {
+    if (userID) {
+      bookIsPresentInShelf();
+    }
+  }, [userID]);
 
   return (
     <ScrollView
@@ -300,8 +324,8 @@ const Book = () => {
         </View>
 
         <AddToBookshelvesButton
-          text="Add to Bookshelf"
           onPress={() => setAddToBookShelvesIsVisible(true)}
+          bookIsPresent={bookIsPresent}
         />
 
         <PreviewBook

@@ -11,31 +11,42 @@ import Colors from "@/constants/Colors";
 const AddToBookshelvesButton = (props) => {
   const colorScheme: ColorSchemeName = useColorScheme();
 
-  const { text, onPress } = props;
+  const { bookIsPresent, onPress } = props;
+
+  const btnText = bookIsPresent ? "Change Bookshelf" : "Add to Bookshelf";
+  const backgroundColor = bookIsPresent
+    ? Colors[colorScheme].background
+    : Colors[colorScheme].barbie;
+  const borderColor = bookIsPresent
+    ? Colors[colorScheme].barbie
+    : Colors[colorScheme].background;
+  const borderWidth = bookIsPresent ? 1 : 0;
+  const textColor = bookIsPresent
+    ? Colors[colorScheme].barbie
+    : Colors[colorScheme].background;
+
   return (
     <Pressable
       style={[
         styles.container,
         {
-          backgroundColor: Colors[colorScheme].barbie,
+          backgroundColor: backgroundColor,
+          borderColor: borderColor,
+          borderWidth: borderWidth,
         },
       ]}
       onPress={onPress}
     >
-      <MaterialCommunityIcons
-        name="book-plus"
-        size={22}
-        color={Colors[colorScheme].background}
-      />
+      <MaterialCommunityIcons name="book-plus" size={22} color={textColor} />
       <Text
         style={[
           styles.btnText,
           {
-            color: Colors[colorScheme].background,
+            color: textColor,
           },
         ]}
       >
-        {text}
+        {btnText}
       </Text>
     </Pressable>
   );

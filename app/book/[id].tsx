@@ -9,7 +9,7 @@ import {
   ColorSchemeName,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import { useLocalSearchParams, useNavigation } from "expo-router";
+import { useLocalSearchParams, Link, router } from "expo-router";
 import axios from "axios";
 import { Ionicons, Fontisto } from "@expo/vector-icons";
 import moment from "moment";
@@ -18,7 +18,6 @@ import Blurhash from "@/constants/Blurhash";
 import BarbieText from "@/components/BarbieText";
 import Colors from "@/constants/Colors";
 import * as Device from "expo-device";
-import { Link } from "expo-router";
 import AddToBookshelvesButton from "@/components/AddToBookshelvesButton";
 import BookshelvesBottomSheet from "@/components/BookshelvesBottomSheet";
 import { supabase } from "@/supabase/supabase";
@@ -26,8 +25,6 @@ import useUserID from "@/hooks/useUserID";
 
 export const GoBack = () => {
   const colorScheme: ColorSchemeName = useColorScheme();
-
-  const navigation = useNavigation();
 
   return (
     <Pressable
@@ -37,7 +34,7 @@ export const GoBack = () => {
           backgroundColor: Colors[colorScheme].background,
         },
       ]}
-      onPress={() => navigation.goBack()}
+      onPress={() => router.back()}
     >
       <Ionicons
         name="arrow-back"

@@ -12,10 +12,13 @@ import BarbieText from "@/components/BarbieText";
 import UIButton from "@/components/UIButton";
 import { supabase } from "@/supabase/supabase";
 import { emailIsValid } from "@/utility/utility";
-import { useNavigation } from "expo-router";
+import { useNavigation, router } from "expo-router";
+import useUserID from "@/hooks/useUserID";
 
 const Login = () => {
   const colorScheme: ColorSchemeName = useColorScheme();
+
+  const { userID, sessionError } = useUserID();
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -29,7 +32,13 @@ const Login = () => {
     });
   };
 
+  const goToRegisterScreen = () => {
+    router.push("/Register");
+  };
+
   const userIsLoggedIn = async () => {
+    if (sessionError) return;
+
     if (userID) {
       goToHomeScreen();
     }
@@ -58,10 +67,6 @@ const Login = () => {
     } catch (error) {
       ToastAndroid.show(error.message, ToastAndroid.SHORT);
     }
-  };
-
-  const goToRegisterScreen = () => {
-    navigation.navigate("Register");
   };
 
   useEffect(() => {

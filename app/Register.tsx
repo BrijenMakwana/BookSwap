@@ -12,12 +12,10 @@ import BarbieText from "@/components/BarbieText";
 import UIButton from "@/components/UIButton";
 import { supabase } from "@/supabase/supabase";
 import { emailIsValid } from "@/utility/utility";
-import { useNavigation } from "expo-router";
+import { router } from "expo-router";
 
 const Register = () => {
   const colorScheme: ColorSchemeName = useColorScheme();
-
-  const navigation = useNavigation();
 
   const [fullName, setFullName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -54,7 +52,7 @@ const Register = () => {
   };
 
   const goToLoginScreen = () => {
-    navigation.goBack();
+    router.back();
   };
 
   return (

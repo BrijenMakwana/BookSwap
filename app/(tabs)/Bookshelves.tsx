@@ -52,17 +52,19 @@ const CustomSpeedDial = (props) => {
       <CustomSpeedDialAction
         title="Read"
         icon="eye-slash"
-        onPress={() => getBookshelf(BOOK_SHELVES.Read)}
+        onPress={() => getBookshelf(BOOK_SHELVES.Read, "read")}
       />
       <CustomSpeedDialAction
         title="Currently Reading"
         icon="eye"
-        onPress={() => getBookshelf(BOOK_SHELVES.CurrentlyReading)}
+        onPress={() =>
+          getBookshelf(BOOK_SHELVES.CurrentlyReading, "currently reading")
+        }
       />
       <CustomSpeedDialAction
         title="Want to Read"
         icon="bullseye"
-        onPress={() => getBookshelf(BOOK_SHELVES.WantToRead)}
+        onPress={() => getBookshelf(BOOK_SHELVES.WantToRead, "want to read")}
       />
     </SpeedDial>
   );
@@ -73,12 +75,13 @@ const Bookshelves = () => {
 
   const { userID, sessionError } = useUserID();
 
+  const [currentBookself, setCurrentBookself] = useState<string>("read");
   const [books, setBooks] = useState([]);
-
   const [dialIsOpen, setDialIsOpen] = useState(false);
 
-  const getBookshelf = async (bookShelfID: number) => {
+  const getBookshelf = async (bookShelfID: number, bookshelfTitle: string) => {
     setDialIsOpen(false);
+    setCurrentBookself(bookshelfTitle);
 
     try {
       if (sessionError) {
@@ -117,9 +120,9 @@ const Bookshelves = () => {
       }
 
       // need to improve
-      getBookshelf(BOOK_SHELVES.Read);
-      getBookshelf(BOOK_SHELVES.CurrentlyReading);
-      getBookshelf(BOOK_SHELVES.WantToRead);
+      getBookshelf(BOOK_SHELVES.Read, "read");
+      getBookshelf(BOOK_SHELVES.CurrentlyReading, "currently reading");
+      getBookshelf(BOOK_SHELVES.WantToRead, "want to read");
 
       ToastAndroid.show("Book removed!", ToastAndroid.SHORT);
     } catch (error) {
@@ -128,7 +131,7 @@ const Bookshelves = () => {
   };
 
   useEffect(() => {
-    getBookshelf(BOOK_SHELVES.Read);
+    getBookshelf(BOOK_SHELVES.Read, "read");
   }, []);
 
   return (
@@ -148,7 +151,7 @@ const Bookshelves = () => {
           marginLeft: 10,
         }}
       >
-        want to read ({books?.length})
+        {currentBookself} ({books?.length})
       </BarbieText>
 
       <FlatList

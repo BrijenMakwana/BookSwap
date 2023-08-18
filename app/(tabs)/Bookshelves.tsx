@@ -85,6 +85,10 @@ const Bookshelves = () => {
         throw new Error(sessionError.message);
       }
 
+      if (!userID) {
+        throw new Error("Try again!");
+      }
+
       const { data, error } = await supabase
         .from("Books")
         .select("bookID")

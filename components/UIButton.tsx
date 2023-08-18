@@ -25,7 +25,10 @@ const UIButton = (props) => {
         },
       ]}
       android_ripple={{
-        color: Colors[colorScheme].text,
+        color:
+          type === "solid"
+            ? Colors[colorScheme].background
+            : Colors[colorScheme].barbie,
       }}
       onPress={onPress}
     >

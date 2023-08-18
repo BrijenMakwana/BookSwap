@@ -120,9 +120,17 @@ const Bookshelves = () => {
       }
 
       // need to improve
-      getBookshelf(BOOK_SHELVES.Read, "read");
-      getBookshelf(BOOK_SHELVES.CurrentlyReading, "currently reading");
-      getBookshelf(BOOK_SHELVES.WantToRead, "want to read");
+      switch (currentBookself) {
+        case "read":
+          getBookshelf(BOOK_SHELVES.Read, currentBookself);
+          break;
+        case "currently reading":
+          getBookshelf(BOOK_SHELVES.CurrentlyReading, currentBookself);
+          break;
+        case "want to read":
+          getBookshelf(BOOK_SHELVES.WantToRead, currentBookself);
+          break;
+      }
 
       ToastAndroid.show("Book removed!", ToastAndroid.SHORT);
     } catch (error) {

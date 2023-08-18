@@ -280,6 +280,7 @@ const Book = () => {
             color: Colors[colorScheme].barbie,
             fontSize: 35,
             fontWeight: "500",
+            textTransform: "capitalize",
           }}
         >
           {book.volumeInfo?.title}
@@ -290,8 +291,10 @@ const Book = () => {
             color: Colors[colorScheme].text,
             fontSize: 17,
             fontWeight: "300",
+            textTransform: "capitalize",
           }}
         >
+          by{" "}
           {book.volumeInfo?.authors.map((authorName: string, index: number) => (
             <Authors
               authorName={authorName}

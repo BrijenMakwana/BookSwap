@@ -14,6 +14,7 @@ import { supabase } from "@/supabase/supabase";
 import { emailIsValid } from "@/utility/utility";
 import { useNavigation, router } from "expo-router";
 import useUserID from "@/hooks/useUserID";
+import { View } from "react-native";
 
 const Login = () => {
   const colorScheme: ColorSchemeName = useColorScheme();
@@ -72,9 +73,7 @@ const Login = () => {
   }, []);
 
   return (
-    <ImageBackground
-      source={require("../assets/images/welcome.png")}
-      resizeMode="contain"
+    <View
       style={[
         styles.container,
         {
@@ -86,7 +85,7 @@ const Login = () => {
         style={{
           fontSize: 60,
           textTransform: "capitalize",
-          color: Colors[colorScheme].text,
+          color: Colors[colorScheme].barbie,
         }}
       >
         login
@@ -106,7 +105,7 @@ const Login = () => {
         type="outline"
         onPress={goToRegisterScreen}
       />
-    </ImageBackground>
+    </View>
   );
 };
 
@@ -116,6 +115,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    paddingTop: 130,
+    justifyContent: "center",
   },
 });

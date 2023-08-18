@@ -13,6 +13,7 @@ import UIButton from "@/components/UIButton";
 import { supabase } from "@/supabase/supabase";
 import { emailIsValid } from "@/utility/utility";
 import { router } from "expo-router";
+import { View } from "react-native";
 
 const Register = () => {
   const colorScheme: ColorSchemeName = useColorScheme();
@@ -56,9 +57,7 @@ const Register = () => {
   };
 
   return (
-    <ImageBackground
-      source={require("../assets/images/welcome.png")}
-      resizeMode="contain"
+    <View
       style={[
         styles.container,
         {
@@ -70,7 +69,7 @@ const Register = () => {
         style={{
           fontSize: 60,
           textTransform: "capitalize",
-          color: Colors[colorScheme].text,
+          color: Colors[colorScheme].barbie,
         }}
       >
         register
@@ -103,7 +102,7 @@ const Register = () => {
 
       <UIButton text="register" onPress={registerUser} type="solid" />
       <UIButton text="back to login" type="outline" onPress={goToLoginScreen} />
-    </ImageBackground>
+    </View>
   );
 };
 
@@ -113,6 +112,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    paddingTop: 130,
+    justifyContent: "center",
   },
 });

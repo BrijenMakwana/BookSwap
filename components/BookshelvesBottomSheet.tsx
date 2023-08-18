@@ -3,7 +3,6 @@ import { BottomSheet } from "@rneui/themed";
 import { supabase } from "@/supabase/supabase";
 import { useColorScheme, ColorSchemeName } from "react-native";
 import Colors from "@/constants/Colors";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import useUserID from "@/hooks/useUserID";
 
 export enum BOOK_SHELVES {
@@ -17,9 +16,9 @@ const BookshelvesBottomSheet = (props) => {
 
   const { userID, sessionError } = useUserID();
 
-  const { isVisible, setIsVisible, bookID } = props;
+  const { isVisible, setIsVisible, bookID, bookIsPresent } = props;
 
-  const addBookToShelf = async (bookShelfID: number, bookId: string) => {
+  const addBookToShelf = async (bookShelfID: number) => {
     try {
       if (sessionError) {
         throw new Error(sessionError.message);
@@ -28,7 +27,7 @@ const BookshelvesBottomSheet = (props) => {
       const bookObj = {
         userID: userID,
         bookShelfID: bookShelfID,
-        bookID: bookId,
+        bookID: bookID,
       };
 
       const { error } = await supabase.from("Books").insert(bookObj);
@@ -45,18 +44,46 @@ const BookshelvesBottomSheet = (props) => {
     }
   };
 
+  const updateBookshelf = async (bookShelfID: number) => {
+    try {
+      if (sessionError) {
+        throw new Error(sessionError.message);
+      }
+
+      const { error } = await supabase
+        .from("Books")
+        .update({ bookShelfID: bookShelfID })
+        .eq("userID", userID)
+        .eq("bookID", bookID);
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      ToastAndroid.show("Book updated successfully!", ToastAndroid.SHORT);
+    } catch (error) {
+      ToastAndroid.show(error.message, ToastAndroid.SHORT);
+    } finally {
+      setIsVisible(false);
+    }
+  };
+
+  const addOrUpdateBook = (bookshelfID: number) => {
+    bookIsPresent ? updateBookshelf(bookshelfID) : addBookToShelf(bookshelfID);
+  };
+
   const bookshelves = [
     {
       title: "Read",
-      onPress: () => addBookToShelf(BOOK_SHELVES.Read, bookID),
+      onPress: () => addOrUpdateBook(BOOK_SHELVES.Read),
     },
     {
       title: "Currently Reading",
-      onPress: () => addBookToShelf(BOOK_SHELVES.CurrentlyReading, bookID),
+      onPress: () => addOrUpdateBook(BOOK_SHELVES.CurrentlyReading),
     },
     {
       title: "Want to Read",
-      onPress: () => addBookToShelf(BOOK_SHELVES.WantToRead, bookID),
+      onPress: () => addOrUpdateBook(BOOK_SHELVES.WantToRead),
     },
     {
       title: "Cancel",

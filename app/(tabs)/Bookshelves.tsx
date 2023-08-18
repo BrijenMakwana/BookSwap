@@ -37,24 +37,7 @@ const CustomSpeedDialAction = (props) => {
 const CustomSpeedDial = (props) => {
   const colorScheme: ColorSchemeName = useColorScheme();
 
-  const { setBooks, userID } = props;
-
-  const [dialIsOpen, setDialIsOpen] = useState(false);
-
-  const getBookshelf = async (bookShelfID: number) => {
-    const { data } = await supabase
-      .from("Books")
-      .select("bookID")
-      .eq("userID", userID)
-      .eq("bookShelfID", bookShelfID);
-
-    setBooks(data);
-    setDialIsOpen(false);
-  };
-
-  useEffect(() => {
-    getBookshelf(BOOK_SHELVES.Read);
-  }, []);
+  const { getBookshelf, dialIsOpen, setDialIsOpen } = props;
 
   return (
     <SpeedDial
@@ -91,6 +74,35 @@ const Bookshelves = () => {
   const { userID, sessionError } = useUserID();
 
   const [books, setBooks] = useState([]);
+
+  const [dialIsOpen, setDialIsOpen] = useState(false);
+
+  const getBookshelf = async (bookShelfID: number) => {
+    setDialIsOpen(false);
+
+    try {
+      if (sessionError) {
+        throw new Error(sessionError.message);
+      }
+
+      const { data, error } = await supabase
+        .from("Books")
+        .select("bookID")
+        .eq("userID", userID)
+        .eq("bookShelfID", bookShelfID);
+
+      if (error) {
+        throw new Error(error.message);
+      }
+      setBooks(data);
+    } catch (error) {
+      ToastAndroid.show(error.message, ToastAndroid.SHORT);
+    }
+  };
+
+  useEffect(() => {
+    getBookshelf(BOOK_SHELVES.Read);
+  }, []);
 
   const removeBookFromShelf = async (bookID: string) => {
     try {
@@ -143,7 +155,11 @@ const Bookshelves = () => {
         ItemSeparatorComponent={() => <Divider />}
       />
 
-      <CustomSpeedDial setBooks={setBooks} userID={userID} />
+      <CustomSpeedDial
+        getBookshelf={getBookshelf}
+        setDialIsOpen={setDialIsOpen}
+        dialIsOpen={dialIsOpen}
+      />
     </View>
   );
 };

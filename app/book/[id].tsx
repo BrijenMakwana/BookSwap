@@ -339,6 +339,7 @@ const Book = () => {
         isVisible={addToBookShelvesIsVisible}
         setIsVisible={setAddToBookShelvesIsVisible}
         bookID={book.id}
+        bookIsPresent={bookIsPresent}
       />
     </ScrollView>
   );

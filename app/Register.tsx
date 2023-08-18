@@ -45,7 +45,10 @@ const Register = () => {
       }
 
       if (data) {
-        ToastAndroid.show("Account created!", ToastAndroid.SHORT);
+        ToastAndroid.show(
+          "We sent you a email verification link!",
+          ToastAndroid.SHORT
+        );
       }
     } catch (error) {
       ToastAndroid.show(error.message, ToastAndroid.SHORT);
@@ -91,7 +94,7 @@ const Register = () => {
         type="solid"
         value={password}
         setValue={setPassword}
-        isProtected={true}
+        isProtected
       />
       <UIInput
         placeholder="Location"

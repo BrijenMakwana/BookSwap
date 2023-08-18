@@ -96,7 +96,7 @@ const Login = () => {
         placeholder="Password"
         value={password}
         setValue={setPassword}
-        isProtected={true}
+        isProtected
       />
 
       <UIButton text="login" type="solid" onPress={loginWithEmail} />

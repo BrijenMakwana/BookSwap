@@ -104,10 +104,6 @@ const Bookshelves = () => {
     }
   };
 
-  useEffect(() => {
-    getBookshelf(BOOK_SHELVES.Read);
-  }, []);
-
   const removeBookFromShelf = async (bookID: string) => {
     try {
       const { error } = await supabase
@@ -120,11 +116,20 @@ const Bookshelves = () => {
         throw new Error(error.message);
       }
 
+      // need to improve
+      getBookshelf(BOOK_SHELVES.Read);
+      getBookshelf(BOOK_SHELVES.CurrentlyReading);
+      getBookshelf(BOOK_SHELVES.WantToRead);
+
       ToastAndroid.show("Book removed!", ToastAndroid.SHORT);
     } catch (error) {
       ToastAndroid.show(error.message, ToastAndroid.SHORT);
     }
   };
+
+  useEffect(() => {
+    getBookshelf(BOOK_SHELVES.Read);
+  }, []);
 
   return (
     <View

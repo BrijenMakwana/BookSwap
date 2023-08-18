@@ -3,17 +3,19 @@ import {
   StyleSheet,
   useColorScheme,
   ColorSchemeName,
+  FlatList,
+  ToastAndroid,
 } from "react-native";
 import { useEffect, useState } from "react";
 import { SpeedDial } from "@rneui/themed";
 import BarbieText from "@/components/BarbieText";
 import { FontAwesome } from "@expo/vector-icons";
-import { FlashList } from "@shopify/flash-list";
 import Divider from "@/components/Divider";
 import Colors from "@/constants/Colors";
 import { supabase } from "@/supabase/supabase";
 import BookShelfBook from "@/components/BookShelfBook";
 import { BOOK_SHELVES } from "@/components/BookshelvesBottomSheet";
+import useUserID from "@/hooks/useUserID";
 
 const CustomSpeedDialAction = (props) => {
   const colorScheme: ColorSchemeName = useColorScheme();
@@ -35,7 +37,7 @@ const CustomSpeedDialAction = (props) => {
 const CustomSpeedDial = (props) => {
   const colorScheme: ColorSchemeName = useColorScheme();
 
-  const { setBooks } = props;
+  const { setBooks, userID } = props;
 
   const [dialIsOpen, setDialIsOpen] = useState(false);
 
@@ -43,6 +45,7 @@ const CustomSpeedDial = (props) => {
     const { data } = await supabase
       .from("Books")
       .select("bookID")
+      .eq("userID", userID)
       .eq("bookShelfID", bookShelfID);
 
     setBooks(data);
@@ -85,13 +88,26 @@ const CustomSpeedDial = (props) => {
 const Bookshelves = () => {
   const colorScheme: ColorSchemeName = useColorScheme();
 
+  const { userID, sessionError } = useUserID();
+
   const [books, setBooks] = useState([]);
 
   const removeBookFromShelf = async (bookID: string) => {
-    const { error } = await supabase
-      .from("books")
-      .delete()
-      .eq("bookID", bookID);
+    try {
+      const { error } = await supabase
+        .from("Books")
+        .delete()
+        .eq("userID", userID)
+        .eq("bookID", bookID);
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      ToastAndroid.show("Book removed!", ToastAndroid.SHORT);
+    } catch (error) {
+      ToastAndroid.show(error.message, ToastAndroid.SHORT);
+    }
   };
 
   return (
@@ -111,10 +127,10 @@ const Bookshelves = () => {
           marginLeft: 10,
         }}
       >
-        want to read
+        want to read ({books?.length})
       </BarbieText>
 
-      <FlashList
+      <FlatList
         data={books}
         renderItem={({ item }) => (
           <BookShelfBook
@@ -122,12 +138,12 @@ const Bookshelves = () => {
             removeBookFromShelf={removeBookFromShelf}
           />
         )}
+        keyExtractor={(item) => item.bookID}
         showsVerticalScrollIndicator={false}
-        estimatedItemSize={20}
         ItemSeparatorComponent={() => <Divider />}
       />
 
-      <CustomSpeedDial setBooks={setBooks} />
+      <CustomSpeedDial setBooks={setBooks} userID={userID} />
     </View>
   );
 };

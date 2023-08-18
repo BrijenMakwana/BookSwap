@@ -4,6 +4,7 @@ import { supabase } from "@/supabase/supabase";
 import { useColorScheme, ColorSchemeName } from "react-native";
 import Colors from "@/constants/Colors";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import useUserID from "@/hooks/useUserID";
 
 export enum BOOK_SHELVES {
   Read = 1,
@@ -14,16 +15,12 @@ export enum BOOK_SHELVES {
 const BookshelvesBottomSheet = (props) => {
   const colorScheme: ColorSchemeName = useColorScheme();
 
+  const { userID, sessionError } = useUserID();
+
   const { isVisible, setIsVisible, bookID } = props;
 
   const addBookToShelf = async (bookShelfID: number, bookId: string) => {
     try {
-      const {
-        data: { session },
-        error: sessionError,
-      } = await supabase.auth.getSession();
-      const userID = session?.user.id;
-
       if (sessionError) {
         throw new Error(sessionError.message);
       }

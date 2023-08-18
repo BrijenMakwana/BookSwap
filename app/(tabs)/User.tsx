@@ -96,9 +96,9 @@ const User = () => {
         {user.email}
       </Text>
 
-      <RandomQuote />
-
       <UIButton text="Sign Out" type="solid" onPress={signOut} />
+
+      <RandomQuote />
     </SafeAreaView>
   );
 };

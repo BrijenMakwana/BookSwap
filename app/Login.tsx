@@ -60,8 +60,6 @@ const Login = () => {
       }
 
       if (data) {
-        console.log(data.user.id);
-
         goToHomeScreen();
       }
     } catch (error) {

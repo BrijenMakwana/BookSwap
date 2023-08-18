@@ -7,6 +7,7 @@ import {
   Pressable,
   useColorScheme,
   ColorSchemeName,
+  ToastAndroid,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useLocalSearchParams, Link, router } from "expo-router";
@@ -195,7 +196,7 @@ const Book = () => {
       );
       setBook(response.data);
     } catch (error) {
-      console.error(error);
+      ToastAndroid.show(error.message, ToastAndroid.SHORT);
     }
   };
 

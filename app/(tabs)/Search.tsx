@@ -34,7 +34,7 @@ const Search = () => {
 
       setBooks(response.data.items);
     } catch (error) {
-      console.error(error);
+      ToastAndroid.show(error.message, ToastAndroid.SHORT);
     } finally {
       setIsSearching(false);
     }

@@ -4,6 +4,7 @@ import {
   ColorSchemeName,
   SafeAreaView,
   ToastAndroid,
+  RefreshControl,
 } from "react-native";
 import { useEffect, useState } from "react";
 import Colors from "@/constants/Colors";
@@ -20,8 +21,10 @@ const index = () => {
   const { userID, sessionError } = useUserID();
 
   const [books, setBooks] = useState([]);
+  const [booksAreLoading, setBooksAreLoading] = useState<boolean>(false);
 
   const getBooksFromUsers = async () => {
+    setBooksAreLoading(true);
     try {
       if (sessionError) {
         throw new Error(sessionError.message);
@@ -40,9 +43,12 @@ const index = () => {
       if (error) {
         throw new Error(error.message);
       }
+
       setBooks(data);
     } catch (error) {
       ToastAndroid.show(error.message, ToastAndroid.SHORT);
+    } finally {
+      setBooksAreLoading(false);
     }
   };
 
@@ -65,6 +71,14 @@ const index = () => {
         estimatedItemSize={20}
         showsVerticalScrollIndicator={false}
         ItemSeparatorComponent={() => <Divider />}
+        refreshControl={
+          <RefreshControl
+            refreshing={booksAreLoading}
+            colors={[Colors[colorScheme].barbie]}
+            progressBackgroundColor={Colors[colorScheme].background}
+            onRefresh={() => getBooksFromUsers()}
+          />
+        }
       />
     </SafeAreaView>
   );

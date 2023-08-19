@@ -181,6 +181,7 @@ const styles = StyleSheet.create({
   },
   requestBtnText: {
     fontSize: 13,
+    fontWeight: "500",
     textTransform: "capitalize",
     marginRight: 10,
   },

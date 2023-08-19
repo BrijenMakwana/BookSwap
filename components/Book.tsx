@@ -110,7 +110,7 @@ const Book = (props) => {
               },
             ]}
           >
-            by {author || "NA"}
+            by {author}
           </Text>
 
           <BookRating rating={rating} />

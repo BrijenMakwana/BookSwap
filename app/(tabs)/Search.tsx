@@ -88,13 +88,13 @@ const Search = () => {
             numColumns={Device.deviceType === 2 ? 2 : 1}
             renderItem={({ item }) => (
               <Book
-                id={item.id}
+                id={item?.id}
                 imageUrl={item?.volumeInfo?.imageLinks?.thumbnail}
                 title={item?.volumeInfo?.title}
-                author={item?.volumeInfo?.authors[0]}
+                author={item?.volumeInfo?.authors?.[0] || "Unknown Author"}
                 rating={item?.volumeInfo?.averageRating}
-                publishedDate={item.volumeInfo?.publishedDate}
-                pageCount={item.volumeInfo?.pageCount}
+                publishedDate={item?.volumeInfo?.publishedDate}
+                pageCount={item?.volumeInfo?.pageCount}
               />
             )}
             showsVerticalScrollIndicator={false}

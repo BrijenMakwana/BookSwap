@@ -139,8 +139,12 @@ const Bookshelves = () => {
   };
 
   useEffect(() => {
-    getBookshelf(BOOK_SHELVES.Read, "read");
-  }, []);
+    if (sessionError) return;
+
+    if (userID) {
+      getBookshelf(BOOK_SHELVES.Read, "read");
+    }
+  }, [userID]);
 
   return (
     <View

@@ -137,7 +137,7 @@ const Overview = (props) => {
 
   if (!overview) return;
 
-  const cleanOverview = overview.replace(/<[^>]*>/g, "");
+  const cleanOverview = overview?.replace(/<[^>]*>/g, "");
 
   return (
     <View style={styles.overviewContainer}>
@@ -206,6 +206,8 @@ const Book = () => {
   }, []);
 
   useEffect(() => {
+    if (sessionError) return;
+
     if (userID) {
       bookIsPresentInShelf();
     }
@@ -330,7 +332,7 @@ const Book = () => {
         />
 
         <PreviewBook
-          route={book.volumeInfo?.industryIdentifiers[1].identifier}
+          route={book?.volumeInfo?.industryIdentifiers[1].identifier}
         />
 
         <Overview overview={book?.volumeInfo?.description} />

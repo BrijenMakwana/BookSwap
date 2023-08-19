@@ -15,7 +15,7 @@ import { supabase } from "@/supabase/supabase";
 import { BOOK_SHELVES } from "@/components/BookshelvesBottomSheet";
 import RequestBook from "@/components/RequestBook";
 
-const index = () => {
+const Home = () => {
   const colorScheme: ColorSchemeName = useColorScheme();
 
   const { userID, sessionError } = useUserID();
@@ -53,7 +53,11 @@ const index = () => {
   };
 
   useEffect(() => {
-    getBooksFromUsers();
+    if (sessionError) return;
+
+    if (userID) {
+      getBooksFromUsers();
+    }
   }, [userID]);
 
   return (
@@ -84,7 +88,7 @@ const index = () => {
   );
 };
 
-export default index;
+export default Home;
 
 const styles = StyleSheet.create({
   container: {

@@ -52,17 +52,19 @@ const CustomSpeedDial = (props) => {
       <CustomSpeedDialAction
         title="Read"
         icon="eye-slash"
-        onPress={() => getBookshelf(BOOK_SHELVES.Read)}
+        onPress={() => getBookshelf(BOOK_SHELVES.Read, "read")}
       />
       <CustomSpeedDialAction
         title="Currently Reading"
         icon="eye"
-        onPress={() => getBookshelf(BOOK_SHELVES.CurrentlyReading)}
+        onPress={() =>
+          getBookshelf(BOOK_SHELVES.CurrentlyReading, "currently reading")
+        }
       />
       <CustomSpeedDialAction
         title="Want to Read"
         icon="bullseye"
-        onPress={() => getBookshelf(BOOK_SHELVES.WantToRead)}
+        onPress={() => getBookshelf(BOOK_SHELVES.WantToRead, "want to read")}
       />
     </SpeedDial>
   );
@@ -73,16 +75,21 @@ const Bookshelves = () => {
 
   const { userID, sessionError } = useUserID();
 
+  const [currentBookself, setCurrentBookself] = useState<string>("read");
   const [books, setBooks] = useState([]);
-
   const [dialIsOpen, setDialIsOpen] = useState(false);
 
-  const getBookshelf = async (bookShelfID: number) => {
+  const getBookshelf = async (bookShelfID: number, bookshelfTitle: string) => {
     setDialIsOpen(false);
+    setCurrentBookself(bookshelfTitle);
 
     try {
       if (sessionError) {
         throw new Error(sessionError.message);
+      }
+
+      if (!userID) {
+        throw new Error("Try again!");
       }
 
       const { data, error } = await supabase
@@ -100,10 +107,6 @@ const Bookshelves = () => {
     }
   };
 
-  useEffect(() => {
-    getBookshelf(BOOK_SHELVES.Read);
-  }, []);
-
   const removeBookFromShelf = async (bookID: string) => {
     try {
       const { error } = await supabase
@@ -116,11 +119,32 @@ const Bookshelves = () => {
         throw new Error(error.message);
       }
 
+      // need to improve
+      switch (currentBookself) {
+        case "read":
+          getBookshelf(BOOK_SHELVES.Read, currentBookself);
+          break;
+        case "currently reading":
+          getBookshelf(BOOK_SHELVES.CurrentlyReading, currentBookself);
+          break;
+        case "want to read":
+          getBookshelf(BOOK_SHELVES.WantToRead, currentBookself);
+          break;
+      }
+
       ToastAndroid.show("Book removed!", ToastAndroid.SHORT);
     } catch (error) {
       ToastAndroid.show(error.message, ToastAndroid.SHORT);
     }
   };
+
+  useEffect(() => {
+    if (sessionError) return;
+
+    if (userID) {
+      getBookshelf(BOOK_SHELVES.Read, "read");
+    }
+  }, [userID]);
 
   return (
     <View
@@ -139,7 +163,7 @@ const Bookshelves = () => {
           marginLeft: 10,
         }}
       >
-        want to read ({books?.length})
+        {currentBookself} ({books?.length})
       </BarbieText>
 
       <FlatList

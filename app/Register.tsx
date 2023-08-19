@@ -12,12 +12,11 @@ import BarbieText from "@/components/BarbieText";
 import UIButton from "@/components/UIButton";
 import { supabase } from "@/supabase/supabase";
 import { emailIsValid } from "@/utility/utility";
-import { useNavigation } from "expo-router";
+import { router } from "expo-router";
+import { View } from "react-native";
 
 const Register = () => {
   const colorScheme: ColorSchemeName = useColorScheme();
-
-  const navigation = useNavigation();
 
   const [fullName, setFullName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -46,7 +45,10 @@ const Register = () => {
       }
 
       if (data) {
-        ToastAndroid.show("Account created!", ToastAndroid.SHORT);
+        ToastAndroid.show(
+          "We sent you a email verification link!",
+          ToastAndroid.SHORT
+        );
       }
     } catch (error) {
       ToastAndroid.show(error.message, ToastAndroid.SHORT);
@@ -54,13 +56,11 @@ const Register = () => {
   };
 
   const goToLoginScreen = () => {
-    navigation.goBack();
+    router.back();
   };
 
   return (
-    <ImageBackground
-      source={require("../assets/images/welcome.png")}
-      resizeMode="contain"
+    <View
       style={[
         styles.container,
         {
@@ -72,7 +72,7 @@ const Register = () => {
         style={{
           fontSize: 60,
           textTransform: "capitalize",
-          color: Colors[colorScheme].text,
+          color: Colors[colorScheme].barbie,
         }}
       >
         register
@@ -94,7 +94,7 @@ const Register = () => {
         type="solid"
         value={password}
         setValue={setPassword}
-        isProtected={true}
+        isProtected
       />
       <UIInput
         placeholder="Location"
@@ -105,7 +105,7 @@ const Register = () => {
 
       <UIButton text="register" onPress={registerUser} type="solid" />
       <UIButton text="back to login" type="outline" onPress={goToLoginScreen} />
-    </ImageBackground>
+    </View>
   );
 };
 
@@ -115,6 +115,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    paddingTop: 130,
+    justifyContent: "center",
   },
 });

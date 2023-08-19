@@ -7,9 +7,10 @@ import {
   Pressable,
   useColorScheme,
   ColorSchemeName,
+  ToastAndroid,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import { useLocalSearchParams, useNavigation } from "expo-router";
+import { useLocalSearchParams, Link, router } from "expo-router";
 import axios from "axios";
 import { Ionicons, Fontisto } from "@expo/vector-icons";
 import moment from "moment";
@@ -18,7 +19,6 @@ import Blurhash from "@/constants/Blurhash";
 import BarbieText from "@/components/BarbieText";
 import Colors from "@/constants/Colors";
 import * as Device from "expo-device";
-import { Link } from "expo-router";
 import AddToBookshelvesButton from "@/components/AddToBookshelvesButton";
 import BookshelvesBottomSheet from "@/components/BookshelvesBottomSheet";
 import { supabase } from "@/supabase/supabase";
@@ -26,8 +26,6 @@ import useUserID from "@/hooks/useUserID";
 
 export const GoBack = () => {
   const colorScheme: ColorSchemeName = useColorScheme();
-
-  const navigation = useNavigation();
 
   return (
     <Pressable
@@ -37,7 +35,7 @@ export const GoBack = () => {
           backgroundColor: Colors[colorScheme].background,
         },
       ]}
-      onPress={() => navigation.goBack()}
+      onPress={() => router.back()}
     >
       <Ionicons
         name="arrow-back"
@@ -139,7 +137,7 @@ const Overview = (props) => {
 
   if (!overview) return;
 
-  const cleanOverview = overview.replace(/<[^>]*>/g, "");
+  const cleanOverview = overview?.replace(/<[^>]*>/g, "");
 
   return (
     <View style={styles.overviewContainer}>
@@ -198,7 +196,7 @@ const Book = () => {
       );
       setBook(response.data);
     } catch (error) {
-      console.error(error);
+      ToastAndroid.show(error.message, ToastAndroid.SHORT);
     }
   };
 
@@ -208,6 +206,8 @@ const Book = () => {
   }, []);
 
   useEffect(() => {
+    if (sessionError) return;
+
     if (userID) {
       bookIsPresentInShelf();
     }
@@ -282,6 +282,7 @@ const Book = () => {
             color: Colors[colorScheme].barbie,
             fontSize: 35,
             fontWeight: "500",
+            textTransform: "capitalize",
           }}
         >
           {book.volumeInfo?.title}
@@ -292,8 +293,10 @@ const Book = () => {
             color: Colors[colorScheme].text,
             fontSize: 17,
             fontWeight: "300",
+            textTransform: "capitalize",
           }}
         >
+          by{" "}
           {book.volumeInfo?.authors.map((authorName: string, index: number) => (
             <Authors
               authorName={authorName}
@@ -329,7 +332,7 @@ const Book = () => {
         />
 
         <PreviewBook
-          route={book.volumeInfo?.industryIdentifiers[1].identifier}
+          route={book?.volumeInfo?.industryIdentifiers[1].identifier}
         />
 
         <Overview overview={book?.volumeInfo?.description} />

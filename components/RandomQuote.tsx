@@ -4,6 +4,7 @@ import {
   View,
   useColorScheme,
   ColorSchemeName,
+  ToastAndroid,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -20,7 +21,7 @@ const RandomQuote = () => {
 
       setRandomQuote(response.data);
     } catch (error) {
-      console.error(error);
+      ToastAndroid.show(error.message, ToastAndroid.SHORT);
     }
   };
 

@@ -12,10 +12,14 @@ import BarbieText from "@/components/BarbieText";
 import UIButton from "@/components/UIButton";
 import { supabase } from "@/supabase/supabase";
 import { emailIsValid } from "@/utility/utility";
-import { useNavigation } from "expo-router";
+import { useNavigation, router } from "expo-router";
+import useUserID from "@/hooks/useUserID";
+import { View } from "react-native";
 
 const Login = () => {
   const colorScheme: ColorSchemeName = useColorScheme();
+
+  const { userID, sessionError } = useUserID();
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -29,7 +33,13 @@ const Login = () => {
     });
   };
 
+  const goToRegisterScreen = () => {
+    router.push("/Register");
+  };
+
   const userIsLoggedIn = async () => {
+    if (sessionError) return;
+
     if (userID) {
       goToHomeScreen();
     }
@@ -51,8 +61,6 @@ const Login = () => {
       }
 
       if (data) {
-        console.log(data.user.id);
-
         goToHomeScreen();
       }
     } catch (error) {
@@ -60,18 +68,12 @@ const Login = () => {
     }
   };
 
-  const goToRegisterScreen = () => {
-    navigation.navigate("Register");
-  };
-
   useEffect(() => {
     userIsLoggedIn();
   }, []);
 
   return (
-    <ImageBackground
-      source={require("../assets/images/welcome.png")}
-      resizeMode="contain"
+    <View
       style={[
         styles.container,
         {
@@ -83,7 +85,7 @@ const Login = () => {
         style={{
           fontSize: 60,
           textTransform: "capitalize",
-          color: Colors[colorScheme].text,
+          color: Colors[colorScheme].barbie,
         }}
       >
         login
@@ -94,7 +96,7 @@ const Login = () => {
         placeholder="Password"
         value={password}
         setValue={setPassword}
-        isProtected={true}
+        isProtected
       />
 
       <UIButton text="login" type="solid" onPress={loginWithEmail} />
@@ -103,7 +105,7 @@ const Login = () => {
         type="outline"
         onPress={goToRegisterScreen}
       />
-    </ImageBackground>
+    </View>
   );
 };
 
@@ -113,6 +115,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    paddingTop: 130,
+    justifyContent: "center",
   },
 });

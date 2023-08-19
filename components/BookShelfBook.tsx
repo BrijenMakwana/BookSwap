@@ -1,4 +1,9 @@
-import { StyleSheet, useColorScheme, ColorSchemeName } from "react-native";
+import {
+  StyleSheet,
+  useColorScheme,
+  ColorSchemeName,
+  ToastAndroid,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import Book from "./Book";
 import axios from "axios";
@@ -19,7 +24,7 @@ const BookShelfBook = (props) => {
       );
       setBook(response.data);
     } catch (error) {
-      console.error(error);
+      ToastAndroid.show(error.message, ToastAndroid.SHORT);
     }
   };
 

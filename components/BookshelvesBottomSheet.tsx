@@ -16,7 +16,7 @@ const BookshelvesBottomSheet = (props) => {
 
   const { userID, sessionError } = useUserID();
 
-  const { isVisible, setIsVisible, bookID, bookIsPresent } = props;
+  const { isVisible, setIsVisible, bookID, bookshelfType } = props;
 
   const addBookToShelf = async (bookShelfID: number) => {
     try {
@@ -69,7 +69,7 @@ const BookshelvesBottomSheet = (props) => {
   };
 
   const addOrUpdateBook = (bookshelfID: number) => {
-    bookIsPresent ? updateBookshelf(bookshelfID) : addBookToShelf(bookshelfID);
+    bookshelfType ? updateBookshelf(bookshelfID) : addBookToShelf(bookshelfID);
   };
 
   const bookshelves = [

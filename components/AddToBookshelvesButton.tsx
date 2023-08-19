@@ -11,17 +11,17 @@ import Colors from "@/constants/Colors";
 const AddToBookshelvesButton = (props) => {
   const colorScheme: ColorSchemeName = useColorScheme();
 
-  const { bookIsPresent, onPress } = props;
+  const { bookshelfType, onPress } = props;
 
-  const btnText = bookIsPresent ? "Change Bookshelf" : "Add to Bookshelf";
-  const backgroundColor = bookIsPresent
+  const btnText = bookshelfType ? bookshelfType : "Add to Bookshelf";
+  const backgroundColor = bookshelfType
     ? Colors[colorScheme].background
     : Colors[colorScheme].barbie;
-  const borderColor = bookIsPresent
+  const borderColor = bookshelfType
     ? Colors[colorScheme].barbie
     : Colors[colorScheme].background;
-  const borderWidth = bookIsPresent ? 1 : 0;
-  const textColor = bookIsPresent
+  const borderWidth = bookshelfType ? 1 : 0;
+  const textColor = bookshelfType
     ? Colors[colorScheme].barbie
     : Colors[colorScheme].background;
 

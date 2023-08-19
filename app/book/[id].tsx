@@ -173,19 +173,24 @@ const Book = () => {
   const [book, setBook] = useState({});
   const [addToBookShelvesIsVisible, setAddToBookShelvesIsVisible] =
     useState(false);
-  const [bookIsPresent, setBookIsPresent] = useState(false);
+  const [bookshelfType, setBookshelfType] = useState("");
 
   const { userID, sessionError } = useUserID();
 
   const bookIsPresentInShelf = async () => {
     const { data } = await supabase
       .from("Books")
-      .select()
+      .select(
+        `  
+      Bookshelves ( type )
+    `
+      )
       .eq("userID", userID)
-      .eq("bookID", params.id);
+      .eq("bookID", params.id)
+      .maybeSingle();
 
-    if (data && data?.length > 0) {
-      setBookIsPresent(true);
+    if (data) {
+      setBookshelfType(data?.Bookshelves?.type);
     }
   };
 
@@ -328,7 +333,7 @@ const Book = () => {
 
         <AddToBookshelvesButton
           onPress={() => setAddToBookShelvesIsVisible(true)}
-          bookIsPresent={bookIsPresent}
+          bookshelfType={bookshelfType}
         />
 
         <PreviewBook
@@ -342,7 +347,7 @@ const Book = () => {
         isVisible={addToBookShelvesIsVisible}
         setIsVisible={setAddToBookShelvesIsVisible}
         bookID={book.id}
-        bookIsPresent={bookIsPresent}
+        bookshelfType={bookshelfType}
       />
     </ScrollView>
   );

@@ -14,6 +14,7 @@ import Divider from "@/components/Divider";
 import { supabase } from "@/supabase/supabase";
 import { BOOK_SHELVES } from "@/components/BookshelvesBottomSheet";
 import RequestBook from "@/components/RequestBook";
+import BarbieText from "@/components/BarbieText";
 
 const Home = () => {
   const colorScheme: ColorSchemeName = useColorScheme();
@@ -36,9 +37,16 @@ const Home = () => {
 
       const { data, error } = await supabase
         .from("Books")
-        .select()
+        .select(
+          `
+          bookID,  
+          users ( id, full_name, email, location)
+        `
+        )
         .neq("userID", userID)
-        .eq("bookShelfID", BOOK_SHELVES.Read);
+        .or(
+          `bookShelfID.eq.${BOOK_SHELVES.Read},bookShelfID.eq.${BOOK_SHELVES.CurrentlyReading}`
+        );
 
       if (error) {
         throw new Error(error.message);
@@ -69,9 +77,25 @@ const Home = () => {
         },
       ]}
     >
+      <BarbieText
+        style={{
+          fontSize: 35,
+          color: Colors[colorScheme].barbie,
+          textTransform: "capitalize",
+          marginLeft: 10,
+        }}
+      >
+        People around you
+      </BarbieText>
       <FlashList
         data={books}
-        renderItem={({ item }) => <RequestBook bookID={item?.bookID} />}
+        renderItem={({ item }) => (
+          <RequestBook
+            bookID={item?.bookID}
+            recipientName={item?.users?.full_name}
+            recipientEmail={item?.users?.email}
+          />
+        )}
         estimatedItemSize={20}
         showsVerticalScrollIndicator={false}
         ItemSeparatorComponent={() => <Divider />}
@@ -93,6 +117,6 @@ export default Home;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 60,
+    paddingTop: 50,
   },
 });

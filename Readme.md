@@ -1,6 +1,8 @@
+<div style="background-color: pink; padding: 20px;">
+
 <img src="./assets/images/logo.png" alt="app logo" width="350" height="200"/>
 
-# BookSwap App (Book Exchange App) : Design inspired by Barbie Movie
+# BookSwap App : Design inspired by Barbie Movie
 
 ## Table of contents
 
@@ -49,3 +51,5 @@ Now you can view this app on your Android smartphone or Android Emulator
 - Google Books API
 - Google Embed API
 - Styled Components
+
+</div>

@@ -1,4 +1,4 @@
-<img src="./assets/icon.png" width="350" height="200"/>
+<img src="./assets/images/icon.png" alt="app logo" width="350" height="200"/>
 
 # BookSwap App (Book Exchange App) : Design inspired by Barbie Movie
 

@@ -14,10 +14,10 @@
 ## Screenshots
 
 <div>
-  <img src="./assets/images/Screenshots/preview_1.jpg" alt="Screenshot 1">
-  <img src="./assets/images/Screenshots/preview_2.jpg" alt="Screenshot 2">
-  <img src="./assets/images/Screenshots/preview_3.jpg" alt="Screenshot 3">
-  <img src="./assets/images/Screenshots/preview_4.jpg" alt="Screenshot 4">
+  <img src="./assets/images/Screenshots/preview_1.png" alt="Screenshot 1">
+  <img src="./assets/images/Screenshots/preview_2.png" alt="Screenshot 2">
+  <img src="./assets/images/Screenshots/preview_3.png" alt="Screenshot 3">
+  <img src="./assets/images/Screenshots/preview_4.png" alt="Screenshot 4">
 
 </div>
 

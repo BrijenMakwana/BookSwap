@@ -1,5 +1,3 @@
-<div style="background-color: pink; padding: 20px;">
-
 <img src="./assets/images/logo.png" alt="app logo" width="350" height="200"/>
 
 # BookSwap App : Design inspired by Barbie Movie
@@ -8,6 +6,7 @@
 
 - [Overview](#overview)
 - [Screenshots](#screenshots)
+- [Screenshots](#database-schema)
 - [Run the project](#run-the-project)
 - [Built with](#built-with)
 
@@ -21,6 +20,12 @@
   <img src="./assets/images/Screenshots/preview_3.png" alt="Screenshot 3">
   <img src="./assets/images/Screenshots/preview_4.png" alt="Screenshot 4">
 
+</div>
+
+## Database Schema
+
+<div>
+  <img src="./assets/images/Screenshots/database_schema.png" alt="database schema">
 </div>
 
 ## Run the project
@@ -51,5 +56,3 @@ Now you can view this app on your Android smartphone or Android Emulator
 - Google Books API
 - Google Embed API
 - Styled Components
-
-</div>

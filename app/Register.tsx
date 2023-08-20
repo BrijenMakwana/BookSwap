@@ -48,6 +48,8 @@ const Register = () => {
           "We sent you a email verification link!",
           ToastAndroid.SHORT
         );
+
+        goToLoginScreen();
       }
     } catch (error) {
       ToastAndroid.show(error.message, ToastAndroid.SHORT);

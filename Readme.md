@@ -13,7 +13,7 @@
 ## Overview
 
 - Connects users to swap books with others in their city.
-- Registration using email for seamless access.
+- Registration using email for seamless access implemented with Supabase Auth.
 - Utilizes Google Books API for comprehensive book data.
 - Offers detailed book information: title, image, rating, author, and description.
 - Implements Google Embed API to preview books within the app.
@@ -22,6 +22,7 @@
   - Want to Read
   - Currently Reading
 - Empowers users to add books to specific bookshelves, facilitating reading management.
+- Supabase is used to perform all the CRUD operations and manage database.
 - Home Screen displays a comprehensive view of available books and potential people to swap books with.
 - Users can request books with a single button click.
 - Email template auto-populates for efficient communication.

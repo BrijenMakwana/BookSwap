@@ -70,10 +70,11 @@ Now you can view this app on your Android smartphone or Android Emulator
 - React Native
 - Expo 49
 - Typescript
-- Expo-Router
+- expo-router
 - Supabase Database
 - Google Books API
 - Google Embed API
-- Expo Barcode Scanner
+- expo-barcode-scanner
+- expo-image
 - Shopify Flashlist
 - Styled Components

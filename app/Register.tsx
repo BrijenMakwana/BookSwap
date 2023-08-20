@@ -34,7 +34,7 @@ const Register = () => {
         options: {
           data: {
             full_name: fullName,
-            location: location,
+            location: location.trim(),
           },
         },
       });

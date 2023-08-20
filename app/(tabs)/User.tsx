@@ -60,6 +60,7 @@ const User = () => {
       }
 
       goToLoginScreen();
+      ToastAndroid.show("You have signed out!", ToastAndroid.SHORT);
     } catch (error) {
       ToastAndroid.show(error.message, ToastAndroid.SHORT);
     }

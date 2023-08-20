@@ -22,8 +22,16 @@ const Register = () => {
   const [password, setPassword] = useState<string>("");
   const [location, setLocation] = useState<string>("");
 
+  const isEmptyFields = () => {
+    return !fullName || !location;
+  };
+
   const registerUser = async () => {
     try {
+      if (isEmptyFields()) {
+        throw new Error("Please fill in all the fields!");
+      }
+
       if (!emailIsValid(email)) {
         throw new Error("Invalid Email!");
       }

@@ -2,9 +2,9 @@ import {
   SafeAreaView,
   StyleSheet,
   Text,
-  View,
   useColorScheme,
   ColorSchemeName,
+  ToastAndroid,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Image } from "expo-image";
@@ -32,20 +32,38 @@ const User = () => {
   };
 
   const getLoggedInUser = async () => {
-    const {
-      data: { session },
-      error: sessionError,
-    } = await supabase.auth.getSession();
+    try {
+      const {
+        data: { session },
+        error: sessionError,
+      } = await supabase.auth.getSession();
 
-    setUser({
-      fullName: session?.user.user_metadata.full_name,
-      email: session?.user.email,
-    });
+      if (sessionError) {
+        throw new Error("Unable to get the user details!");
+      }
+
+      setUser({
+        fullName: session?.user.user_metadata.full_name,
+        email: session?.user.email,
+      });
+    } catch (error) {
+      ToastAndroid.show(error.message, ToastAndroid.SHORT);
+    }
   };
 
   const signOut = async () => {
-    const { error } = await supabase.auth.signOut();
-    goToLoginScreen();
+    try {
+      const { error } = await supabase.auth.signOut();
+
+      if (error) {
+        throw new Error("Failed to sign out!");
+      }
+
+      goToLoginScreen();
+      ToastAndroid.show("You have signed out!", ToastAndroid.SHORT);
+    } catch (error) {
+      ToastAndroid.show(error.message, ToastAndroid.SHORT);
+    }
   };
 
   useEffect(() => {

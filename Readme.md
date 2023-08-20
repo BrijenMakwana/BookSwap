@@ -12,6 +12,22 @@
 
 ## Overview
 
+- Connects users to swap books with others in their city.
+- Registration using email for seamless access.
+- Utilizes Google Books API for comprehensive book data.
+- Offers detailed book information: title, image, rating, author, and description.
+- Implements Google Embed API to preview books within the app.
+- Provides 3 bookshelves to organize reading:
+  - Read
+  - Want to Read
+  - Currently Reading
+- Empowers users to add books to specific bookshelves, facilitating reading management.
+- Home Screen displays a comprehensive view of available books and potential people to swap books with.
+- Users can request books with a single button click.
+- Email template auto-populates for efficient communication.
+- Developed using the latest Expo version of React Native.
+- Leverages expo-image to optimize image handling within the app.
+
 ## Screenshots
 
 <div>
@@ -58,4 +74,5 @@ Now you can view this app on your Android smartphone or Android Emulator
 - Google Books API
 - Google Embed API
 - Expo Barcode Scanner
+- Shopify Flashlist
 - Styled Components

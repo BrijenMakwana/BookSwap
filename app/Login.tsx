@@ -1,7 +1,6 @@
 import {
   ColorSchemeName,
   StyleSheet,
-  ImageBackground,
   useColorScheme,
   ToastAndroid,
 } from "react-native";

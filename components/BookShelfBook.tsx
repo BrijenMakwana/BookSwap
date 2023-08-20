@@ -1,16 +1,12 @@
-import {
-  StyleSheet,
-  useColorScheme,
-  ColorSchemeName,
-  ToastAndroid,
-} from "react-native";
-import React, { useEffect, useState } from "react";
+import { useColorScheme, ColorSchemeName, ToastAndroid } from "react-native";
+import React, { FC, useEffect, useState } from "react";
 import Book from "./Book";
 import axios from "axios";
 import { ListItem, Button } from "@rneui/themed";
 import Colors from "@/constants/Colors";
+import { IBookShelfBook } from "@/types/bookShelfBook";
 
-const BookShelfBook = (props) => {
+const BookShelfBook: FC<IBookShelfBook> = (props) => {
   const colorScheme: ColorSchemeName = useColorScheme();
 
   const [book, setBook] = useState({});
@@ -53,18 +49,16 @@ const BookShelfBook = (props) => {
       }}
     >
       <Book
-        id={book.id}
+        id={book?.id}
         imageUrl={book?.volumeInfo?.imageLinks?.thumbnail}
         title={book?.volumeInfo?.title}
         author={book?.volumeInfo?.authors[0] || "NA"}
         rating={book?.volumeInfo?.averageRating}
-        publishedDate={book.volumeInfo?.publishedDate}
-        pageCount={book.volumeInfo?.pageCount}
+        publishedDate={book?.volumeInfo?.publishedDate}
+        pageCount={book?.volumeInfo?.pageCount}
       />
     </ListItem.Swipeable>
   );
 };
 
 export default BookShelfBook;
-
-const styles = StyleSheet.create({});

@@ -6,25 +6,26 @@ import {
   useColorScheme,
   ColorSchemeName,
 } from "react-native";
-import React from "react";
-import UIButton from "./AddToBookshelvesButton";
+import React, { FC } from "react";
 import { Link } from "expo-router";
 import { Image } from "expo-image";
 import Blurhash from "@/constants/Blurhash";
 import { FontAwesome } from "@expo/vector-icons";
 import moment from "moment";
 import Colors from "@/constants/Colors";
+import { IBook } from "@/types/book/book";
+import { IBookRating } from "@/types/book/bookRating";
 
-const BookRating = (props) => {
+const BookRating: FC<IBookRating> = (props) => {
   const colorScheme: ColorSchemeName = useColorScheme();
 
   const { rating } = props;
 
   if (!rating) return;
 
-  const roundedRating = Math.round(rating * 2) / 2;
-  const filledStars = Math.floor(roundedRating);
-  const hasHalfStar = roundedRating - filledStars === 0.5;
+  const roundedRating: number = Math.round(rating * 2) / 2;
+  const filledStars: number = Math.floor(roundedRating);
+  const hasHalfStar: boolean = roundedRating - filledStars === 0.5;
 
   return (
     <View style={styles.ratingContainer}>
@@ -62,11 +63,12 @@ const BookRating = (props) => {
   );
 };
 
-const Book = (props) => {
+const Book: FC<IBook> = (props) => {
   const colorScheme: ColorSchemeName = useColorScheme();
 
   const { id, title, imageUrl, author, rating, publishedDate, pageCount } =
     props;
+
   return (
     <Link
       href={`/book/${id}`}

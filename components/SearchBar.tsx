@@ -9,8 +9,10 @@ import {
 import { EvilIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import Colors from "@/constants/Colors";
 import * as Device from "expo-device";
+import { FC } from "react";
+import { ISearchBar } from "@/types/searchBar";
 
-const SearchBar = (props) => {
+const SearchBar: FC<ISearchBar> = (props) => {
   const colorScheme: ColorSchemeName = useColorScheme();
 
   const { searchedBook, setSearchedBook, openBarcodeScanner } = props;

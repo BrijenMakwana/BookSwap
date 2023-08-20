@@ -8,14 +8,16 @@ import {
   View,
   Text,
 } from "react-native";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import Book from "./Book";
 import axios from "axios";
 import { Entypo, FontAwesome5 } from "@expo/vector-icons";
 import Colors from "@/constants/Colors";
 import { supabase } from "@/supabase/supabase";
+import { IRequestBook } from "@/types/requestBook/requestBook";
+import { IRequestBtn } from "@/types/requestBook/requestBtn";
 
-const RequestBtn = (props) => {
+const RequestBtn: FC<IRequestBtn> = (props) => {
   const colorScheme: ColorSchemeName = useColorScheme();
 
   const { onPress } = props;
@@ -48,7 +50,7 @@ const RequestBtn = (props) => {
   );
 };
 
-const RequestBook = (props) => {
+const RequestBook: FC<IRequestBook> = (props) => {
   const colorScheme: ColorSchemeName = useColorScheme();
 
   const [book, setBook] = useState({});
@@ -77,11 +79,11 @@ const RequestBook = (props) => {
         throw new Error(sessionError.message);
       }
 
-      const senderName = session?.user.user_metadata.full_name;
+      const senderName: string = session?.user.user_metadata.full_name;
 
-      const subject = `Request from the BookSwap - ${book?.volumeInfo?.title}`;
-      const senderEmail = recipientEmail;
-      const emailBody = `
+      const subject: string = `Request from the BookSwap - ${book?.volumeInfo?.title}`;
+      const senderEmail: string = recipientEmail;
+      const emailBody: string = `
         Hello ${recipientName},
   
         I hope this message finds you well. I came across your listing for the book "${book?.volumeInfo?.title}" on the BookSwap App, 

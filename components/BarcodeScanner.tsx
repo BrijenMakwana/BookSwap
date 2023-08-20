@@ -7,16 +7,17 @@ import {
   useColorScheme,
   ColorSchemeName,
 } from "react-native";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { AntDesign } from "@expo/vector-icons";
 import Colors from "@/constants/Colors";
+import { IBarcodeScanner } from "@/types/barcodeScanner";
 
-const BarcodeScanner = (props) => {
+const BarcodeScanner: FC<IBarcodeScanner> = (props) => {
   const colorScheme: ColorSchemeName = useColorScheme();
 
   const { searchedBook, setSearchedBook, closeBarcodeScanner } = props;
-  const [hasPermission, setHasPermission] = useState(null);
+  const [hasPermission, setHasPermission] = useState<boolean | null>(null);
 
   useEffect(() => {
     const getBarCodeScannerPermissions = async () => {

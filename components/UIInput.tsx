@@ -6,10 +6,11 @@ import {
   ColorSchemeName,
   TextInput,
 } from "react-native";
-import React from "react";
+import React, { FC } from "react";
 import Colors from "@/constants/Colors";
+import { IUIInput } from "@/types/uiInput";
 
-const UIInput = (props) => {
+const UIInput: FC<IUIInput> = (props) => {
   const colorScheme: ColorSchemeName = useColorScheme();
 
   const { placeholder, value, setValue, isProtected = false } = props;

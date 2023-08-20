@@ -163,7 +163,7 @@ const Bookshelves = () => {
           marginLeft: 10,
         }}
       >
-        {currentBookself} ({books?.length})
+        {currentBookself + `(${books?.length})`}
       </BarbieText>
 
       <FlatList

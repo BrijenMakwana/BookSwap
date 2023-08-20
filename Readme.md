@@ -6,7 +6,7 @@
 
 - [Overview](#overview)
 - [Screenshots](#screenshots)
-- [Screenshots](#database-schema)
+- [Database Schema](#database-schema)
 - [Run the project](#run-the-project)
 - [Built with](#built-with)
 
@@ -19,6 +19,8 @@
   <img src="./assets/images/Screenshots/preview_2.png" alt="Screenshot 2">
   <img src="./assets/images/Screenshots/preview_3.png" alt="Screenshot 3">
   <img src="./assets/images/Screenshots/preview_4.png" alt="Screenshot 4">
+  <img src="./assets/images/Screenshots/preview_5.png" alt="Screenshot 5">
+  <img src="./assets/images/Screenshots/preview_6.png" alt="Screenshot 6">
 
 </div>
 
@@ -55,4 +57,5 @@ Now you can view this app on your Android smartphone or Android Emulator
 - Supabase Database
 - Google Books API
 - Google Embed API
+- Expo Barcode Scanner
 - Styled Components

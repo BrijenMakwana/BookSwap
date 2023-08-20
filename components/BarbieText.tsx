@@ -1,11 +1,12 @@
 import { Text } from "react-native";
-import { useEffect } from "react";
+import { FC, useEffect } from "react";
 import { SplashScreen } from "expo-router";
 import { useFonts } from "expo-font";
+import { IBarbieText } from "@/types/barbieText";
 
 SplashScreen.preventAutoHideAsync();
 
-const BarbieText = (props) => {
+const BarbieText: FC<IBarbieText> = (props) => {
   const { children, style } = props;
 
   const [fontsLoaded] = useFonts({

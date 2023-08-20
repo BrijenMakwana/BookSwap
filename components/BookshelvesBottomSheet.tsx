@@ -4,6 +4,8 @@ import { supabase } from "@/supabase/supabase";
 import { useColorScheme, ColorSchemeName } from "react-native";
 import Colors from "@/constants/Colors";
 import useUserID from "@/hooks/useUserID";
+import { FC } from "react";
+import { IBookshelvesBottomSheet } from "@/types/bookshelvesBottomSheet";
 
 export enum BOOK_SHELVES {
   Read = 1,
@@ -11,12 +13,12 @@ export enum BOOK_SHELVES {
   CurrentlyReading = 3,
 }
 
-const BookshelvesBottomSheet = (props) => {
+const BookshelvesBottomSheet: FC<IBookshelvesBottomSheet> = (props) => {
   const colorScheme: ColorSchemeName = useColorScheme();
 
   const { userID, sessionError } = useUserID();
 
-  const { isVisible, setIsVisible, bookID, bookIsPresent } = props;
+  const { isVisible, setIsVisible, bookID, bookshelfType } = props;
 
   const addBookToShelf = async (bookShelfID: number) => {
     try {
@@ -69,7 +71,7 @@ const BookshelvesBottomSheet = (props) => {
   };
 
   const addOrUpdateBook = (bookshelfID: number) => {
-    bookIsPresent ? updateBookshelf(bookshelfID) : addBookToShelf(bookshelfID);
+    bookshelfType ? updateBookshelf(bookshelfID) : addBookToShelf(bookshelfID);
   };
 
   const bookshelves = [

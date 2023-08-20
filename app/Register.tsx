@@ -1,7 +1,6 @@
 import {
   ColorSchemeName,
   StyleSheet,
-  ImageBackground,
   useColorScheme,
   ToastAndroid,
 } from "react-native";
@@ -35,7 +34,7 @@ const Register = () => {
         options: {
           data: {
             full_name: fullName,
-            location: location,
+            location: location.trim(),
           },
         },
       });
@@ -49,6 +48,8 @@ const Register = () => {
           "We sent you a email verification link!",
           ToastAndroid.SHORT
         );
+
+        goToLoginScreen();
       }
     } catch (error) {
       ToastAndroid.show(error.message, ToastAndroid.SHORT);
@@ -79,29 +80,17 @@ const Register = () => {
       </BarbieText>
       <UIInput
         placeholder="Full Name"
-        type="solid"
         value={fullName}
         setValue={setFullName}
       />
-      <UIInput
-        placeholder="Email"
-        type="solid"
-        value={email}
-        setValue={setEmail}
-      />
+      <UIInput placeholder="Email" value={email} setValue={setEmail} />
       <UIInput
         placeholder="Password"
-        type="solid"
         value={password}
         setValue={setPassword}
         isProtected
       />
-      <UIInput
-        placeholder="Location"
-        type="solid"
-        value={location}
-        setValue={setLocation}
-      />
+      <UIInput placeholder="Location" value={location} setValue={setLocation} />
 
       <UIButton text="register" onPress={registerUser} type="solid" />
       <UIButton text="back to login" type="outline" onPress={goToLoginScreen} />

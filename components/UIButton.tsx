@@ -4,11 +4,12 @@ import {
   ColorSchemeName,
   useColorScheme,
 } from "react-native";
-import React from "react";
+import React, { FC } from "react";
 import { Pressable } from "react-native";
 import Colors from "@/constants/Colors";
+import { IUIButton } from "@/types/uiButton";
 
-const UIButton = (props) => {
+const UIButton: FC<IUIButton> = (props) => {
   const colorScheme: ColorSchemeName = useColorScheme();
 
   const { text, type, onPress } = props;

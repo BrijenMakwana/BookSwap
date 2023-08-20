@@ -7,21 +7,24 @@ import {
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Colors from "@/constants/Colors";
+import { FC } from "react";
+import { IAddToBookshelvesButton } from "@/types/addToBookshelvesButton";
 
-const AddToBookshelvesButton = (props) => {
+const AddToBookshelvesButton: FC<IAddToBookshelvesButton> = (props) => {
   const colorScheme: ColorSchemeName = useColorScheme();
 
-  const { bookIsPresent, onPress } = props;
+  const { bookshelfType, onPress } = props;
 
-  const btnText = bookIsPresent ? "Change Bookshelf" : "Add to Bookshelf";
-  const backgroundColor = bookIsPresent
+  const btnText: string = bookshelfType ? bookshelfType : "Add to Bookshelf";
+
+  const backgroundColor: string = bookshelfType
     ? Colors[colorScheme].background
     : Colors[colorScheme].barbie;
-  const borderColor = bookIsPresent
+  const borderColor: string = bookshelfType
     ? Colors[colorScheme].barbie
     : Colors[colorScheme].background;
-  const borderWidth = bookIsPresent ? 1 : 0;
-  const textColor = bookIsPresent
+  const borderWidth: number = bookshelfType ? 1 : 0;
+  const textColor: string = bookshelfType
     ? Colors[colorScheme].barbie
     : Colors[colorScheme].background;
 

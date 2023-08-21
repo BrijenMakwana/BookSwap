@@ -5,11 +5,10 @@ import {
   Pressable,
   useColorScheme,
   ColorSchemeName,
+  Image,
 } from "react-native";
 import React, { FC } from "react";
 import { Link } from "expo-router";
-import { Image } from "expo-image";
-import Blurhash from "@/constants/Blurhash";
 import { FontAwesome } from "@expo/vector-icons";
 import moment from "moment";
 import Colors from "@/constants/Colors";
@@ -85,10 +84,13 @@ const Book: FC<IBook> = (props) => {
       >
         <Image
           style={styles.image}
-          source={imageUrl}
-          placeholder={Blurhash}
-          contentFit="fill"
-          transition={1000}
+          source={{
+            uri:
+              imageUrl ||
+              "https://images.unsplash.com/photo-1564564699685-b1c926c82d16?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
+          }}
+          resizeMode="cover"
+          fadeDuration={1000}
         />
 
         <View style={styles.bookInfo}>

@@ -8,14 +8,13 @@ import {
   useColorScheme,
   ColorSchemeName,
   ToastAndroid,
+  Image,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useLocalSearchParams, Link, router } from "expo-router";
 import axios from "axios";
 import { Ionicons, Fontisto } from "@expo/vector-icons";
 import moment from "moment";
-import { Image } from "expo-image";
-import Blurhash from "@/constants/Blurhash";
 import BarbieText from "@/components/BarbieText";
 import Colors from "@/constants/Colors";
 import * as Device from "expo-device";
@@ -239,13 +238,13 @@ const Book = () => {
         {book.volumeInfo?.imageLinks?.large && (
           <Image
             style={styles.image}
-            source={
-              book.volumeInfo?.imageLinks?.large ||
-              book.volumeInfo?.imageLinks?.medium
-            }
-            placeholder={Blurhash}
-            contentFit="fill"
-            transition={1000}
+            source={{
+              uri:
+                book.volumeInfo?.imageLinks?.large ||
+                book.volumeInfo?.imageLinks?.medium,
+            }}
+            resizeMode="cover"
+            fadeDuration={500}
           />
         )}
 

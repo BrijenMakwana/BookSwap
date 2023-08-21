@@ -17,6 +17,8 @@
 - Utilizes Google Books API for comprehensive book data.
 - Offers detailed book information: title, image, rating, author, and description.
 - Implements Google Embed API to preview books within the app.
+- Users can search for any book by typing in the search bar.
+- A barcode scanner has been implemented, allowing users to scan the barcode on any book and retrieve the book details.
 - Provides 3 bookshelves to organize reading:
   - Read
   - Want to Read
@@ -27,7 +29,6 @@
 - Users can request books with a single button click.
 - Email template auto-populates for efficient communication.
 - Developed using the latest Expo version of React Native.
-- Leverages expo-image to optimize image handling within the app.
 
 ## Screenshots
 
@@ -75,6 +76,5 @@ Now you can view this app on your Android smartphone or Android Emulator
 - Google Books API
 - Google Embed API
 - expo-barcode-scanner
-- expo-image
 - Shopify Flashlist
 - Styled Components

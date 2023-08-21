@@ -5,10 +5,9 @@ import {
   useColorScheme,
   ColorSchemeName,
   ToastAndroid,
+  Image,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import { Image } from "expo-image";
-import Blurhash from "@/constants/Blurhash";
 import BarbieText from "@/components/BarbieText";
 import RandomQuote from "@/components/RandomQuote";
 import Colors from "@/constants/Colors";
@@ -86,10 +85,11 @@ const User = () => {
             borderColor: Colors[colorScheme].barbie,
           },
         ]}
-        source="https://images.thedirect.com/media/article_full/margot-robbie-barbie_M4G96Rv.jpg?imgeng=cmpr_75/"
-        placeholder={Blurhash}
-        contentFit="cover"
-        transition={1000}
+        source={{
+          uri: "https://images.thedirect.com/media/article_full/margot-robbie-barbie_M4G96Rv.jpg?imgeng=cmpr_75/",
+        }}
+        resizeMode="cover"
+        fadeDuration={1000}
       />
 
       <BarbieText

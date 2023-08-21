@@ -1,5 +1,5 @@
 interface IBarbieText {
-  children: string;
+  children: any;
   style: object;
 }
 

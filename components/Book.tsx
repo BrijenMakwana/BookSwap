@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: 100,
-    aspectRatio: 1 / 1.5,
+    height: 150,
     borderRadius: 3,
   },
   bookInfo: {

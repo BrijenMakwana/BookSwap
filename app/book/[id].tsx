@@ -367,7 +367,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: Device.deviceType === 2 ? "35%" : "45%",
-    aspectRatio: 1 / 1.5,
+    height: Device.deviceType === 2 ? 350 : 260,
   },
   backBtn: {
     position: "absolute",

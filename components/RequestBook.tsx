@@ -4,7 +4,6 @@ import {
   ToastAndroid,
   useColorScheme,
   ColorSchemeName,
-  Linking,
   View,
   Text,
 } from "react-native";
@@ -16,6 +15,7 @@ import Colors from "@/constants/Colors";
 import { supabase } from "@/supabase/supabase";
 import { IRequestBook } from "@/types/requestBook/requestBook";
 import { IRequestBtn } from "@/types/requestBook/requestBtn";
+import * as MailComposer from "expo-mail-composer";
 
 const RequestBtn: FC<IRequestBtn> = (props) => {
   const colorScheme: ColorSchemeName = useColorScheme();
@@ -81,8 +81,7 @@ const RequestBook: FC<IRequestBook> = (props) => {
 
       const senderName: string = session?.user.user_metadata.full_name;
 
-      const subject: string = `Request from the BookSwap - ${book?.volumeInfo?.title}`;
-      const senderEmail: string = recipientEmail;
+      const emailSubject: string = `Request from the BookSwap - ${book?.volumeInfo?.title}`;
       const emailBody: string = `
         Hello ${recipientName},
   
@@ -98,19 +97,13 @@ const RequestBook: FC<IRequestBook> = (props) => {
         ${senderName}
       `;
 
-      const emailUrl = `mailto:${encodeURIComponent(
-        senderEmail
-      )}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
-        emailBody
-      )}`;
+      const emailData = {
+        recipients: [recipientEmail],
+        subject: emailSubject,
+        body: emailBody,
+      };
 
-      const supported = await Linking.canOpenURL(emailUrl);
-
-      if (!supported) {
-        throw new Error("Email app is not supported on this device");
-      }
-
-      await Linking.openURL(emailUrl);
+      await MailComposer.composeAsync(emailData);
     } catch (error) {
       ToastAndroid.show(error.message, ToastAndroid.SHORT);
     }

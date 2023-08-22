@@ -28,7 +28,7 @@
 - Home Screen displays a comprehensive view of available books and potential people to swap books with.
 - Users can request books with a single button click.
 - Email template auto-populates for efficient communication.
-- Developed using the latest Expo version of React Native.
+- Leverages expo-image to optimize image handling within the app.
 
 ## Screenshots
 
@@ -76,5 +76,6 @@ Now you can view this app on your Android smartphone or Android Emulator
 - Google Books API
 - Google Embed API
 - expo-barcode-scanner
+- expo-image
 - Shopify Flashlist
 - Styled Components
